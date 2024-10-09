@@ -16,31 +16,21 @@
         md="6"
         class="rounded-br-xl d-flex justify-center align-center"
       >
-        <VImg :src="require('@/assets/img/register-bg.svg')" max-height="400" />
+        <VImg :src="registerBG" max-height="400" />
       </VCol>
       <VCol cols="12" md="6">
         <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
           <VCol cols="12" md="8">
-            <VForm>
+            <VForm @submit.prevent="register">
               <VImg
-                :src="require('@/assets/img/register-avatar.svg')"
+                :src="registerAvatar"
                 max-height="150"
               />
               <h1 class="text-center font-weight-black my-2">SIGN UP</h1>
-              <VSelect
-                label="Account Type"
-                :items="accountTypes"
-                variant="outlined"
-                density="compact"
-                class="my-2"
-                item-title="text"
-                item-value="value"
-                prepend-inner-icon="mdi-account-tie"
-              ></VSelect>
                <VTextField
-                v-model="form.email"
+                v-model="form.name"
                 class="my-4"
-                label="Username"
+                label="Name"
                 type="email"
                 prepend-inner-icon="mdi-account"
                 variant="outlined"
@@ -69,7 +59,7 @@
                 density="compact"
               />
                  <VTextField
-                v-model="form.password"
+                v-model="form.password_confirmation"
                 class="mt-4"
                 label="Confirm Password"
                 type="password"
@@ -78,7 +68,7 @@
                 color="primary"
                 density="compact"
               />
-              <v-btn block class="mb-8" color="primary" size="large" rounded="">
+              <v-btn type="submit" block class="mb-8" color="primary" size="large" rounded="">
                 Register
               </v-btn>
 
@@ -99,23 +89,32 @@
 
 <script setup>
 import { reactive } from 'vue'
-const accountTypes = [
-  { value: 1, text: "Digital Worker" },
-  { value: 1, text: "Agency" },
-  { value: 1, text: "Clients" },
-];
+import { useUserStore } from '@/stores/user'
+import registerBG from '@/assets/img/register-bg.svg'
+import registerAvatar from '@/assets/img/register-avatar.svg'
+
+const userStore = useUserStore()
 
 const initialForm = {
-  username: "",
+  name: "",
   email: "",
   password: "",
   password_confirmation: "",
-  phone: "",
 };
 
 const form = reactive({
   ...initialForm,
 });
+
+const register = async () => {
+  try {
+    const register = await userStore.registerUser(form)
+    console.log('Registration successful!', register);
+  } catch (error) {
+    console.error('Registration failed:', error);
+  }
+}
+
 </script>
 
 <style scoped>

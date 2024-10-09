@@ -16,7 +16,7 @@
           <VCol cols="12" md="8">
             <VForm id="loginForm" ref="loginForm" @submit.prevent="login">
               <VImg
-                :src="require('@/assets/img/login-avatar.svg')"
+                :src="loginAvatar"
                 max-height="150"
               />
               <h1 class="text-center font-weight-black my-2">SIGN IN</h1>
@@ -97,7 +97,7 @@
         </div>
       </div> -->
 
-        <VImg :src="require('@/assets/img/login-bg.svg')" max-height="400" />
+        <VImg :src="loginBG" max-height="400" />
       </VCol>
     </VRow>
   </VContainer>
@@ -107,6 +107,9 @@
 import { useUserStore } from "@/stores/user";
 import { reactive, ref } from "vue";
 import { useRouter } from 'vue-router'
+
+import loginBG from "@/assets/img/login-bg.svg";
+import loginAvatar from "@/assets/img/login-avatar.svg"
 
 const router = useRouter()
 

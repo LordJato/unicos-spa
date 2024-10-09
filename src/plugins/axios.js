@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const instance = axios.create({
-    baseURL: process.env.VUE_APP_BACKEND_URL,
+    baseURL: import.meta.env.VITE_BACKEND_URL,
     withCredentials: true,
     headers: {
         Accept: 'application/json',
@@ -29,6 +29,10 @@ instance.interceptors.request.use(function(config){
       }
       return Promise.reject(error)
 })
+
+// instance.interceptors.response.use(null , (err) => {
+//   console.log("response", err)
+// })
 
 
 export default instance
