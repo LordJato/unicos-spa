@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 //Layouts
 import AuthLayout from '../layouts/AuthLayout.vue'
 
+//Views
+import ForgotPassword from '../views/auth/ForgotPasswordView.vue'
+
 const routes = [
   {
     path: '/',
@@ -18,6 +21,12 @@ const routes = [
         name: 'register',
         component: () => import(/* webpackChunkName: "register" */ '../views/auth/RegisterView.vue'),
       }
+      ,
+      {
+        path: '/forgot-password',
+        name: 'forgotPassword',
+        component: ForgotPassword,
+      },
     ]
   }
 ]
