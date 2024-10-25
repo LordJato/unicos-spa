@@ -1,25 +1,13 @@
 <template>
   <section id="loginSection">
     <VContainer class="pa-0 h-100 fill-height">
-    <!-- <VBtn
-      position="fixed"
-      color="primary"
-      prepend-icon="$vuetify"
-      location="top right"
-      class="ma-5"
-      router-link
-      to="/register"
-      >Register</VBtn
-    > -->
-    <VRow class="h-100" justify="center" align="center">
-      <VCol cols="12" md="6">
-        <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
-          <VCol cols="12" lg="6" md="10" sm="6">
-            <!-- <h1>Unified HR, Boundless Possibilities</h1> -->
-            <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
+      <VRow class="h-100" justify="center" align="center">
+        <VCol cols="12" md="6">
+          <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
+            <VCol cols="12" lg="6" md="10" sm="6">
+              <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
                 <VImg :src="loginAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
-                <!-- <h1 class="text-center font-weight-black my-2">SIGN IN</h1> -->
                 <VTextField v-model="form.email" class="my-4" label="Email" type="email" prepend-inner-icon="mdi-email"
                   variant="outlined" color="primary" density="compact" :rules="emailRules" />
 
@@ -35,20 +23,21 @@
                   LogIn
                 </VBtn>
 
-                <span class="text-caption ">Don't have an account? </span>  <a class="text-caption text-decoration-none text-primary" href="#" rel="noopener noreferrer"
-                    target="_blank">
-                    Sign up</a>
+                <span class="text-caption ">Don't have an account? </span>
+                <RouterLink class="text-caption text-decoration-none text-primary" to="/register">
+                  Sign up</RouterLink>
               </VForm>
 
-          </VCol>
-        </VRow>
-      </VCol>
-      <VCol cols="12" lg="6" md="4" class="justify-center align-center d-none d-lg-flex">
-        <VImg :src="loginBG" max-height="400" style="z-index: 1;" />
-      </VCol>
-    </VRow>
-  </VContainer>
-  <img :src="wave" style="position: fixed; top: 0; right: 0; z-index: 0; min-height: 100vh;" class="d-none d-lg-flex "/>
+            </VCol>
+          </VRow>
+        </VCol>
+        <VCol cols="12" lg="6" md="4" class="justify-center align-center d-none d-lg-flex">
+          <VImg :src="loginBG" max-height="400" style="z-index: 1;" />
+        </VCol>
+      </VRow>
+    </VContainer>
+    <img :src="wave" style="position: fixed; top: 0; right: 0; z-index: 0; min-height: 100vh;"
+      class="d-none d-lg-flex " />
   </section>
 
 </template>
@@ -100,19 +89,7 @@ async function login() {
 </script>
 
 <style scoped>
-.rounded-bl-xl {
-  background-color: #007acc;
-  border-bottom-left-radius: 750px !important;
-}
-
-.rounded-br-xl {
-  background-color: #007acc;
-  border-bottom-right-radius: 750px !important;
-}
-</style>
-
-<style scoped>
-#loginSection{
+#loginSection {
   position: relative;
   display: flex;
   justify-content: center;
