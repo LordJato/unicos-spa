@@ -18,7 +18,7 @@ instance.interceptors.request.use(function(config){
     }
     return config;
 }, function (error) {
-    if (error.response) {
+    if (error.response) { 
         if (error.response.status === 401) {
           // Redirect to login page
           router.push('/login')
