@@ -1,0 +1,13 @@
+<svg id="visual" viewBox="0 0 1920 1080" width="1920" height="1080" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#161A33" />
+            <stop offset="35%" stop-color="#133A85" />
+            <stop offset="100%" stop-color="#1E2C53" />
+          </linearGradient>
+        </defs>
+    <path
+        d="M797 1080L882 1035C967 990 1137 900 1122.7 810C1108.3 720 909.7 630 842.8 540C776 450 841 360 904 270C967 180 1028 90 1058.5 45L1089 0L1920 0L1920 45C1920 90 1920 180 1920 270C1920 360 1920 450 1920 540C1920 630 1920 720 1920 810C1920 900 1920 990 1920 1035L1920 1080Z"
+        fill="url(#gradient)" stroke-linecap="round" stroke-linejoin="miter"></path>
+</svg>

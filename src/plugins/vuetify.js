@@ -16,16 +16,14 @@ import { createVuetify } from 'vuetify'
 const myCustomLightTheme = {
   dark: false,
   colors: {
-    background: '#FFFFFF',
-    surface: '#FFFFFF',
-    primary: '#007ACC',
-    'primary-darken-1': '#3700B3',
+    primary: '#213268',
     secondary: '#5CB85C',
-    'secondary-darken-1': '#018786',
     error: '#B00020',
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FB8C00',
+    'white-primary' : '#FAFAFA',
+    'white-secondary' : '#e9f2fb'
   },
 }
 
