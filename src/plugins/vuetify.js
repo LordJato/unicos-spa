@@ -23,7 +23,10 @@ const myCustomLightTheme = {
     success: '#4CAF50',
     warning: '#FB8C00',
     'white-primary' : '#FAFAFA',
-    'white-secondary' : '#e9f2fb'
+    'white-secondary' : '#e9f2fb',
+    'primary-1' : '#133A85',
+    'primary-2' : '#1E2C53',
+    'primary-3' : '#161A33'
   },
 }
 

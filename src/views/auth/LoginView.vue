@@ -36,7 +36,7 @@
         </VCol>
       </VRow>
     </VContainer>
-    <img :src="wave" style="position: fixed; top: 0; right: 0; z-index: 0; min-height: 100vh;"
+    <img :src="loginWave" style="position: fixed; top: 0; right: 0; z-index: 0; min-height: 100vh;"
       class="d-none d-lg-flex " />
   </section>
 
@@ -47,7 +47,7 @@ import { useUserStore } from "@/stores/user";
 import { reactive, ref } from "vue";
 import { useRouter } from 'vue-router'
 
-import wave from "@/assets/img/auth/wave.svg"
+import loginWave from "@/assets/img/auth/login-wave.svg"
 import loginBG from "@/assets/img/auth/login-bg.svg";
 import loginAvatar from "@/assets/img/auth/login-avatar.svg"
 import unicosLogo from "@/assets/img/logo.png"
