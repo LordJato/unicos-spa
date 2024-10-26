@@ -8,26 +8,19 @@
               <VImg :src="unicosLogo" max-height="60" class="my-5" />
               <VCard class="py-5 px-9 rounded-xl">
                 <VForm @submit.prevent="register" class="text-center">
-                <h1 class="text-center font-weight-black my-2">Forgot Password?</h1>
-                <span class="text-caption ">Remember your password? </span>
-                <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
-                  Login here</RouterLink>
-                 <VTextField
-                  v-model="form.name"
-                  class="mt-6 mb-1 nb"
-                  label="Email"
-                  type="email"
-                  prepend-inner-icon="mdi-email"
-                  variant="outlined"
-                  color="primary"
-                  density="compact"
-                />
-                <v-btn type="submit" block color="primary" size="large" rounded="">
-                  Reset Password
-                </v-btn>
-              </VForm>
+                  <h1 class="text-center font-weight-black my-2">Forgot Password?</h1>
+                  <span class="text-caption ">Remember your password? </span>
+                  <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
+                    Login here</RouterLink>
+                  <VTextField v-model="form.name" class="mt-6 mb-1 nb" label="Email" type="email"
+                    prepend-inner-icon="mdi-email" variant="outlined" color="primary" density="compact" />
+                  <v-btn type="submit" block color="primary" size="large" rounded="">
+                    Reset Password
+                  </v-btn>
+                </VForm>
               </VCard>
-             
+              <p class="text-caption text-center mt-2">Contact Us | support@unicos.com </p>
+
             </VCol>
           </VRow>
         </VCol>
@@ -35,38 +28,38 @@
     </VContainer>
   </section>
 
-  </template>
-  
-  <script setup>
-  import { reactive } from 'vue'
-  import { useUserStore } from '@/stores/user'
-  import unicosLogo from "@/assets/img/logo.png"
-  
-  const userStore = useUserStore()
-  
-  const initialForm = {
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  };
-  
-  const form = reactive({
-    ...initialForm,
-  });
-  
-  const register = async () => {
-    try {
-      const register = await userStore.registerUser(form)
-      console.log('Registration successful!', register);
-    } catch (error) {
-      console.error('Registration failed:', error);
-    }
+</template>
+
+<script setup>
+import { reactive } from 'vue'
+import { useUserStore } from '@/stores/user'
+import unicosLogo from "@/assets/img/logo.png"
+
+const userStore = useUserStore()
+
+const initialForm = {
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+};
+
+const form = reactive({
+  ...initialForm,
+});
+
+const register = async () => {
+  try {
+    const register = await userStore.registerUser(form)
+    console.log('Registration successful!', register);
+  } catch (error) {
+    console.error('Registration failed:', error);
   }
-  
-  </script>
-  
-  <style scoped>
+}
+
+</script>
+
+<style scoped>
 #forgotPasswordSection {
   position: relative;
   display: flex;
@@ -75,4 +68,4 @@
   min-height: 100vh;
   background: #e9f2fb;
 }
-  </style>
+</style>
