@@ -1,7 +1,7 @@
 <template>
   <section id="registerSection">
-    <img :src="registerWave" style="position: fixed; top: 0; left: 0; z-index: 0; min-height: 100vh;"
-      class="d-none d-lg-flex " />
+    <img :src="registerWave"
+      class="d-none d-lg-flex wave" />
     <VContainer class="pa-0 h-100 fill-height">
       <VRow class="h-100" justify="center" align="center">
         <VCol cols="12" md="6" class="d-none d-lg-flex justify-center align-center">
@@ -9,7 +9,7 @@
         </VCol>
         <VCol cols="12" md="6">
           <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
-            <VCol cols="12" lg="6" md="10" sm="6">
+            <VCol cols="12" xl="6" lg="8" md="10" sm="6">
               <VForm @submit.prevent="register" style="position:relative; z-index: 1;">
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
@@ -79,5 +79,13 @@ const register = async () => {
   align-items: center;
   min-height: 100vh;
   background: #e9f2fb;
+}
+.wave {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  min-height: 100vh;
+  width: 95%;
 }
 </style>

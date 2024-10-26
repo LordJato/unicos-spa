@@ -4,7 +4,7 @@
       <VRow class="h-100" justify="center" align="center">
         <VCol cols="12" md="6">
           <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
-            <VCol cols="12" lg="6" md="10" sm="6">
+            <VCol cols="12" xl="6" lg="8" md="10" sm="6">
               <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
                 <VImg :src="loginAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
@@ -27,7 +27,6 @@
                 <RouterLink class="text-caption text-decoration-none text-primary" to="/register">
                   Sign up</RouterLink>
               </VForm>
-
             </VCol>
           </VRow>
         </VCol>
@@ -36,8 +35,7 @@
         </VCol>
       </VRow>
     </VContainer>
-    <img :src="loginWave" style="position: fixed; top: 0; right: 0; z-index: 0; min-height: 100vh;"
-      class="d-none d-lg-flex " />
+    <img :src="loginWave" class="d-none d-lg-flex wave" />
   </section>
 
 </template>
@@ -96,5 +94,14 @@ async function login() {
   align-items: center;
   min-height: 100vh;
   background: #e9f2fb;
+}
+
+.wave {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  min-height: 100vh;
+  width: 95%;
 }
 </style>
