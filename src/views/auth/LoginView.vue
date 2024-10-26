@@ -15,9 +15,8 @@
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact"
                   :rules="passwordRules" />
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-end mb-3">
-                  <a class="text-caption text-decoration-none text-primary" href="#" rel="noopener noreferrer"
-                    target="_blank">
-                    Forgot password?</a>
+                  <RouterLink class="text-caption text-decoration-none text-primary" to="/forgot-password">
+                    Forgot password?</RouterLink>
                 </div>
                 <VBtn block class="mb-4" color="primary" size="large" rounded type="submit" form="loginForm">
                   LogIn
