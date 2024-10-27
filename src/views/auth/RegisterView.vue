@@ -23,7 +23,7 @@
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
                 <VTextField v-model="form.password_confirmation" class="mt-4" label="Confirm Password" type="password"
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                <v-btn type="submit" block class="mb-4 mt-2" color="primary" size="large" rounded="">
+                <v-btn type="submit" block class="mb-4 mt-2" color="primary" rounded="">
                   Register
                 </v-btn>
                 <span class="text-caption ">Already have an account? </span>

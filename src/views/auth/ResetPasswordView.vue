@@ -12,16 +12,17 @@
                   <span class="text-caption ">Remember your password? </span>
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
                     Login here</RouterLink>
-                  <VTextField v-model="form.name" class="mt-6 mb-1 nb" label="Email" type="email"
+                  <VTextField v-model="form.name" label="Email" type="email" class="mt-5"
                     prepend-inner-icon="mdi-email" variant="outlined" color="primary" density="compact" />
+                    <VTextField v-model="form.password" label="Password" type="password"
+                    prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
+                    <VTextField v-model="form.password_confirmation" label="Password Confirmation" type="password"
+                    prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
 
-                  <div class="d-flex justify-space-between">
-                    <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
-                      Back</RouterLink>
-                    <v-btn type="submit" color="primary" size="large" rounded="">
-                      Confirm Reset
+   
+                    <v-btn type="submit" color="primary" rounded block>
+                      Update Password
                     </v-btn>
-                  </div>
 
                 </VForm>
               </VCard>

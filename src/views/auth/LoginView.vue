@@ -18,7 +18,7 @@
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/forgot-password">
                     Forgot password?</RouterLink>
                 </div>
-                <VBtn block class="mb-4" color="primary" size="large" rounded type="submit" form="loginForm">
+                <VBtn block class="mb-4" color="primary" rounded type="submit" form="loginForm">
                   LogIn
                 </VBtn>
 
