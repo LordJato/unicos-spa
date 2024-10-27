@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 //Layouts
-import AuthLayout from '../layouts/AuthLayout.vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 //Views
-import ForgotPassword from '../views/auth/ForgotPasswordView.vue'
-import ResetPassword from '../views/auth/ResetPasswordView.vue'
+import ForgotPassword from '@/views/auth/ForgotPasswordView.vue'
+import ResetPassword from '@/views/auth/ResetPasswordView.vue'
+import Dashboard from '@/views/dashboard/index.vue'
+
 
 const routes = [
   {
@@ -43,6 +46,20 @@ const routes = [
         component: ResetPassword,
         meta: {
           title: 'Reset Password',
+        },
+      },
+    ]
+  },
+  {
+    path: '/',
+    component: DefaultLayout,
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard,
+        meta: {
+          title: 'Dashboard',
         },
       },
     ]

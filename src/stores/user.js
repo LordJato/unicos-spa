@@ -23,12 +23,13 @@ export const useUserStore = defineStore('user', {
         async loginUser(payload) {
             try {
                 const response = await axios.post('login', payload);
-                const accessToken = response.data.data.content.access_token;
+                console.log("response", response)
+                const accessToken = response.data.data.access_token;
 
                 if (accessToken) {
-                    localStorage.setItem('token', accessToken);
+                    localStorage.setItem('accessToken', accessToken);
                     this.isLoggedIn = true;
-                    await this.profile();
+                    // await this.profile();
                     return response;
                 } else {
                     throw new Error('Login failed'); // More specific error message
@@ -38,14 +39,14 @@ export const useUserStore = defineStore('user', {
             }
         },
 
-        async profile() {
-            try {
-                const response = await axios.get('user/profile');
-                this.userDetails = response.data.data;
-                return response;
-            } catch (error) {
-                throw error;
-            }
-        },
+        // async profile() {
+        //     try {
+        //         const response = await axios.get('user/profile');
+        //         this.userDetails = response.data.data;
+        //         return response;
+        //     } catch (error) {
+        //         throw error;
+        //     }
+        // },
     },
 })
