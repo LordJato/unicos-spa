@@ -33,11 +33,17 @@ const routes = [
         path: '/forgot-password',
         name: 'forgotPassword',
         component: ForgotPassword,
+        meta: {
+          title: 'Forgot Password',
+        },
       },
       {
         path: '/reset-password',
         name: 'resetPassword',
         component: ResetPassword,
+        meta: {
+          title: 'Reset Password',
+        },
       },
     ]
   }

@@ -8,13 +8,11 @@
               <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
                 <VImg :src="loginAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
-                <VTextField v-model="form.email" class="my-4" label="Email" type="email" prepend-inner-icon="mdi-email"
+                <VTextField v-model="form.email" class="mt-4" label="Email" type="email" prepend-inner-icon="mdi-email"
                   variant="outlined" color="primary" density="compact" :rules="emailRules" />
-
-                <VTextField v-model="form.password" class="mt-4" label="Password" type="password"
-                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact"
-                  :rules="passwordRules" />
-                <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-end mb-3">
+                <VTextField v-model="form.password" label="Password" type="password" prepend-inner-icon="mdi-lock"
+                  variant="outlined" color="primary" density="compact" :rules="passwordRules" />
+                <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-end mb-4">
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/forgot-password">
                     Forgot password?</RouterLink>
                 </div>
@@ -100,7 +98,6 @@ async function login() {
   top: 0;
   right: 0;
   z-index: 0;
-  min-height: 100vh;
   width: 95%;
 }
 </style>

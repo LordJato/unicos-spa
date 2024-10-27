@@ -14,16 +14,16 @@
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
 
-                <VTextField v-model="form.name" class="my-4" label="Name" type="email" prepend-inner-icon="mdi-account"
+                <VTextField v-model="form.name" class="mt-4" label="Name" type="email" prepend-inner-icon="mdi-account"
                   variant="outlined" color="primary" density="compact" />
-                <VTextField v-model="form.email" class="my-4" label="Email" type="email" prepend-inner-icon="mdi-email"
+                <VTextField v-model="form.email" label="Email" type="email" prepend-inner-icon="mdi-email"
                   variant="outlined" color="primary" density="compact" />
 
-                <VTextField v-model="form.password" class="mt-4" label="Password" type="password"
+                <VTextField v-model="form.password"  label="Password" type="password"
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                <VTextField v-model="form.password_confirmation" class="mt-4" label="Confirm Password" type="password"
+                <VTextField v-model="form.password_confirmation" label="Confirm Password" type="password"
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                <v-btn type="submit" block class="mb-4 mt-2" color="primary" rounded="">
+                <v-btn type="submit" block class="mb-4 " color="primary" rounded="">
                   Register
                 </v-btn>
                 <span class="text-caption ">Already have an account? </span>
@@ -85,7 +85,6 @@ const register = async () => {
   top: 0;
   left: 0;
   z-index: 0;
-  min-height: 100vh;
   width: 95%;
 }
 </style>
