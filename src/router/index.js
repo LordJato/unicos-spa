@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Middlewares from '../middlewares/'
+
 //Layouts
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
@@ -7,6 +9,8 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import ForgotPassword from '@/views/auth/ForgotPasswordView.vue'
 import ResetPassword from '@/views/auth/ResetPasswordView.vue'
 import Dashboard from '@/views/dashboard/index.vue'
+
+
 
 
 const routes = [
@@ -21,6 +25,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "login" */ '../views/auth/LoginView.vue'),
         meta: {
           title: 'Login',
+          middleware: [Middlewares.guest]
         },
       },
       {
@@ -29,6 +34,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "register" */ '../views/auth/RegisterView.vue'),
         meta: {
           title: 'Register',
+          middleware: [Middlewares.guest]
         },
       }
       ,
@@ -60,6 +66,7 @@ const routes = [
         component: Dashboard,
         meta: {
           title: 'Dashboard',
+          middleware: [Middlewares.auth]
         },
       },
     ]
@@ -69,6 +76,38 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+});
+
+function nextCheck(context, middleware, index) {
+  const nextMiddleware = middleware[index];
+  if (!nextMiddleware) return context.next;
+
+  return (...parameters) => {
+    context.next(...parameters);
+    const nextMidd = nextCheck(context, middleware, index + 1);
+
+    nextMiddleware({ ...context, next: nextMidd });
+  }
+}
+
+router.beforeEach((to, from, next) => {
+
+  if (to.meta.middleware) {
+    const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware];
+
+    const ctx = {
+      from,
+      next,
+      router,
+      to
+    };
+
+    const nextMiddleware = nextCheck(ctx, middleware, 1);
+
+    return middleware[0]({ ...ctx, next: nextMiddleware });
+  }
+
+  return next();
 });
 
 export default router
