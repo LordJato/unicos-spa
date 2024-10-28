@@ -5,12 +5,18 @@
 </template>
 
 <script setup>
-// import { useUserStore } from '@/stores/user'
+import { onMounted } from 'vue';
+import { useUserStore } from '@/stores/user';
 
-// const userStore = useUserStore()
+const userStore = useUserStore();
 
-// if(userStore.isLoggedIn){
-//   userStore.profile();  
-// }
-
+onMounted(async () => {
+  if (userStore.isLoggedIn) {
+    try {
+      await userStore.profile();
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  }
+});
 </script>
