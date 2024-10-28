@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("response", error)
+    console.log("response error", error)
     if (error.response.status === 401) {
       router.push('/login');
     } else {

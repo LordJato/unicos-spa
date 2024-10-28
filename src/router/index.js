@@ -66,7 +66,8 @@ const routes = [
         component: Dashboard,
         meta: {
           title: 'Dashboard',
-          middleware: [Middlewares.auth, Middlewares.checkPermissions]
+          middleware: [Middlewares.auth, Middlewares.checkPermissions],
+          permissions: ['view-dashboard']
         },
       },
     ]

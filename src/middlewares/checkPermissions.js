@@ -3,9 +3,8 @@ import can from '../helpers/can';
 export default async function checkPermissions({ next, to, router }) {
   const requiredPermissions = to.meta.permissions;
 
-  if (can(requiredPermissions)) {
-    return next();
-  }
+  const canEnter = await can(requiredPermissions);
 
-  return router.push({ name: 'home' });
-};
+  return canEnter ? next() : router.push({ name: 'forgotPassword' });
+
+}
