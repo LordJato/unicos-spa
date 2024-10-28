@@ -1,4 +1,4 @@
-import { defineStore, storeToRefs } from "pinia";
+import { defineStore } from "pinia";
 import axios from '@/plugins/axios';
 
 export const useUserStore = defineStore('user', {
@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', {
         userDetails: {}
     }),
     getters: {
-        getUserDetails: (state) => storeToRefs(state, 'userDetails'),
+        getUserDetails: (state) => state.userDetails,
     },
     actions: {
         async registerUser(payload) {
@@ -19,17 +19,15 @@ export const useUserStore = defineStore('user', {
             }
         },
 
-
         async loginUser(payload) {
             try {
                 const response = await axios.post('login', payload);
-                console.log("response", response)
                 const accessToken = response.data.data.access_token;
 
                 if (accessToken) {
                     localStorage.setItem('accessToken', accessToken);
                     this.isLoggedIn = true;
-                    // await this.profile();
+                    await this.profile();
                     return response;
                 } else {
                     throw new Error('Login failed'); // More specific error message
@@ -39,14 +37,14 @@ export const useUserStore = defineStore('user', {
             }
         },
 
-        // async profile() {
-        //     try {
-        //         const response = await axios.get('user/profile');
-        //         this.userDetails = response.data.data;
-        //         return response;
-        //     } catch (error) {
-        //         throw error;
-        //     }
-        // },
+        async profile() {
+            try {
+                const response = await axios.get('user/profile');
+                this.userDetails = response.data.data;
+                return response;
+            } catch (error) {
+                throw error;
+            }
+        },
     },
 })

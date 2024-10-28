@@ -12,7 +12,7 @@
                   <span class="text-caption ">Remember your password? </span>
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
                     Login here</RouterLink>
-                  <VTextField v-model="form.name" class="mt-6 mb-1 nb" label="Email" type="email"
+                  <VTextField v-model="form.name" class="mt-6 mb-1" label="Email" type="email"
                     prepend-inner-icon="mdi-email" variant="outlined" color="primary" density="compact" />
                   <v-btn type="submit" block color="primary" rounded="xl">
                     Reset Password

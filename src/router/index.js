@@ -66,7 +66,7 @@ const routes = [
         component: Dashboard,
         meta: {
           title: 'Dashboard',
-          middleware: [Middlewares.auth]
+          middleware: [Middlewares.auth, Middlewares.checkPermissions]
         },
       },
     ]
@@ -78,36 +78,26 @@ const router = createRouter({
   routes
 });
 
-function nextCheck(context, middleware, index) {
-  const nextMiddleware = middleware[index];
-  if (!nextMiddleware) return context.next;
+// Middleware runner
+const runMiddleware = (ctx, middleware, index = 0) => {
+  if (index >= middleware.length) return ctx.next();
 
-  return (...parameters) => {
-    context.next(...parameters);
-    const nextMidd = nextCheck(context, middleware, index + 1);
-
-    nextMiddleware({ ...context, next: nextMidd });
-  }
-}
+  const nextMiddleware = () => runMiddleware(ctx, middleware, index + 1);
+  middleware[index]({ ...ctx, next: nextMiddleware });
+};
 
 router.beforeEach((to, from, next) => {
-
   if (to.meta.middleware) {
-    const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware];
+    const middleware = Array.isArray(to.meta.middleware)
+      ? to.meta.middleware
+      : [to.meta.middleware];
 
-    const ctx = {
-      from,
-      next,
-      router,
-      to
-    };
-
-    const nextMiddleware = nextCheck(ctx, middleware, 1);
-
-    return middleware[0]({ ...ctx, next: nextMiddleware });
+    const ctx = { to, from, next, router };
+    runMiddleware(ctx, middleware);
+  } else {
+    next();
   }
-
-  return next();
 });
+
 
 export default router

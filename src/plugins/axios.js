@@ -10,29 +10,28 @@ const instance = axios.create({
     }
 })
 
-instance.interceptors.request.use(function(config){
-    
-    const token =  localStorage.getItem('token');
-    if(token){
-        config.headers.Authorization = `Bearer ${token}`;
+instance.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
-}, function (error) {
-    if (error.response) { 
-        if (error.response.status === 401) {
-          // Redirect to login page
-          router.push('/login')
-        } else {
-          // Show a generic error message
-          alert('An error occurred. Please try again later.')
-        }
-      }
-      return Promise.reject(error)
-})
+  },
+  (error) => Promise.reject(error)
+);
 
-// instance.interceptors.response.use(null , (err) => {
-//   console.log("response", err)
-// })
-
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log("response", error)
+    if (error.response.status === 401) {
+      router.push('/login');
+    } else {
+      alert('An error occurred. Please try again later.');
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default instance

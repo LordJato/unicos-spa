@@ -1,24 +1,25 @@
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user';
 
-export default (permissions) => {
-    const userPermissions = useUserStore.getUserDetails.permissions;
-    let canEnter = false;
-
-    console.log({userPermissions});
-
-    if (!userPermissions || !permissions) {
-        return canEnter;
+export default async (permissions) => {
+    const userStore = useUserStore();
+   
+    if (!userStore.userDetails) {
+        try {
+            await userStore.profile();
+        } catch (error) {
+            console.error("Error loading user profile:", error);
+            return "Error loading user profile";
+        }
     }
 
-    if (!Array.isArray(permissions)) {
-        canEnter = userPermissions.includes(permissions)
-    } else {
-        permissions.forEach((permission) => {
-            if (userPermissions.includes(permission)) {
-                canEnter = true;
-            }
-        });
-    }
+    const userDetails = userStore.getUserDetails;
 
-    return canEnter
+    if (!userDetails || !permissions) return false;
+
+    const { permissions: userPermissions, roles } = userDetails;
+    
+    return roles[0] === 'super-admin' ||
+    (Array.isArray(permissions) ?
+      permissions.some(permission => userPermissions.includes(permission)) :
+      userPermissions.includes(permissions));
 };
