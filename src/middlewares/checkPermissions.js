@@ -10,7 +10,7 @@ export default async function checkPermissions({ next, to, from, router }) {
 
     const canEnter = await can(requiredPermissions);
 
-    return canEnter ? next() : router.push({ name: 'forgot-password' });
+    return canEnter ? next() : router.push({ name: 'forgotPassword' });
   } catch (error) {
     console.error('Error loading user profile:', error);
     return 'Error loading user profile';

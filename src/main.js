@@ -14,8 +14,15 @@ import App from './App.vue'
 // Composables
 import { createApp } from 'vue'
 
+//Utility
+import can from './helpers/can'
+
 const app = createApp(App)
 
 registerPlugins(app)
 
+app.config.globalProperties.$can = can
+
 app.mount('#app')
+
+
