@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 import axios from '@/plugins/axios';
+import { getToken, setToken, removeToken } from '@/utils/auth';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    isLoggedIn: false || Boolean(window.localStorage.getItem('accessToken')),
+    isLoggedIn: Boolean(getToken()),
     userDetails: {}
   }),
   getters: {
@@ -24,7 +25,7 @@ export const useUserStore = defineStore('user', {
         const response = await axios.post('login', payload);
         const accessToken = response.data.data.access_token;
         if (accessToken) {
-          window.localStorage.setItem('accessToken', accessToken);
+          setToken(accessToken);
           this.isLoggedIn = true;
           await this.profile();
         } else {
@@ -40,14 +41,12 @@ export const useUserStore = defineStore('user', {
     async logoutUser() {
       try {
         const response = await axios.post('logout');
-        console.log(response)
-
-        if(response.data.success){
-          window.localStorage.removeItem('accessToken')
+        if (response.data.success) {
+          removeToken();
         }
         return response;
       } catch (error) {
-        console.error('Login error:', error);
+        console.error('Logout error:', error);
         throw error;
       }
     },

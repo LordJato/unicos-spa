@@ -1,6 +1,6 @@
 export default function guest({ next, router }) {
     try {
-      const accessToken = window.localStorage.getItem('accessToken');
+      const accessToken = window?.localStorage?.getItem('accessToken');
       if (accessToken) {
         return router.push({ name: 'dashboard' });
       }
