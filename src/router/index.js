@@ -9,7 +9,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import ForgotPassword from '@/views/auth/ForgotPasswordView.vue'
 import ResetPassword from '@/views/auth/ResetPasswordView.vue'
 import Dashboard from '@/views/dashboard/index.vue'
-
+import Home from '@/views/home.vue'
 
 
 
@@ -60,6 +60,15 @@ const routes = [
     path: '/',
     component: DefaultLayout,
     children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: Home,
+        meta: {
+          title: 'Home',
+          middleware: [Middlewares.auth],
+        },
+      },
       {
         path: '/dashboard',
         name: 'dashboard',

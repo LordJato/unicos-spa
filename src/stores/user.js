@@ -3,7 +3,7 @@ import axios from '@/plugins/axios';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    isLoggedIn: false || Boolean(localStorage.getItem('accessToken')),
+    isLoggedIn: false || Boolean(window.localStorage.getItem('accessToken')),
     userDetails: {}
   }),
   getters: {
@@ -24,11 +24,26 @@ export const useUserStore = defineStore('user', {
         const response = await axios.post('login', payload);
         const accessToken = response.data.data.access_token;
         if (accessToken) {
-          localStorage.setItem('accessToken', accessToken);
+          window.localStorage.setItem('accessToken', accessToken);
           this.isLoggedIn = true;
           await this.profile();
         } else {
           throw new Error('Login failed');
+        }
+        return response;
+      } catch (error) {
+        console.error('Login error:', error);
+        throw error;
+      }
+    },
+
+    async logoutUser() {
+      try {
+        const response = await axios.post('logout');
+        console.log(response)
+
+        if(response.data.success){
+          window.localStorage.removeItem('accessToken')
         }
         return response;
       } catch (error) {
