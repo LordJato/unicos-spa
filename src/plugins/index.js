@@ -8,6 +8,7 @@
 import vuetify from './vuetify'
 import router from '@/router'
 import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { markRaw } from 'vue'
 
 export function registerPlugins(app) {
@@ -15,6 +16,7 @@ export function registerPlugins(app) {
   pinia.use(({ store }) => {
     store.router = markRaw(router)
   })
+  pinia.use(piniaPluginPersistedstate)
   app.use(router)
   app.use(vuetify)
   app.use(pinia)
