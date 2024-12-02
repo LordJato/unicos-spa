@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
+import useAuthStore from './auth';
 import axios from '@/plugins/axios';
-import { getToken, setToken, removeToken } from '@/utils/auth';
+import { unwrapResponse } from '@/utils/api';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    isLoggedIn: Boolean(getToken()),
+    isLoggedIn: false,
     userDetails: {}
   }),
   getters: {
@@ -22,10 +23,11 @@ export const useUserStore = defineStore('user', {
 
     async loginUser(payload) {
       try {
-        const response = await axios.post('login', payload);
-        const accessToken = response.data.data.access_token;
-        if (accessToken) {
-          setToken(accessToken);
+        const login = await axios.post('login', payload);
+        const response = unwrapResponse(login);
+        if (response.success) {
+          const authStore = useAuthStore();
+          authStore.setToken(response.data.access_token)
           this.isLoggedIn = true;
           await this.profile();
         } else {

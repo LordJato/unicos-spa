@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '@/router'
+import useAuthStore from '@/stores/auth';
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -12,7 +13,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = window?.localStorage?.getItem('accessToken');
+    const authStore = useAuthStore(); // Use inside a component or async context
+    const accessToken = authStore.getAccessToken;
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
