@@ -7,7 +7,7 @@
     >
       <v-list>
         <v-list-item
-          :prepend-avatar="require('@/assets/img/default-profile.jpg')"
+          :prepend-avatar="defaultAvatar"
           title="Ye Futian"
         >
           <template v-slot:append>
@@ -153,6 +153,7 @@
   
   <script setup>
   import { ref } from "vue";
+  import defaultAvatar from "@/assets/img/default-profile.jpg"
   
   const drawer = ref(true);
   const rail = ref(true);
