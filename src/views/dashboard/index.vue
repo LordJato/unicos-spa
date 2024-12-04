@@ -13,58 +13,44 @@
                   Leave
                 </VListItemSubtitle>
                 <template v-slot:append>
-                  <v-img :src="leaveImg" width="80" cover />
+                  <VImg :src="leaveImg" max-width="80" width="60" cover />
                 </template>
               </VListItem>
             </VList>
           </VCard>
         </VCol>
         <VCol cols="12" md="4">
-          <VCard>
-            <VRow justify="center" align="center" class="px-8 py-1">
-              <VCol>
-                <VList lines="two">
-                  <VListItem>
-                    <VListItemTitle class="font-weight-bold text-h5">
-                      Overtime
-                    </VListItemTitle>
-                    <VListItemSubtitle class="text-h6 mt-4">
-                      7
-                    </VListItemSubtitle>
-                  </VListItem>
-                </VList>
-              </VCol>
-              <VCol class="d-flex justify-end">
-                <v-img :src="overtimeImg" max-width="80" cover />
-              </VCol>
-            </VRow>
+          <VCard elevation="2">
+            <VList lines="two" class="px-8 py-2">
+              <VListItem>
+                <VListItemTitle class="font-weight-bold text-h6">
+                  7
+                </VListItemTitle>
+                <VListItemSubtitle class="font-weight-black text-overline mt-2">
+                  Overtime
+                </VListItemSubtitle>
+                <template v-slot:append>
+                  <VImg :src="overtimeImg" max-width="80" width="60" cover />
+                </template>
+              </VListItem>
+            </VList>
           </VCard>
         </VCol>
         <VCol cols="12" md="4">
-          <VCard>
-            <VRow justify="center" align="center">
-              <VCol>
-                <VList lines="two">
-                  <VListItem>
-                    <div class="mb-4">
-                      <div class="pa-4 bg-secondary rounded-circle d-inline-block"> <v-icon
-                          icon="mdi-clock-time-four-outline"></v-icon></div>
-                    </div>
-                    <VListItemTitle class="font-weight-bold">
-                      UNDERTIME
-                    </VListItemTitle>
-                    <VListItemSubtitle class="font-weight-black text-subtitle-1">
-                      3
-                    </VListItemSubtitle>
-                  </VListItem>
-                </VList>
-              </VCol>
-              <VCol class="d-flex justify-end">
-                <v-avatar size="100" class="ma-3" tile>
-                  <v-img :src="undertimeImg" />
-                </v-avatar>
-              </VCol>
-            </VRow>
+          <VCard elevation="2">
+            <VList lines="two" class="px-8 py-2">
+              <VListItem>
+                <VListItemTitle class="font-weight-bold text-h6">
+                  7
+                </VListItemTitle>
+                <VListItemSubtitle class="font-weight-black text-overline mt-2">
+                  Undertime
+                </VListItemSubtitle>
+                <template v-slot:append>
+                  <VImg :src="undertimeImg" max-width="80" width="60" cover />
+                </template>
+              </VListItem>
+            </VList>
           </VCard>
         </VCol>
       </VRow>
