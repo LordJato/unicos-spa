@@ -3,35 +3,29 @@
     <VContainer fluid>
       <VRow>
         <VCol cols="12" md="4">
-          <VCard>
-            <VRow justify="center" align="center">
-              <VCol>
-                <VList lines="two">
-                  <VListItem>
-                    <VListItemTitle class="font-weight-bold">
-                      LEAVE
-                    </VListItemTitle>
-                    <VListItemSubtitle class="font-weight-black text-subtitle-1">
-                      10
-                    </VListItemSubtitle>
-                  </VListItem>
-                </VList>
-              </VCol>
-              <VCol class="d-flex justify-end">
-                <v-avatar size="100" class="ma-3" tile>
-                  <v-img :src="leaveImg" />
-                </v-avatar>
-              </VCol>
-            </VRow>
+          <VCard elevation="2">
+            <VList lines="two" class="px-8 py-2">
+              <VListItem>
+                <VListItemTitle class="font-weight-bold text-h6">
+                  10
+                </VListItemTitle>
+                <VListItemSubtitle class="font-weight-black text-subtitle-1 text-overline mt-2">
+                  Leave
+                </VListItemSubtitle>
+                <template v-slot:append>
+                  <v-img :src="leaveImg" width="80" cover />
+                </template>
+              </VListItem>
+            </VList>
           </VCard>
         </VCol>
         <VCol cols="12" md="4">
           <VCard>
             <VRow justify="center" align="center" class="px-8 py-1">
               <VCol>
-                <VList lines="two" >
+                <VList lines="two">
                   <VListItem>
-                    <VListItemTitle class="font-weight-bold text-h6">
+                    <VListItemTitle class="font-weight-bold text-h5">
                       Overtime
                     </VListItemTitle>
                     <VListItemSubtitle class="text-h6 mt-4">
