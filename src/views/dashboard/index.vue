@@ -13,7 +13,7 @@
                   Overtime Request
                 </VListItemSubtitle>
                 <template v-slot:append>
-                  <v-avatar size="60" color="primary">
+                  <v-avatar size="60" color="success">
                     <v-icon class="shadow" color="white-primary" size="30">mdi-timer-plus</v-icon>
                   </v-avatar>
                 </template>
