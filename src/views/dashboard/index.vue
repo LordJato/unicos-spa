@@ -2,7 +2,6 @@
   <div id="dashboard">
     <VContainer fluid>
       <VRow>
-
         <VCol cols="12" md="3">
           <VCard elevation="2">
             <VList lines="two" class="px-8 py-2">
@@ -81,7 +80,7 @@
         </VCol>
       </VRow>
       <VRow>
-        <VCol cols="12" md="6">
+        <VCol cols="12" md="8">
           <VCard>
             <VCardTitle> Active Job Opportunities </VCardTitle>
             <VCardText>
@@ -114,10 +113,10 @@
             </VCardText>
           </VCard>
         </VCol>
-        <VCol cols="12" md="6">
-          <VSheet>
-        <VCalendar color="primary" hide-week-number></VCalendar>
-      </VSheet>
+        <VCol cols="12" md="4">
+          <VSheet color="primary">
+            <VCalendar color="primary" hide-week-number></VCalendar>
+          </VSheet>
         </VCol>
       </VRow>
     </VContainer>

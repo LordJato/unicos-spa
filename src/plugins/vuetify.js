@@ -34,7 +34,7 @@ const darkTheme = {
   dark: true,
   colors: {
     background: '#070f2b',
-    surface: '#070F2B',
+    surface: '#213268',
     primary: '#213268',
     secondary: '#36c5c8',
     error: '#B00020',
