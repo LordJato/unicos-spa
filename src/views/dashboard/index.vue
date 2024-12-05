@@ -114,15 +114,18 @@
             </VCardText>
           </VCard>
         </VCol>
+        <VCol cols="12" md="6">
+          <VSheet>
+        <VCalendar color="primary" hide-week-number></VCalendar>
+      </VSheet>
+        </VCol>
       </VRow>
     </VContainer>
   </div>
 </template>
 
 <script setup>
-import undertimeImg from "@/assets/img/dashboard/undertime.svg"
-import overtimeImg from "@/assets/img/dashboard/overtime.svg"
-import leaveImg from "@/assets/img/dashboard/leave.svg"
+import { VCalendar } from 'vuetify/labs/VCalendar'
 </script>
 
 <style>
