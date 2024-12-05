@@ -41,7 +41,7 @@ const darkTheme = {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FB8C00',
-    'white-primary': '#9DB2BF',
+    'white-primary': '#e9f2fb',
     'on-surface': '#9DB2BF',
     'on-background': '#9DB2BF',
     'dark-grey': '#0b1420'
