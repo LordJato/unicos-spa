@@ -1,10 +1,9 @@
 <template>
   <section id="loginSection">
-    <VContainer class="pa-0 h-100 fill-height">
-      <VRow class="h-100" justify="center" align="center">
-        <VCol cols="12" md="6">
-          <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
-            <VCol cols="12" xl="6" lg="8" md="10" sm="6">
+    <VRow justify="center" align="center">
+        <VCol cols="12" lg="4" md="8">
+          <VRow class="h-100 ma-0 pa-0 justify-center justify-md-start align-center">
+            <VCol cols="10" xl="6" lg="8" md="10" >
               <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
                 <VImg :src="loginAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
@@ -27,11 +26,10 @@
             </VCol>
           </VRow>
         </VCol>
-        <VCol cols="12" lg="6" md="4" class="justify-center align-center d-none d-lg-flex">
-          <VImg :src="loginBG" max-height="400" style="z-index: 1;" />
+        <VCol cols="12" lg="5" md="4" class="justify-center align-center d-none d-lg-flex">
+          <VImg :src="loginBG" cover />
         </VCol>
       </VRow>
-    </VContainer>
     <img :src="loginWave" class="d-none d-lg-flex wave" />
   </section>
 
@@ -91,13 +89,15 @@ async function login() {
   align-items: center;
   min-height: 100vh;
   background: #e9f2fb;
+  z-index: 1;
 }
 
 .wave {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 0;
-  width: 95%;
+  z-index: -1;
+  bottom: 0;
+  height: 100vh;
 }
 </style>
