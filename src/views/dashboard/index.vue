@@ -3,7 +3,7 @@
     <VContainer fluid>
       <VRow>
         <VCol cols="12" md="3">
-          <VCard elevation="2">
+          <VCard elevation="2" rounded="lg">
             <VList lines="two" class="px-8 py-2">
               <VListItem>
                 <VListItemTitle class="font-weight-bold text-h6">
@@ -22,7 +22,7 @@
           </VCard>
         </VCol>
         <VCol cols="12" md="3">
-          <VCard elevation="2">
+          <VCard  elevation="2" rounded="lg">
             <VList lines="two" class="px-8 py-2">
               <VListItem>
                 <VListItemTitle class="font-weight-bold text-h6">
@@ -41,7 +41,7 @@
           </VCard>
         </VCol>
         <VCol cols="12" md="3">
-          <VCard elevation="3">
+          <VCard elevation="2" rounded="lg">
             <VList lines="two" class="px-8 py-2">
               <VListItem>
                 <VListItemTitle class="font-weight-bold text-h6">
@@ -60,7 +60,7 @@
           </VCard>
         </VCol>
         <VCol cols="12" md="3">
-          <VCard elevation="2">
+          <VCard  elevation="2" rounded="lg">
             <VList lines="two" class="px-8 py-2">
               <VListItem>
                 <VListItemTitle class="font-weight-bold text-h6">
