@@ -53,7 +53,7 @@
                       Leave Request
                     </VListItemSubtitle>
                     <template v-slot:append>
-                      <v-avatar size="60" color="secondary">
+                      <v-avatar size="60" color="error">
                         <v-icon class="shadow" color="white-primary" size="30">mdi-account-off</v-icon>
                       </v-avatar>
                     </template>
@@ -64,8 +64,26 @@
           </VRow>
         </VCol>
         <VCol cols="12" md="3">
-          <VSheet color="success" class="pa-2 rounded-lg">
-            <VCalendar color="success" hide-week-number class="rounded-lg pa-2">
+          <VSheet class="pa-2 rounded-lg" elevation="10">
+            <VCalendar :focused="focusedDate" color="success" hide-week-number class="rounded-lg pa-2">
+              <template v-slot:header="{ title, prev, next }">
+                <div class="d-flex justify-space-between align-center">
+                  <!-- Previous Button -->
+                  <VBtn icon @click="prev">
+                    <VIcon>mdi-chevron-left</VIcon>
+                  </VBtn>
+
+                  <!-- Title -->
+                  <h1 class="text-overline">
+                    {{ title }}
+                  </h1>
+
+                  <!-- Next Button -->
+                  <VBtn icon @click="next">
+                    <VIcon>mdi-chevron-right</VIcon>
+                  </VBtn>
+                </div>
+              </template>
             </VCalendar>
             <div>
               <div>Schedule & Holidays</div>
@@ -80,7 +98,10 @@
 
 <script setup>
 import { VCalendar } from 'vuetify/labs/VCalendar'
-import { ref } from 'vue'
+import { ref } from 'vue';
+
+const focusedDate = ref(new Date().toISOString().substr(0, 10));
+
 </script>
 
 <style>
