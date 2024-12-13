@@ -65,7 +65,7 @@
         </VCol>
         <VCol cols="12" md="3">
           <VSheet color="success" class="pa-2 rounded-lg">
-            <VCalendar color="success" hide-week-number class="rounded-lg pa-2" v-model="focus">
+            <VCalendar color="success" hide-week-number class="rounded-lg pa-2">
             </VCalendar>
             <div>
               <div>Schedule & Holidays</div>

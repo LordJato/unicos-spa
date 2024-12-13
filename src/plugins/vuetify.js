@@ -50,7 +50,7 @@ const darkTheme = {
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'lightTheme',
+    defaultTheme: 'darkTheme',
     themes: {
       lightTheme,
       darkTheme,

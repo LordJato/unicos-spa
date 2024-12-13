@@ -1,7 +1,9 @@
 <template>
-  <VNavigationDrawer v-model="drawer" rail expand-on-hover @mouseleave="open = null">
+  <VNavigationDrawer v-model="drawer" :image="navigationBG" theme="dark"
+    permanent>
     <VList class="py-3">
-      <VListItem :prepend-avatar="defaultAvatar" title="Ye Futian">
+      <VListItem >
+        <VImg :src="unicosLogo" max-height="150" max-width="150" class="mx-auto" />
       </VListItem>
     </VList>
 
@@ -12,18 +14,13 @@
           @click="$router.push({ name: list.link })">
         </VListItem>
         <VListGroup v-else :value="list.title">
-        <template v-slot:activator="{ props }">
-          <VListItem v-bind="props" :title="list.title" :prepend-icon="list.icon"></VListItem>
-        </template>
+          <template v-slot:activator="{ props }">
+            <VListItem v-bind="props" :title="list.title" :prepend-icon="list.icon"></VListItem>
+          </template>
 
-        <VListItem v-for="(item, itemIndex) in list.listGroup" 
-          :key="itemIndex" 
-          :title="item[0]" 
-          :prepend-icon="item[1]" 
-          :value="item[0]" 
-          @click="$router.push({ name: item[2] })"
-        />
-      </VListGroup>
+          <VListItem v-for="(item, itemIndex) in list.listGroup" :key="itemIndex" :title="item[0]"
+            :prepend-icon="item[1]" :value="item[0]" @click="$router.push({ name: item[2] })" />
+        </VListGroup>
       </template>
     </VList>
   </VNavigationDrawer>
@@ -31,7 +28,8 @@
 
 <script setup>
 import { ref } from "vue";
-import defaultAvatar from "@/assets/img/default-profile.jpg"
+import unicosLogo from "@/assets/logo-white.png"
+import navigationBG from "@/assets/img/navigation-bg.jpg"
 
 const drawer = ref(true);
 const open = ref(null);
@@ -56,7 +54,7 @@ const lists = [
   {
     title: 'HRIS',
     listGroup: [
-      ["Employees", "mdi-account-group", "employees" ],
+      ["Employees", "mdi-account-group", "employees"],
       ["Shift", "mdi-calendar-month", "shift"],
       ["Attendance", "mdi-note-check", "attendance"],
       ["Leave", "mdi-island", "leave"],
@@ -71,7 +69,7 @@ const lists = [
   {
     title: 'Payroll',
     listGroup: [
-      ["Generate", "mdi-compost" , "payrollGenerate"],
+      ["Generate", "mdi-compost", "payrollGenerate"],
       ["Group", "mdi-group", "payrollGroup"],
       ["Cycle", "mdi-recycle-variant", "payrollCycle"],
     ],
@@ -92,7 +90,7 @@ const lists = [
   {
     title: 'Setup',
     listGroup: [
-      ["SSS", "mdi-alpha-s-box" , "sss"],
+      ["SSS", "mdi-alpha-s-box", "sss"],
       ["Philhealth", "mdi-alpha-p-box", "philhealth"],
       ["Pagibig", "mdi-hand-extended", "pagibig"],
     ],
