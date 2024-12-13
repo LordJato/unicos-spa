@@ -35,7 +35,7 @@ import AppBar from "@/components/AppBar.vue";
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #007ACC;
+    background: #213268;
     border-radius: 7px;
   }
 }
