@@ -65,20 +65,15 @@
         </VCol>
         <VCol cols="12" md="3">
           <VSheet class="pa-2 rounded-lg" elevation="10">
-            <VCalendar :focused="focusedDate" color="success" hide-week-number class="rounded-lg pa-2">
+            <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
               <template v-slot:header="{ title, prev, next }">
                 <div class="d-flex justify-space-between align-center">
-                  <!-- Previous Button -->
                   <VBtn icon @click="prev">
                     <VIcon>mdi-chevron-left</VIcon>
                   </VBtn>
-
-                  <!-- Title -->
                   <h1 class="text-overline">
                     {{ title }}
                   </h1>
-
-                  <!-- Next Button -->
                   <VBtn icon @click="next">
                     <VIcon>mdi-chevron-right</VIcon>
                   </VBtn>
@@ -98,10 +93,38 @@
 
 <script setup>
 import { VCalendar } from 'vuetify/labs/VCalendar'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const focusedDate = ref(new Date().toISOString().substr(0, 10));
-
+const events = ref([
+{
+    title: "Christmas Party",
+    start: new Date('2024-12-19'), // Corrected date
+    end: new Date('2024-12-19'), // Corrected date
+    color: "success",
+    allDay: true,
+  },
+  {
+    title: "Christmas",
+    start: new Date('2024-12-25'), // Corrected date
+    end: new Date('2024-12-25'), // Corrected date
+    color: "error",
+    allDay: true,
+  },
+  {
+    title: "Rizal Day",
+    start: new Date('2024-12-30'), // Corrected date
+    end: new Date('2024-12-30'), // Corrected date
+    color: "error",
+    allDay: true,
+  },
+  {
+    title: "New Year Eve",
+    start: new Date('2024-12-31'), // Corrected date
+    end: new Date('2024-12-31'), // Corrected date
+    color: "error",
+    allDay: true,
+  }
+]);
 </script>
 
 <style>
@@ -110,6 +133,12 @@ const focusedDate = ref(new Date().toISOString().substr(0, 10));
 }
 
 .v-calendar-month__days>.v-calendar-month__day {
-  min-height: 80px;
+  min-height: 70px;
+}
+
+.v-calendar-event {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
