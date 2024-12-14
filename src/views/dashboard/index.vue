@@ -80,8 +80,24 @@
                 </div>
               </template>
             </VCalendar>
-            <div>
-              <div>Schedule & Holidays</div>
+            <div class="pa-2">
+              <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
+              <div>
+                <v-list>
+                  <v-list-item class="pa-0" v-for="(item, i) in events">
+                    <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
+                    <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
+                    <template v-slot:prepend>
+                      <v-chip class="ma-2" :color="item.type === 'Event' ? 'success':'error'" variant="outlined">
+                        <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
+                      </v-chip>
+                    </template>
+                    <template v-slot:append>
+                      <span class="text-caption"> {{ item.start }}</span>
+                    </template>
+                  </v-list-item>
+                </v-list>
+              </div>
             </div>
 
           </VSheet>
@@ -96,31 +112,35 @@ import { VCalendar } from 'vuetify/labs/VCalendar'
 import { ref } from 'vue'
 
 const events = ref([
-{
+  {
+    type: "Event",
     title: "Christmas Party",
-    start: new Date('2024-12-19'), // Corrected date
-    end: new Date('2024-12-19'), // Corrected date
+    start: new Date('2024-12-19'),
+    end: new Date('2024-12-19'),
     color: "success",
     allDay: true,
   },
   {
+    type: "Holiday",
     title: "Christmas",
-    start: new Date('2024-12-25'), // Corrected date
-    end: new Date('2024-12-25'), // Corrected date
+    start: new Date('2024-12-25'),
+    end: new Date('2024-12-25'),
     color: "error",
     allDay: true,
   },
   {
+    type: "Holiday",
     title: "Rizal Day",
-    start: new Date('2024-12-30'), // Corrected date
-    end: new Date('2024-12-30'), // Corrected date
+    start: new Date('2024-12-30'),
+    end: new Date('2024-12-30'),
     color: "error",
     allDay: true,
   },
   {
+    type: "Holiday",
     title: "New Year Eve",
-    start: new Date('2024-12-31'), // Corrected date
-    end: new Date('2024-12-31'), // Corrected date
+    start: new Date('2024-12-31'),
+    end: new Date('2024-12-31'),
     color: "error",
     allDay: true,
   }
