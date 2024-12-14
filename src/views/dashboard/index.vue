@@ -15,7 +15,7 @@
                       Overtime Request
                     </VListItemSubtitle>
                     <template v-slot:append>
-                      <v-avatar size="60" color="success">
+                      <v-avatar size="60" color="secondary">
                         <v-icon class="shadow" color="white-primary" size="30">mdi-timer-plus</v-icon>
                       </v-avatar>
                     </template>
@@ -34,7 +34,7 @@
                       Undertime Request
                     </VListItemSubtitle>
                     <template v-slot:append>
-                      <v-avatar size="60" color="warning">
+                      <v-avatar size="60" color="success">
                         <v-icon class="shadow" color="white-primary" size="30">mdi-timer-minus</v-icon>
                       </v-avatar>
                     </template>
@@ -88,12 +88,12 @@
                     <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
                     <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
                     <template v-slot:prepend>
-                      <v-chip class="ma-2" :color="item.type === 'Event' ? 'success':'error'" variant="outlined">
+                      <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
                         <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
                       </v-chip>
                     </template>
                     <template v-slot:append>
-                      <span class="text-caption"> {{ item.start }}</span>
+                      <span class="text-caption"> {{ formatDate(item.start) }}</span>
                     </template>
                   </v-list-item>
                 </v-list>
@@ -108,6 +108,7 @@
 </template>
 
 <script setup>
+import { formatDate } from '@/helpers/format'
 import { VCalendar } from 'vuetify/labs/VCalendar'
 import { ref } from 'vue'
 
