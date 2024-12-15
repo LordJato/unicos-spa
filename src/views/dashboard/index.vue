@@ -62,6 +62,48 @@
               </VCard>
             </VCol>
           </VRow>
+          <VRow>
+            <VCol cols="12" md="8">
+              <VCard
+    class="mt-8 mx-auto overflow-visible"
+    elevation="6"
+  >
+    <VSheet
+      class="v-sheet--offset mx-auto"
+      color="secondary"
+      elevation="12"
+      max-width="calc(100% - 96px)"
+      rounded="lg"
+    >
+      <v-sparkline
+        :labels="labels"
+        :model-value="value"
+        color="white"
+        line-width="2"
+        padding="16"
+      ></v-sparkline>
+    </VSheet>
+
+    <v-card-text class="pt-0">
+      <div class="text-h6 font-weight-light mb-2">
+        Employee Satisfaction
+      </div>
+      <div class="subheading font-weight-light text-grey">
+        Performance Metrics Analysis
+      </div>
+      <v-divider class="my-2"></v-divider>
+      <v-icon
+        class="me-2"
+        size="small"
+      >
+        mdi-clock
+      </v-icon>
+      <span class="text-caption text-grey font-weight-light">last assestment 26 minutes ago</span>
+    </v-card-text>
+  </VCard>
+            </VCol>
+            <VCol cols="12" md="4"></VCol>
+          </VRow>
         </VCol>
         <VCol cols="12" md="3">
           <VSheet class="pa-2 rounded-lg" elevation="10">
@@ -111,6 +153,35 @@
 import { formatDate } from '@/helpers/format'
 import { VCalendar } from 'vuetify/labs/VCalendar'
 import { ref } from 'vue'
+
+const labels = ref([
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'July',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+])
+const value = ref([
+  200,
+  675,
+  410,
+  390,
+  310,
+  460,
+  250,
+  240,
+  310,
+  460,
+  900,
+  100,
+])
 
 const events = ref([
   {
@@ -162,4 +233,9 @@ const events = ref([
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.v-sheet--offset {
+    top: -24px;
+    position: relative;
+  }
 </style>
