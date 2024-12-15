@@ -86,22 +86,36 @@
                 </v-card-text>
               </VCard>
             </VCol>
-            <VCol cols="12" md="4"></VCol>
+            <VCol cols="12" md="4">
+
+              <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="The #1 Vue UI Library">
+                <template v-slot:title>
+                  <span class="font-weight-black">Task</span>
+                </template>
+
+                <v-card-text class="bg-surface-light pt-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore
+                  voluptatibus!
+                  Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde
+                  voluptatem!
+                </v-card-text>
+              </v-card>
+
+            </VCol>
           </VRow>
           <VRow>
-            <VCol cols="12" md="8">
-              <v-data-table
-    v-model="selected"
-    :items="items"
-    item-value="name"
-    show-select
-  ></v-data-table>
+            <VCol cols="12" md="12">
+              <VCard elevation="6">
+                <VDataTable v-model="selected" :items="items" item-value="name" show-select></VDataTable>
+              </VCard>
+
             </VCol>
-            <VCol cols="12" md="4"></VCol>
           </VRow>
         </VCol>
         <VCol cols="12" md="3">
-          <VSheet class="pa-2 rounded-lg" elevation="10">
+          <VRow>
+            <VCol>
+              <VSheet class="pa-2 rounded-lg" elevation="10">
             <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
               <template v-slot:header="{ title, prev, next }">
                 <div class="d-flex justify-space-between align-center">
@@ -138,6 +152,24 @@
             </div>
 
           </VSheet>
+            </VCol>
+          </VRow>
+          <VRow>
+            <VCol>
+              <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="The #1 Vue UI Library">
+                <template v-slot:title>
+                  <span class="font-weight-black">Task</span>
+                </template>
+
+                <v-card-text class="bg-surface-light pt-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore
+                  voluptatibus!
+                  Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde
+                  voluptatem!
+                </v-card-text>
+              </v-card>
+            </VCol>
+          </VRow>
         </VCol>
       </VRow>
     </VContainer>
@@ -214,78 +246,78 @@ const events = ref([
 ]);
 
 const selected = ref([])
-  const items = [
-    {
-      name: '🍎 Apple',
-      location: 'Washington',
-      height: '0.1',
-      base: '0.07',
-      volume: '0.0001',
-    },
-    {
-      name: '🍌 Banana',
-      location: 'Ecuador',
-      height: '0.2',
-      base: '0.05',
-      volume: '0.0002',
-    },
-    {
-      name: '🍇 Grapes',
-      location: 'Italy',
-      height: '0.02',
-      base: '0.02',
-      volume: '0.00001',
-    },
-    {
-      name: '🍉 Watermelon',
-      location: 'China',
-      height: '0.4',
-      base: '0.3',
-      volume: '0.03',
-    },
-    {
-      name: '🍍 Pineapple',
-      location: 'Thailand',
-      height: '0.3',
-      base: '0.2',
-      volume: '0.005',
-    },
-    {
-      name: '🍒 Cherries',
-      location: 'Turkey',
-      height: '0.02',
-      base: '0.02',
-      volume: '0.00001',
-    },
-    {
-      name: '🥭 Mango',
-      location: 'India',
-      height: '0.15',
-      base: '0.1',
-      volume: '0.0005',
-    },
-    {
-      name: '🍓 Strawberry',
-      location: 'USA',
-      height: '0.03',
-      base: '0.03',
-      volume: '0.00002',
-    },
-    {
-      name: '🍑 Peach',
-      location: 'China',
-      height: '0.09',
-      base: '0.08',
-      volume: '0.0004',
-    },
-    {
-      name: '🥝 Kiwi',
-      location: 'New Zealand',
-      height: '0.05',
-      base: '0.05',
-      volume: '0.0001',
-    },
-  ]
+const items = [
+  {
+    name: '🍎 Apple',
+    location: 'Washington',
+    height: '0.1',
+    base: '0.07',
+    volume: '0.0001',
+  },
+  {
+    name: '🍌 Banana',
+    location: 'Ecuador',
+    height: '0.2',
+    base: '0.05',
+    volume: '0.0002',
+  },
+  {
+    name: '🍇 Grapes',
+    location: 'Italy',
+    height: '0.02',
+    base: '0.02',
+    volume: '0.00001',
+  },
+  {
+    name: '🍉 Watermelon',
+    location: 'China',
+    height: '0.4',
+    base: '0.3',
+    volume: '0.03',
+  },
+  {
+    name: '🍍 Pineapple',
+    location: 'Thailand',
+    height: '0.3',
+    base: '0.2',
+    volume: '0.005',
+  },
+  {
+    name: '🍒 Cherries',
+    location: 'Turkey',
+    height: '0.02',
+    base: '0.02',
+    volume: '0.00001',
+  },
+  {
+    name: '🥭 Mango',
+    location: 'India',
+    height: '0.15',
+    base: '0.1',
+    volume: '0.0005',
+  },
+  {
+    name: '🍓 Strawberry',
+    location: 'USA',
+    height: '0.03',
+    base: '0.03',
+    volume: '0.00002',
+  },
+  {
+    name: '🍑 Peach',
+    location: 'China',
+    height: '0.09',
+    base: '0.08',
+    volume: '0.0004',
+  },
+  {
+    name: '🥝 Kiwi',
+    location: 'New Zealand',
+    height: '0.05',
+    base: '0.05',
+    volume: '0.0001',
+  },
+]
 </script>
 
 <style>
