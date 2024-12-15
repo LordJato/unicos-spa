@@ -64,45 +64,33 @@
           </VRow>
           <VRow>
             <VCol cols="12" md="8">
-              <VCard
-    class="mt-8 mx-auto overflow-visible"
-    elevation="6"
-  >
-    <VSheet
-      class="v-sheet--offset mx-auto"
-      color="secondary"
-      elevation="12"
-      max-width="calc(100% - 96px)"
-      rounded="lg"
-    >
-      <v-sparkline
-        :labels="labels"
-        :model-value="value"
-        color="white"
-        line-width="2"
-        padding="16"
-      ></v-sparkline>
-    </VSheet>
+              <VCard class="mt-8 mx-auto overflow-visible" elevation="6">
+                <VSheet class="v-sheet--offset mx-auto" color="secondary" elevation="12" max-width="calc(100% - 96px)"
+                  rounded="lg">
+                  <v-sparkline :labels="labels" :model-value="value" color="white" line-width="2"
+                    padding="16"></v-sparkline>
+                </VSheet>
 
-    <v-card-text class="pt-0">
-      <div class="text-h6 font-weight-light mb-2">
-        Employee Satisfaction
-      </div>
-      <div class="subheading font-weight-light text-grey">
-        Performance Metrics Analysis
-      </div>
-      <v-divider class="my-2"></v-divider>
-      <v-icon
-        class="me-2"
-        size="small"
-      >
-        mdi-clock
-      </v-icon>
-      <span class="text-caption text-grey font-weight-light">last assestment 26 minutes ago</span>
-    </v-card-text>
-  </VCard>
+                <v-card-text class="pt-0">
+                  <div class="text-h6 font-weight-light mb-2">
+                    Employee Satisfaction
+                  </div>
+                  <div class="subheading font-weight-light text-grey">
+                    Performance Metrics Analysis (2024)
+                  </div>
+                  <v-divider class="my-2"></v-divider>
+                  <v-icon class="me-2" size="small">
+                    mdi-clock
+                  </v-icon>
+                  <span class="text-caption text-grey font-weight-light">last assestment 26 minutes ago</span>
+                </v-card-text>
+              </VCard>
             </VCol>
-            <VCol cols="12" md="4"></VCol>
+            <VCol cols="12" md="4">
+              <div>
+             
+              </div>
+            </VCol>
           </VRow>
         </VCol>
         <VCol cols="12" md="3">
@@ -145,6 +133,10 @@
           </VSheet>
         </VCol>
       </VRow>
+      
+    </VContainer>
+    <VContainer>
+      <CcvDonutChart :data="tasks" :options="taskOption" />
     </VContainer>
   </div>
 </template>
@@ -153,6 +145,7 @@
 import { formatDate } from '@/helpers/format'
 import { VCalendar } from 'vuetify/labs/VCalendar'
 import { ref } from 'vue'
+import { CcvDonutChart } from '@carbon/charts-vue'
 
 const labels = ref([
   'Jan',
@@ -217,6 +210,48 @@ const events = ref([
     allDay: true,
   }
 ]);
+
+const tasks = ref([
+  {
+    group: '2V2N 9KYPM version 1',
+    value: 20000
+  },
+  {
+    group: 'L22I P66EP L22I P66EP L22I P66EP',
+    value: 65000
+  },
+  {
+    group: 'JQAI 2M4L1',
+    value: 75000
+  },
+  {
+    group: 'J9DZ F37AP',
+    value: 1200
+  },
+  {
+    group: 'YEL48 Q6XK YEL48',
+    value: 10000
+  },
+  {
+    group: 'Misc',
+    value: 25000
+  }
+])
+
+const taskOption = ref({
+  title: 'Donut (centered)',
+  resizable: true,
+  legend: {
+    alignment: 'center'
+  },
+  donut: {
+    center: {
+      label: 'Browsers'
+    },
+    alignment: 'center'
+  },
+  height: '400px'
+})
 </script>
 
 <style>
@@ -235,7 +270,7 @@ const events = ref([
 }
 
 .v-sheet--offset {
-    top: -24px;
-    position: relative;
-  }
+  top: -24px;
+  position: relative;
+}
 </style>

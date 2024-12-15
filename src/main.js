@@ -7,7 +7,6 @@
 // Plugins
 import { registerPlugins } from '@/plugins'
 
-
 // Components
 import App from './App.vue'
 
@@ -16,6 +15,7 @@ import { createApp } from 'vue'
 
 //Utility
 import can from './helpers/can'
+import './assets/styles/global.css'
 
 const app = createApp(App)
 
