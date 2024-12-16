@@ -116,50 +116,55 @@
           <VRow>
             <VCol>
               <VSheet class="pa-2 rounded-lg" elevation="10">
-            <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
-              <template v-slot:header="{ title, prev, next }">
-                <div class="d-flex justify-space-between align-center">
-                  <VBtn icon @click="prev">
-                    <VIcon>mdi-chevron-left</VIcon>
-                  </VBtn>
-                  <h1 class="text-overline">
-                    {{ title }}
-                  </h1>
-                  <VBtn icon @click="next">
-                    <VIcon>mdi-chevron-right</VIcon>
-                  </VBtn>
+                <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
+                  <template v-slot:header="{ title, prev, next }">
+                    <div class="d-flex justify-space-between align-center">
+                      <VBtn icon @click="prev">
+                        <VIcon>mdi-chevron-left</VIcon>
+                      </VBtn>
+                      <h1 class="text-overline">
+                        {{ title }}
+                      </h1>
+                      <VBtn icon @click="next">
+                        <VIcon>mdi-chevron-right</VIcon>
+                      </VBtn>
+                    </div>
+                  </template>
+                </VCalendar>
+                <div class="pa-2">
+                  <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
+                  <div>
+                    <v-list>
+                      <v-list-item class="pa-0" v-for="(item, i) in events">
+                        <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
+                        <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
+                        <template v-slot:prepend>
+                          <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
+                            <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
+                          </v-chip>
+                        </template>
+                        <template v-slot:append>
+                          <span class="text-caption"> {{ formatDate(item.start) }}</span>
+                        </template>
+                      </v-list-item>
+                    </v-list>
+                  </div>
                 </div>
-              </template>
-            </VCalendar>
-            <div class="pa-2">
-              <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
-              <div>
-                <v-list>
-                  <v-list-item class="pa-0" v-for="(item, i) in events">
-                    <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
-                    <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
-                    <template v-slot:prepend>
-                      <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
-                        <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
-                      </v-chip>
-                    </template>
-                    <template v-slot:append>
-                      <span class="text-caption"> {{ formatDate(item.start) }}</span>
-                    </template>
-                  </v-list-item>
-                </v-list>
-              </div>
-            </div>
 
-          </VSheet>
+              </VSheet>
             </VCol>
           </VRow>
           <VRow>
             <VCol>
-              <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="The #1 Vue UI Library">
-                <template v-slot:title>
-                  <span class="font-weight-black">Task</span>
-                </template>
+              <VCard elevation="6">
+                <VCardTitle class="d-flex">
+                  <div>Birthday</div>
+                  <VSpacer />
+                  <VSelect label="This Month"
+                    :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
+                    variant="outlined" density="compact" class="text-subtitle-1" style="font-size: 10px !important;">
+                  </VSelect>
+                </VCardTitle>
 
                 <v-card-text class="bg-surface-light pt-4">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore
@@ -167,7 +172,7 @@
                   Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde
                   voluptatem!
                 </v-card-text>
-              </v-card>
+              </VCard>
             </VCol>
           </VRow>
         </VCol>
