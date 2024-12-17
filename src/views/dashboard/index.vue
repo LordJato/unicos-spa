@@ -108,7 +108,8 @@
               <VCard elevation="6">
                 <VCardTitle>Who's Online?</VCardTitle>
                 <VCardText>
-                  <VDataTable v-model="selected" :items="items" item-value="name" :headers="onlineEmployeeHeaders">
+                  <VDataTable v-model="selected" :items="items" item-value="name" :headers="onlineEmployeeHeaders"
+                    dense>
                     <template v-slot:item.image="{ item }">
                       <v-avatar size="30" density="compact" class="pa-0">
                         <v-img :src="item.image" :alt="item.name" />
@@ -353,5 +354,11 @@ function getColor(status) {
 .v-sheet--offset {
   top: -24px;
   position: relative;
+}
+
+.v-table>.v-table__wrapper>table>tbody>tr>td:first-child,
+.v-table>.v-table__wrapper>table>thead>tr>td:first-child,
+.v-table>.v-table__wrapper>table>tfoot>tr>td:first-child {
+  padding: 0;
 }
 </style>
