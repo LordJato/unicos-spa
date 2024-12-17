@@ -106,9 +106,35 @@
           <VRow>
             <VCol cols="12" md="12">
               <VCard elevation="6">
-                <VDataTable v-model="selected" :items="items" item-value="name" show-select></VDataTable>
+                <VCardTitle>Who's Online?</VCardTitle>
+                <VCardText>
+                  <VDataTable v-model="selected" :items="items" item-value="name" :headers="onlineEmployeeHeaders">
+                    <template v-slot:item.image="{ item }">
+                      <v-avatar size="30" density="compact" class="pa-0">
+                        <v-img :src="item.image" :alt="item.name" />
+                      </v-avatar>
+                    </template>
+                    <template v-slot:item.online="{ item }">
+                      <v-chip :color="getColor(item.online)">
+                        {{ item.online ? 'Online' : 'Offline' }}
+                      </v-chip>
+                    </template>
+                    <template v-slot:item.actions="{ item }">
+                      <v-icon class="me-2" size="small" @click="editItem(item)" color="secondary">
+                        mdi-pencil
+                      </v-icon>
+                      <v-icon size="small" @click="deleteItem(item)" color="error">
+                        mdi-delete
+                      </v-icon>
+                    </template>
+                    <template v-slot:no-data>
+                      <v-btn color="primary" @click="initialize">
+                        Reset
+                      </v-btn>
+                    </template>
+                  </VDataTable>
+                </VCardText>
               </VCard>
-
             </VCol>
           </VRow>
         </VCol>
@@ -250,79 +276,63 @@ const events = ref([
   }
 ]);
 
+const onlineEmployeeHeaders = [
+  { title: '', align: 'center', sortable: false, key: 'image', width: '1%', },
+  { title: 'Name', align: 'start', sortable: false, key: 'name' },
+  { title: 'Position', align: 'start', key: 'position' },
+  { title: 'Department', align: 'start', key: 'department' },
+  { title: 'Email', align: 'start', key: 'email' },
+  { title: 'Status', align: 'start', key: 'online' },
+  { title: 'Actions', align: 'start', key: 'actions' },
+]
+
 const selected = ref([])
 const items = [
   {
-    name: '🍎 Apple',
-    location: 'Washington',
-    height: '0.1',
-    base: '0.07',
-    volume: '0.0001',
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/PROFILE-PICTURE-FOR-FACEBOOK.jpg',
+    name: 'Juan Miguel Reyes Santos',
+    position: 'CTO',
+    department: 'Information Technology (IT)',
+    email: 'cto@unicos.com',
+    online: true,
   },
   {
-    name: '🍌 Banana',
-    location: 'Ecuador',
-    height: '0.2',
-    base: '0.05',
-    volume: '0.0002',
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/women-AI-Profile-Picture.jpg',
+    name: 'Maria Sofia Rodriguez',
+    position: 'HR Head',
+    department: 'Human Resources (HR)',
+    email: 'hrhead@unicos.com',
+    online: false,
   },
   {
-    name: '🍇 Grapes',
-    location: 'Italy',
-    height: '0.02',
-    base: '0.02',
-    volume: '0.00001',
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/Profile-Image-AI.jpg',
+    name: 'Luis Francisco Gonzales',
+    position: 'CBDO',
+    department: 'Business Development',
+    email: 'cbdo@unicos.com',
+    online: true,
   },
   {
-    name: '🍉 Watermelon',
-    location: 'China',
-    height: '0.4',
-    base: '0.3',
-    volume: '0.03',
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/LINKEDIN-Profile-Picture-AI.jpg',
+    name: 'Gabriel Jose Velasco',
+    position: 'CMO',
+    department: 'Marketing',
+    email: 'cmo@unicos.com',
+    online: true,
   },
   {
-    name: '🍍 Pineapple',
-    location: 'Thailand',
-    height: '0.3',
-    base: '0.2',
-    volume: '0.005',
-  },
-  {
-    name: '🍒 Cherries',
-    location: 'Turkey',
-    height: '0.02',
-    base: '0.02',
-    volume: '0.00001',
-  },
-  {
-    name: '🥭 Mango',
-    location: 'India',
-    height: '0.15',
-    base: '0.1',
-    volume: '0.0005',
-  },
-  {
-    name: '🍓 Strawberry',
-    location: 'USA',
-    height: '0.03',
-    base: '0.03',
-    volume: '0.00002',
-  },
-  {
-    name: '🍑 Peach',
-    location: 'China',
-    height: '0.09',
-    base: '0.08',
-    volume: '0.0004',
-  },
-  {
-    name: '🥝 Kiwi',
-    location: 'New Zealand',
-    height: '0.05',
-    base: '0.05',
-    volume: '0.0001',
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/AI-Profile-Picture.jpg',
+    name: 'Ana Isabella Garcia',
+    position: 'Chief Financial Officer',
+    department: 'Finance',
+    email: 'cfo@unicos.com',
+    online: false,
   },
 ]
+
+function getColor(status) {
+  return status ? 'success' : 'grey'
+}
 </script>
 
 <style>
