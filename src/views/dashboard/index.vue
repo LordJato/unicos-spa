@@ -76,7 +76,7 @@
                     Employee Satisfaction
                   </div>
                   <div class="subheading font-weight-light text-grey">
-                    Performance Metrics Analysis (2024)
+                    Performance Metrics Analysis
                   </div>
                   <v-divider class="my-2"></v-divider>
                   <v-icon class="me-2" size="small">
@@ -87,50 +87,121 @@
               </VCard>
             </VCol>
             <VCol cols="12" md="4">
-              <div>
-             
-              </div>
+
+              <v-card class="mx-auto" prepend-icon="$vuetify" subtitle="The #1 Vue UI Library">
+                <template v-slot:title>
+                  <span class="font-weight-black">Task</span>
+                </template>
+
+                <v-card-text class="bg-surface-light pt-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore
+                  voluptatibus!
+                  Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde
+                  voluptatem!
+                </v-card-text>
+              </v-card>
+
+            </VCol>
+          </VRow>
+          <VRow>
+            <VCol cols="12" md="12">
+              <VCard elevation="6">
+                <VCardTitle>Who's Online?</VCardTitle>
+                <VCardText>
+                  <VDataTable v-model="selected" :items="items" item-value="name" :headers="onlineEmployeeHeaders"
+                    dense>
+                    <template v-slot:item.image="{ item }">
+                      <v-avatar size="30" density="compact" class="pa-0">
+                        <v-img :src="item.image" :alt="item.name" />
+                      </v-avatar>
+                    </template>
+                    <template v-slot:item.online="{ item }">
+                      <v-chip :color="getColor(item.online)">
+                        {{ item.online ? 'Online' : 'Offline' }}
+                      </v-chip>
+                    </template>
+                    <template v-slot:item.actions="{ item }">
+                      <v-icon class="me-2" size="small" @click="editItem(item)" color="secondary">
+                        mdi-pencil
+                      </v-icon>
+                      <v-icon size="small" @click="deleteItem(item)" color="error">
+                        mdi-delete
+                      </v-icon>
+                    </template>
+                    <template v-slot:no-data>
+                      <v-btn color="primary" @click="initialize">
+                        Reset
+                      </v-btn>
+                    </template>
+                  </VDataTable>
+                </VCardText>
+              </VCard>
             </VCol>
           </VRow>
         </VCol>
         <VCol cols="12" md="3">
-          <VSheet class="pa-2 rounded-lg" elevation="10">
-            <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
-              <template v-slot:header="{ title, prev, next }">
-                <div class="d-flex justify-space-between align-center">
-                  <VBtn icon @click="prev">
-                    <VIcon>mdi-chevron-left</VIcon>
-                  </VBtn>
-                  <h1 class="text-overline">
-                    {{ title }}
-                  </h1>
-                  <VBtn icon @click="next">
-                    <VIcon>mdi-chevron-right</VIcon>
-                  </VBtn>
+          <VRow>
+            <VCol>
+              <VSheet class="pa-2 rounded-lg" elevation="10">
+                <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
+                  <template v-slot:header="{ title, prev, next }">
+                    <div class="d-flex justify-space-between align-center">
+                      <VBtn icon @click="prev">
+                        <VIcon>mdi-chevron-left</VIcon>
+                      </VBtn>
+                      <h1 class="text-overline">
+                        {{ title }}
+                      </h1>
+                      <VBtn icon @click="next">
+                        <VIcon>mdi-chevron-right</VIcon>
+                      </VBtn>
+                    </div>
+                  </template>
+                </VCalendar>
+                <div class="pa-2">
+                  <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
+                  <div>
+                    <v-list>
+                      <v-list-item class="pa-0" v-for="(item, i) in events">
+                        <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
+                        <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
+                        <template v-slot:prepend>
+                          <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
+                            <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
+                          </v-chip>
+                        </template>
+                        <template v-slot:append>
+                          <span class="text-caption"> {{ formatDate(item.start) }}</span>
+                        </template>
+                      </v-list-item>
+                    </v-list>
+                  </div>
                 </div>
-              </template>
-            </VCalendar>
-            <div class="pa-2">
-              <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
-              <div>
-                <v-list>
-                  <v-list-item class="pa-0" v-for="(item, i) in events">
-                    <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
-                    <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
-                    <template v-slot:prepend>
-                      <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
-                        <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
-                      </v-chip>
-                    </template>
-                    <template v-slot:append>
-                      <span class="text-caption"> {{ formatDate(item.start) }}</span>
-                    </template>
-                  </v-list-item>
-                </v-list>
-              </div>
-            </div>
 
-          </VSheet>
+              </VSheet>
+            </VCol>
+          </VRow>
+          <VRow>
+            <VCol>
+              <VCard elevation="6">
+                <VCardTitle class="d-flex">
+                  <div>Birthday</div>
+                  <VSpacer />
+                  <VSelect label="This Month"
+                    :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
+                    variant="outlined" density="compact" class="text-subtitle-1" style="font-size: 10px !important;">
+                  </VSelect>
+                </VCardTitle>
+
+                <v-card-text class="bg-surface-light pt-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore
+                  voluptatibus!
+                  Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde
+                  voluptatem!
+                </v-card-text>
+              </VCard>
+            </VCol>
+          </VRow>
         </VCol>
       </VRow>
       
@@ -211,6 +282,7 @@ const events = ref([
   }
 ]);
 
+<<<<<<< HEAD
 const tasks = ref([
   {
     group: '2V2N 9KYPM version 1',
@@ -252,6 +324,65 @@ const taskOption = ref({
   },
   height: '400px'
 })
+=======
+const onlineEmployeeHeaders = [
+  { title: '', align: 'center', sortable: false, key: 'image', width: '1%', },
+  { title: 'Name', align: 'start', sortable: false, key: 'name' },
+  { title: 'Position', align: 'start', key: 'position' },
+  { title: 'Department', align: 'start', key: 'department' },
+  { title: 'Email', align: 'start', key: 'email' },
+  { title: 'Status', align: 'start', key: 'online' },
+  { title: 'Actions', align: 'start', key: 'actions' },
+]
+
+const selected = ref([])
+const items = [
+  {
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/PROFILE-PICTURE-FOR-FACEBOOK.jpg',
+    name: 'Juan Miguel Reyes Santos',
+    position: 'CTO',
+    department: 'Information Technology (IT)',
+    email: 'cto@unicos.com',
+    online: true,
+  },
+  {
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/women-AI-Profile-Picture.jpg',
+    name: 'Maria Sofia Rodriguez',
+    position: 'HR Head',
+    department: 'Human Resources (HR)',
+    email: 'hrhead@unicos.com',
+    online: false,
+  },
+  {
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/Profile-Image-AI.jpg',
+    name: 'Luis Francisco Gonzales',
+    position: 'CBDO',
+    department: 'Business Development',
+    email: 'cbdo@unicos.com',
+    online: true,
+  },
+  {
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/LINKEDIN-Profile-Picture-AI.jpg',
+    name: 'Gabriel Jose Velasco',
+    position: 'CMO',
+    department: 'Marketing',
+    email: 'cmo@unicos.com',
+    online: true,
+  },
+  {
+    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/AI-Profile-Picture.jpg',
+    name: 'Ana Isabella Garcia',
+    position: 'Chief Financial Officer',
+    department: 'Finance',
+    email: 'cfo@unicos.com',
+    online: false,
+  },
+]
+
+function getColor(status) {
+  return status ? 'success' : 'grey'
+}
+>>>>>>> 94618fcdf590e31588420bcdedff539cee5dc209
 </script>
 
 <style>
@@ -273,4 +404,13 @@ const taskOption = ref({
   top: -24px;
   position: relative;
 }
+<<<<<<< HEAD
+=======
+
+.v-table>.v-table__wrapper>table>tbody>tr>td:first-child,
+.v-table>.v-table__wrapper>table>thead>tr>td:first-child,
+.v-table>.v-table__wrapper>table>tfoot>tr>td:first-child {
+  padding: 0;
+}
+>>>>>>> 94618fcdf590e31588420bcdedff539cee5dc209
 </style>
