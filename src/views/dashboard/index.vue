@@ -204,7 +204,7 @@
           </VRow>
         </VCol>
       </VRow>
-      
+
     </VContainer>
     <VContainer>
       <CcvDonutChart :data="tasks" :options="taskOption" />
@@ -282,49 +282,6 @@ const events = ref([
   }
 ]);
 
-<<<<<<< HEAD
-const tasks = ref([
-  {
-    group: '2V2N 9KYPM version 1',
-    value: 20000
-  },
-  {
-    group: 'L22I P66EP L22I P66EP L22I P66EP',
-    value: 65000
-  },
-  {
-    group: 'JQAI 2M4L1',
-    value: 75000
-  },
-  {
-    group: 'J9DZ F37AP',
-    value: 1200
-  },
-  {
-    group: 'YEL48 Q6XK YEL48',
-    value: 10000
-  },
-  {
-    group: 'Misc',
-    value: 25000
-  }
-])
-
-const taskOption = ref({
-  title: 'Donut (centered)',
-  resizable: true,
-  legend: {
-    alignment: 'center'
-  },
-  donut: {
-    center: {
-      label: 'Browsers'
-    },
-    alignment: 'center'
-  },
-  height: '400px'
-})
-=======
 const onlineEmployeeHeaders = [
   { title: '', align: 'center', sortable: false, key: 'image', width: '1%', },
   { title: 'Name', align: 'start', sortable: false, key: 'name' },
@@ -382,7 +339,6 @@ const items = [
 function getColor(status) {
   return status ? 'success' : 'grey'
 }
->>>>>>> 94618fcdf590e31588420bcdedff539cee5dc209
 </script>
 
 <style>
@@ -404,13 +360,11 @@ function getColor(status) {
   top: -24px;
   position: relative;
 }
-<<<<<<< HEAD
-=======
 
 .v-table>.v-table__wrapper>table>tbody>tr>td:first-child,
 .v-table>.v-table__wrapper>table>thead>tr>td:first-child,
 .v-table>.v-table__wrapper>table>tfoot>tr>td:first-child {
   padding: 0;
 }
->>>>>>> 94618fcdf590e31588420bcdedff539cee5dc209
+
 </style>
