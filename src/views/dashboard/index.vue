@@ -5,7 +5,7 @@
         <VCol cols="12" md="9">
           <VRow>
             <VCol cols="12" md="4">
-              <VCard elevation="2" rounded="lg">
+              <VCard elevation="6" rounded="lg">
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
@@ -24,7 +24,7 @@
               </VCard>
             </VCol>
             <VCol cols="12" md="4">
-              <VCard elevation="2" rounded="lg">
+              <VCard elevation="6" rounded="lg">
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
@@ -43,7 +43,7 @@
               </VCard>
             </VCol>
             <VCol cols="12" md="4">
-              <VCard elevation="2" rounded="lg">
+              <VCard elevation="6" rounded="lg">
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
@@ -171,33 +171,7 @@
           </VRow>
           <VRow>
             <VCol>
-              <VCard elevation="6">
-                <VCardTitle class="d-flex">
-                  <div>Birthday</div>
-                  <VSpacer />
-                  <VSelect label="This Month"
-                    :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
-                    variant="outlined" density="compact" class="text-subtitle-1" style="font-size: 10px !important;">
-                  </VSelect>
-                </VCardTitle>
-
-                <v-card-text>
-                  <v-list>
-                      <v-list-item class="pa-0" v-for="(item, i) in events">
-                        <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
-                        <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
-                        <template v-slot:prepend>
-                          <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
-                            <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
-                          </v-chip>
-                        </template>
-                        <template v-slot:append>
-                          <span class="text-caption"> {{ formatDate(item.start) }}</span>
-                        </template>
-                      </v-list-item>
-                    </v-list>
-                </v-card-text>
-              </VCard>
+              <DashboardBirthDays />
             </VCol>
           </VRow>
         </VCol>
@@ -208,6 +182,7 @@
 
 <script setup>
 import DashboardDonutChart from "@/components/Dashboard/DonutChart.vue";
+import DashboardBirthDays from "@/components/Dashboard/BirthDays.vue";
 import { formatDate } from '@/helpers/format'
 import { VCalendar } from 'vuetify/labs/VCalendar'
 import { ref } from 'vue'
