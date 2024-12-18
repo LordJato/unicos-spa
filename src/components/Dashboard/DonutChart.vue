@@ -31,7 +31,7 @@ const options = ref({
                     },
                     value: {
                         show: true,
-                        fontSize: '30px',
+                        fontSize: '25px',
                         fontWeight: 400,
                         color: '#9DB2BF',
                         offsetY: 16,
