@@ -1,17 +1,17 @@
 <template>
   <section id="loginSection">
-    <VContainer >
+    <VContainer>
       <VRow justify="center" align="center">
         <VCol cols="12" lg="6" md="8">
           <VRow class="h-100 ma-0 pa-0 justify-center align-center">
-            <VCol cols="10" xl="6" lg="8" md="10" >
+            <VCol cols="10" xl="6" lg="8" md="10">
               <VForm id="loginForm" ref="loginForm" @submit.prevent="login" style="position:relative; z-index: 1;">
                 <VImg :src="loginAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
                 <VTextField v-model="form.email" class="mt-4" label="Email" type="email" prepend-inner-icon="mdi-email"
                   variant="outlined" color="primary" density="compact" :rules="emailRules" />
                 <VTextField v-model="form.password" label="Password" type="password" prepend-inner-icon="mdi-lock"
-                  variant="outlined" color="primary" density="compact" :rules="passwordRules" />
+                  variant="outlined" color="primary" density="compact" :rules="passwordRules"/>
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-end mb-4">
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/forgot-password">
                     Forgot password?</RouterLink>
@@ -20,7 +20,7 @@
                   LogIn
                 </VBtn>
 
-                <span class="text-caption ">Don't have an account? </span>
+                <span class="text-caption">Don't have an account? </span>
                 <RouterLink class="text-caption text-decoration-none text-primary" to="/register">
                   Sign up</RouterLink>
               </VForm>

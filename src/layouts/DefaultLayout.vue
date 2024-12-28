@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <VApp>
     <NavBar />
     <AppBar />
     <VMain>
       <router-view />
     </VMain>
-  </div>
+  </VApp>
 </template>
 
 <script setup>

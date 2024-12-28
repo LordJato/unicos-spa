@@ -3,17 +3,17 @@ import router from '@/router'
 import useAuthStore from '@/stores/auth';
 
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL,
-    withCredentials: true,
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    }
+  baseURL: import.meta.env.VITE_BACKEND_URL,
+  withCredentials: true,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
 })
 
 instance.interceptors.request.use(
   (config) => {
-    const authStore = useAuthStore(); // Use inside a component or async context
+    const authStore = useAuthStore();
     const accessToken = authStore.getAccessToken;
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -25,13 +25,29 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    console.log("response error", error)
-    if (error.response.status === 401) {
-      router.push('/login');
-    } else {
-      alert('An error occurred. Please try again later.');
+  async (error) => {
+    const configError = error.config;
+    const authStore = useAuthStore();
+
+    if (configError.url.includes('refresh-token')) {
+      return Promise.reject(error); // Skip retry logic for this endpoint
+  }
+    if (error.response?.status === 401 && !configError._retry) {
+      configError._retry = true;
+      try {
+        const newAccessToken = await authStore.refreshAccessToken();
+     
+        if (!newAccessToken.success) {
+          router.push({ name: 'login' });
+        }
+        configError.headers['Authorization'] = `Bearer ${newAccessToken.data.access_token}`;
+        return axios(configError);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
+
     }
+
     return Promise.reject(error);
   }
 );
