@@ -28,10 +28,6 @@ instance.interceptors.response.use(
   async (error) => {
     const configError = error.config;
     const authStore = useAuthStore();
-
-    if (configError.url.includes('refresh-token')) {
-      return Promise.reject(error); // Skip retry logic for this endpoint
-  }
     if (error.response?.status === 401 && !configError._retry) {
       configError._retry = true;
       try {
