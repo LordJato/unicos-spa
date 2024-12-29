@@ -12,7 +12,7 @@ const useAuthStore = defineStore('auth', {
     setToken(token) {
       this.accessToken = token;
     },
-    
+
     resetState() {
       this.$reset(); // Built-in Pinia method to reset state to its initial state
     },
@@ -20,19 +20,13 @@ const useAuthStore = defineStore('auth', {
 
     async refreshAccessToken() {
       try {
-
         const refreshToken = await axios.post('refresh-token');
-        const response = unwrapResponse(refreshToken);
+        return unwrapResponse(refreshToken);
 
-        if (response.success) {
-          this.setToken(response.data.access_token);
-        }
-
-        return response;
       } catch (error) {
         // Log or handle the error if necessary
-        console.error('Failed to refresh token:', error);
-        return { success: false, data: null };
+        console.log('Failed to refresh token:', error);
+
       }
     }
   },
