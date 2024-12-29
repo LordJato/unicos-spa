@@ -43,9 +43,14 @@ instance.interceptors.response.use(
     }
 
     if (error.response?.status === 500) {
-      authStore.resetState();
-      router.push({ name: 'login' });
-      return Promise.reject(refreshError);
+      if( configError.url === "refresh-token"){
+        if(confirm("Authentication Expired. Please relogin")){
+          authStore.resetState();
+          router.push({name: "login"})
+          return Promise.reject(refreshError);
+        }
+      }
+    
     }
 
     // Reject any other errors
