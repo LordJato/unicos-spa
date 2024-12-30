@@ -1,7 +1,8 @@
-import { defineStore } from "pinia";
-import useAuthStore from './auth';
 import axios from '@/plugins/axios';
+import { defineStore } from "pinia";
 import { unwrapResponse } from '@/utils/api';
+import useAuthStore from './auth';
+import router from '@/router'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -44,11 +45,13 @@ export const useUserStore = defineStore('user', {
       try {
         const logout = await axios.post('logout');
         const response = unwrapResponse(logout);
+        const authStore = useAuthStore();
 
         if(response.success){
-          router.push({name : 'logout'})
+          authStore.resetState();
+          router.push({name : 'login'})
         }
-        
+
         return response;
       } catch (error) {
         console.error('Logout error:', error);

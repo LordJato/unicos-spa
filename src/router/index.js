@@ -56,7 +56,7 @@ const routes = [
       },
       {
         path: 'secured/register',
-        name: 'register',
+        name: 'securedRegister',
         component: () => import(/* webpackChunkName: "register" */ '../views/auth/SecuredRegisterView.vue'),
         meta: {
           title: 'Secured Register',

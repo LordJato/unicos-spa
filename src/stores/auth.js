@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia';
 import axios from '@/plugins/axios';
+import { defineStore } from 'pinia';
 import { unwrapResponse } from '@/utils/api';
 
-const useAuthStore = defineStore('auth', {
+export const useAuthStore = defineStore('auth', {
   state: () => ({ accessToken: '' }),
   getters: {
     getAccessToken: (state) => state.accessToken,

@@ -42,12 +42,21 @@ instance.interceptors.response.use(
       return instance(configError);
     }
 
+
+    if (error.response?.status === 404) {
+      if( configError.url === "refresh-token"){
+        authStore.resetState();
+        router.push({name: "login"})
+        return Promise.reject(error);
+      }
+    }
+
     if (error.response?.status === 500) {
       if( configError.url === "refresh-token"){
         if(confirm("Authentication Expired. Please relogin")){
           authStore.resetState();
           router.push({name: "login"})
-          return Promise.reject(refreshError);
+          return Promise.reject(error);
         }
       }
     
