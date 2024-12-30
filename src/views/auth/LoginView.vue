@@ -16,7 +16,7 @@
                   <RouterLink class="text-caption text-decoration-none text-primary" to="/forgot-password">
                     Forgot password?</RouterLink>
                 </div>
-                <VBtn block class="mb-4" color="primary" rounded type="submit" form="loginForm">
+                <VBtn block class="mb-4" color="primary" rounded type="submit" form="loginForm" :loading="loading">
                   LogIn
                 </VBtn>
 
@@ -51,6 +51,8 @@ const router = useRouter()
 
 const userStore = useUserStore()
 
+const loading = ref(false);
+
 const initialForm = {
   email: "superadmin@unicos.com",
   password: "password",
@@ -74,11 +76,14 @@ const passwordRules = ref([(v) => !!v || "Password is required"]);
 async function login() {
 
   try {
+    loading.value = true
     await userStore.loginUser(form).then(() => {
       router.push({ name: 'dashboard' })
     })
   } catch (error) {
     console.log(error)
+  } finally {
+    loading.value = false
   }
 }
 </script>
