@@ -42,10 +42,13 @@ export const useUserStore = defineStore('user', {
 
     async logoutUser() {
       try {
-        const response = await axios.post('logout');
-        if (response.data.success) {
-          removeToken();
+        const logout = await axios.post('logout');
+        const response = unwrapResponse(logout);
+
+        if(response.success){
+          router.push({name : 'logout'})
         }
+        
         return response;
       } catch (error) {
         console.error('Logout error:', error);
