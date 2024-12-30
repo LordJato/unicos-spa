@@ -54,6 +54,15 @@ const routes = [
           title: 'Reset Password',
         },
       },
+      {
+        path: 'secured/register',
+        name: 'register',
+        component: () => import(/* webpackChunkName: "register" */ '../views/auth/SecuredRegisterView.vue'),
+        meta: {
+          title: 'Secured Register',
+          middleware: [Middlewares.guest]
+        },
+      }
     ]
   },
   {
