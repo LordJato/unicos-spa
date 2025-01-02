@@ -11,7 +11,13 @@ import ResetPassword from '@/views/auth/ResetPasswordView.vue'
 import Dashboard from '@/views/dashboard/index.vue'
 import Home from '@/views/home.vue'
 
+// Utility to run middlewares
+const runMiddleware = (ctx, middleware, index = 0) => {
+  if (index >= middleware.length) return ctx.next();
 
+  const nextMiddleware = () => runMiddleware(ctx, middleware, index + 1);
+  middleware[index]({ ...ctx, next: nextMiddleware });
+};
 
 const routes = [
   {
@@ -92,19 +98,19 @@ const routes = [
   }
 ]
 
+// Create router instance
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { top: 0 };
+  },
 });
 
-// Middleware runner
-const runMiddleware = (ctx, middleware, index = 0) => {
-  if (index >= middleware.length) return ctx.next();
-
-  const nextMiddleware = () => runMiddleware(ctx, middleware, index + 1);
-  middleware[index]({ ...ctx, next: nextMiddleware });
-};
-
+// Apply middleware before each route
 router.beforeEach((to, from, next) => {
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware)
