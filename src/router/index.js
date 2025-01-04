@@ -112,6 +112,8 @@ const router = createRouter({
 
 // Apply middleware before each route
 router.beforeEach((to, from, next) => {
+  document.title = "Unicos - " + to.meta.title;
+
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware)
       ? to.meta.middleware

@@ -76,7 +76,7 @@
                     Employee Satisfaction
                   </div>
                   <div class="subheading font-weight-light text-grey">
-                    Performance Metrics Analysis
+                    Performance Metrics Analysis (2024)
                   </div>
                   <v-divider class="my-2"></v-divider>
                   <v-icon class="me-2" size="small">
@@ -100,43 +100,7 @@
         <VCol cols="12" md="3">
           <VRow>
             <VCol>
-              <VSheet class="pa-2 rounded-lg" elevation="10">
-                <VCalendar color="success" hide-week-number class="rounded-lg pa-2" :events="events">
-                  <template v-slot:header="{ title, prev, next }">
-                    <div class="d-flex justify-space-between align-center">
-                      <VBtn icon @click="prev">
-                        <VIcon>mdi-chevron-left</VIcon>
-                      </VBtn>
-                      <h1 class="text-overline">
-                        {{ title }}
-                      </h1>
-                      <VBtn icon @click="next">
-                        <VIcon>mdi-chevron-right</VIcon>
-                      </VBtn>
-                    </div>
-                  </template>
-                </VCalendar>
-                <div class="pa-2">
-                  <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
-                  <div>
-                    <v-list>
-                      <v-list-item class="pa-0" v-for="(item, i) in events">
-                        <VListItemTitle class="text-body-2">{{ item.title }}</VListItemTitle>
-                        <VListItemSubtitle class="text-caption">{{ item.type }}</VListItemSubtitle>
-                        <template v-slot:prepend>
-                          <v-chip class="ma-2" :color="item.type === 'Event' ? 'success' : 'error'" variant="outlined">
-                            <v-icon :icon="item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'"></v-icon>
-                          </v-chip>
-                        </template>
-                        <template v-slot:append>
-                          <span class="text-caption"> {{ formatDate(item.start) }}</span>
-                        </template>
-                      </v-list-item>
-                    </v-list>
-                  </div>
-                </div>
-
-              </VSheet>
+             <DashboardCalendar />
             </VCol>
           </VRow>
           <VRow>
@@ -151,77 +115,41 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import DashboardDonutChart from "@/components/Dashboard/DonutChart.vue";
 import DashboardBirthDays from "@/components/Dashboard/BirthDays.vue";
 import DashboardWhosOnline from "@/components/Dashboard/WhosOnline.vue";
-import { formatDate } from '@/helpers/format'
-import { VCalendar } from 'vuetify/labs/VCalendar'
-import { ref } from 'vue'
+import DashboardCalendar from "@/components/Dashboard/Calendar.vue";
 
 const labels = ref([
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'July',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-])
-const value = ref([
-  200,
-  675,
-  410,
-  390,
-  310,
-  460,
-  250,
-  240,
-  310,
-  460,
-  900,
-  100,
-])
-
-const events = ref([
-  {
-    type: "Event",
-    title: "Christmas Party",
-    start: new Date('2024-12-19'),
-    end: new Date('2024-12-19'),
-    color: "success",
-    allDay: true,
-  },
-  {
-    type: "Holiday",
-    title: "Christmas",
-    start: new Date('2024-12-25'),
-    end: new Date('2024-12-25'),
-    color: "error",
-    allDay: true,
-  },
-  {
-    type: "Holiday",
-    title: "Rizal Day",
-    start: new Date('2024-12-30'),
-    end: new Date('2024-12-30'),
-    color: "error",
-    allDay: true,
-  },
-  {
-    type: "Holiday",
-    title: "New Year Eve",
-    start: new Date('2024-12-31'),
-    end: new Date('2024-12-31'),
-    color: "error",
-    allDay: true,
-  }
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
 ]);
 
+const value = ref([
+    200,
+    675,
+    410,
+    390,
+    310,
+    460,
+    250,
+    240,
+    310,
+    460,
+    900,
+    100,
+]);
 
 </script>
 
