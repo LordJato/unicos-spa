@@ -47,6 +47,9 @@ import registerBG from '@/assets/img/auth/register-bg.svg'
 import registerAvatar from '@/assets/img/auth/register-avatar.svg'
 import registerWave from '@/assets/img/auth/register-wave.svg'
 import unicosLogo from "@/assets/img/logo.png"
+import { useAlertNotificationStore } from '@/stores/alertNotification';
+
+const alertStore = useAlertNotificationStore();
 
 const userStore = useUserStore()
 
@@ -76,6 +79,12 @@ const register = async () => {
     console.error('Registration failed:', error);
   }
 }
+
+
+alertStore.showAlert({
+  text: 'This is a success message!',
+  type: 'success',
+});
 
 </script>
 

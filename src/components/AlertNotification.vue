@@ -1,50 +1,43 @@
 <template>
   <div>
     <VScrollXReverseTransition>
-      <VAlert v-model="alert" :type="type" border="start" elevation="2" :border-color="props.type"
-        :icon="icon" prominent closable :text="props.text">
+      <VAlert
+        v-if="alertStore.isVisible"
+        :type="alertStore.type"
+        border="start"
+        elevation="2"
+        :border-color="alertStore.type"
+        :icon="icon"
+        prominent
+        closable
+        :text="alertStore.text"
+        @click:close="alertStore.hideAlert"
+      >
       </VAlert>
     </VScrollXReverseTransition>
   </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+import { computed } from 'vue';
+import { useAlertNotificationStore } from '@/stores/alertNotification.js';
 
-const props = defineProps({
-  text: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  }
-});
-
-const alert = ref(false);
+const alertStore = useAlertNotificationStore();
 
 const icon = computed(() => {
   return {
     success: 'mdi-check-circle',
     error: 'mdi-alert',
     warning: 'mdi-alert',
-    info: 'mdi-info'
-  }[props.type];
+    info: 'mdi-info',
+  }[alertStore.type];
 });
-
-watch(alert, (newVal) => {
-  if (newVal) {
-    setTimeout(() => { alert.value = false }, 3000)
-  }
-});
-
 </script>
 
 <style lang="scss" scoped>
 .v-alert {
   position: fixed;
-  top: 15%;
+  top: 5%;
   right: 2%;
   margin: 0 auto;
   display: flex;
