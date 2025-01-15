@@ -13,9 +13,10 @@
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
 
-                <VSelect label="Account Type" :items="accountTypes" item-title="name" item-value="id" v-model="form.accountTypeId"
-                  class="mt-4" variant="outlined" density="compact" color="primary" prepend-inner-icon="mdi-account-tie" />
-                <VTextField v-model="form.name"  label="Name" type="email" prepend-inner-icon="mdi-account"
+                <VSelect label="Account Type" :items="accountTypes" item-title="name" item-value="id"
+                  v-model="form.accountTypeId" class="mt-4" variant="outlined" density="compact" color="primary"
+                  prepend-inner-icon="mdi-account-tie" />
+                <VTextField v-model="form.name" label="Name" type="email" prepend-inner-icon="mdi-account"
                   variant="outlined" color="primary" density="compact" />
                 <VTextField v-model="form.email" label="Email" type="email" prepend-inner-icon="mdi-email"
                   variant="outlined" color="primary" density="compact" />
@@ -43,20 +44,23 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { useAlertNotificationStore } from '@/stores/alertNotification';
+import { unwrapResponse } from '@/utils/api'
+import { useRouter } from 'vue-router'
+
 import registerBG from '@/assets/img/auth/register-bg.svg'
 import registerAvatar from '@/assets/img/auth/register-avatar.svg'
 import registerWave from '@/assets/img/auth/register-wave.svg'
 import unicosLogo from "@/assets/img/logo.png"
-import { useAlertNotificationStore } from '@/stores/alertNotification';
 
+const router = useRouter();
 const alertStore = useAlertNotificationStore();
-
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const accountTypes = ref([
-  {id: 1, name: 'Tenant'},
-  {id: 2, name: 'Client'},
-  {id: 3, name: 'Freelance'},
+  { id: 1, name: 'Tenant' },
+  { id: 2, name: 'Client' },
+  { id: 3, name: 'Freelance' },
 ])
 
 const initialForm = {
@@ -74,17 +78,23 @@ const form = reactive({
 const register = async () => {
   try {
     const register = await userStore.registerUser(form)
+    const response = unwrapResponse(register);
+
+    if (response.success) {
+      alertStore.showAlert({
+        text: response.message,
+        type: 'success',
+      }).then(() => {
+        router.push({ name: 'login' });
+      });
+    }
+
     console.log('Registration successful!', register);
   } catch (error) {
     console.error('Registration failed:', error);
   }
 }
 
-
-alertStore.showAlert({
-  text: 'This is a success message!',
-  type: 'success',
-});
 
 </script>
 

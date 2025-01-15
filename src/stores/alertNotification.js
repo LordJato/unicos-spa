@@ -8,13 +8,16 @@ export const useAlertNotificationStore = defineStore('alertNotification', {
     }),
     actions: {
         showAlert({ text, type, timeout = 3000 }) {
-            this.text = text;
-            this.type = type;
-            this.isVisible = true;
+            return new Promise((resolve) => {
+                this.text = text;
+                this.type = type;
+                this.isVisible = true;
 
-            setTimeout(() => {
-                this.hideAlert();
-            }, timeout);
+                setTimeout(() => {
+                    this.isVisible = false;
+                    resolve();
+                }, timeout);
+            });
         },
         hideAlert() {
             this.isVisible = false;
