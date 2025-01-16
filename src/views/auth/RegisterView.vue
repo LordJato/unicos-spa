@@ -102,6 +102,15 @@ const register = async () => {
     loading.value = false
   }
 }
+watch(
+  () => alertStore.isVisible,
+  (newValue) => {
+    if (alertStore.type === 'success' && !newValue) {
+      router.push({ name: 'login' });
+    }
+  }
+);
+
 
 </script>
 
