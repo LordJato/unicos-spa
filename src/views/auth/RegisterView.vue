@@ -25,7 +25,7 @@
                   variant="outlined" color="primary" density="compact" />
                 <VTextField v-model="form.password_confirmation" label="Confirm Password" type="password"
                   prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                <v-btn type="submit" block class="mb-4 " color="primary" rounded="">
+                <v-btn type="submit" block class="mb-4 " color="primary" rounded="" :loading="loading">
                   Register
                 </v-btn>
                 <span class="text-caption ">Already have an account? </span>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useAlertNotificationStore } from '@/stores/alertNotification';
 import { unwrapResponse } from '@/utils/api'
@@ -56,6 +56,8 @@ import unicosLogo from "@/assets/img/logo.png"
 const router = useRouter();
 const alertStore = useAlertNotificationStore();
 const userStore = useUserStore();
+
+const loading = ref(false);
 
 const accountTypes = ref([
   { id: 1, name: 'Tenant' },
@@ -77,6 +79,7 @@ const form = reactive({
 
 const register = async () => {
   try {
+    loading.value = true
     const register = await userStore.registerUser(form)
     const response = unwrapResponse(register);
 
@@ -89,12 +92,16 @@ const register = async () => {
       });
     }
 
-    console.log('Registration successful!', register);
   } catch (error) {
-    console.error('Registration failed:', error);
+    const errorResponse = unwrapResponse(error.response)
+    alertStore.showAlert({
+      text: errorResponse.message,
+      type: 'error',
+    })
+  } finally {
+    loading.value = false
   }
 }
-
 
 </script>
 
