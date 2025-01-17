@@ -3,36 +3,102 @@
     <img :src="registerWave" class="d-none d-lg-flex wave" />
     <VContainer class="pa-0 h-100 fill-height">
       <VRow class="h-100" justify="center" align="center">
-        <VCol cols="12" md="6" class="d-none d-lg-flex justify-center align-center">
-          <VImg :src="registerBG" max-height="400" style="z-index: 1;" />
+        <VCol
+          cols="12"
+          md="6"
+          class="d-none d-lg-flex justify-center align-center"
+        >
+          <VImg :src="registerBG" max-height="400" style="z-index: 1" />
         </VCol>
         <VCol cols="12" md="6">
           <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
             <VCol cols="12" xl="6" lg="8" md="10" sm="6">
-              <VForm @submit.prevent="register" style="position:relative; z-index: 1;">
+              <VForm
+                @submit.prevent="register"
+                style="position: relative; z-index: 1"
+              >
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
 
-                <VSelect label="Account Type" :items="accountTypes" item-title="name" item-value="id"
-                  v-model="form.accountTypeId" class="mt-4" variant="outlined" density="compact" color="primary"
-                  prepend-inner-icon="mdi-account-tie" :error-messages="errorMessages.accountTypeId" />
+                <VSelect
+                  label="Account Type"
+                  :items="accountTypes"
+                  item-title="name"
+                  item-value="id"
+                  v-model="form.accountTypeId"
+                  class="mt-4"
+                  variant="outlined"
+                  density="compact"
+                  color="primary"
+                  prepend-inner-icon="mdi-account-tie"
+                  :error-messages="errorMessages.accountTypeId"
+                />
 
-                <VTextField v-model="form.name" class="mt-2"  label="Name" type="email" prepend-inner-icon="mdi-account"
-                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.name" />
+                <VTextField
+                  v-model="form.name"
+                  class="mt-2"
+                  label="Name"
+                  type="email"
+                  prepend-inner-icon="mdi-account"
+                  variant="outlined"
+                  color="primary"
+                  density="compact"
+                  :error-messages="errorMessages.name"
+                />
 
-                <VTextField v-model="form.email" class="mt-2" label="Email" type="email" prepend-inner-icon="mdi-email"
-                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.email"/>
+                <VTextField
+                  v-model="form.email"
+                  class="mt-2"
+                  label="Email"
+                  type="email"
+                  prepend-inner-icon="mdi-email"
+                  variant="outlined"
+                  color="primary"
+                  density="compact"
+                  :error-messages="errorMessages.email"
+                />
 
-                <VTextField v-model="form.password" class="mt-2" label="Password" type="password" prepend-inner-icon="mdi-lock"
-                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.password"/>
-                <VTextField v-model="form.password_confirmation" class="mt-2" label="Confirm Password" type="password"
-                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" :error-messages="errorMessages.password_confirmation"/>
-                <v-btn type="submit" block class="mb-4 mt-2" color="primary" rounded="" :loading="loading">
+                <VTextField
+                  v-model="form.password"
+                  class="mt-2"
+                  label="Password"
+                  type="password"
+                  prepend-inner-icon="mdi-lock"
+                  variant="outlined"
+                  color="primary"
+                  density="compact"
+                  :error-messages="errorMessages.password"
+                />
+
+                <VTextField
+                  v-model="form.password_confirmation"
+                  class="mt-2"
+                  label="Confirm Password"
+                  type="password"
+                  prepend-inner-icon="mdi-lock"
+                  variant="outlined"
+                  color="primary"
+                  density="compact"
+                  :error-messages="errorMessages.password_confirmation"
+                />
+
+                <v-btn
+                  type="submit"
+                  block
+                  class="mb-4 mt-2"
+                  color="primary"
+                  rounded=""
+                  :loading="loading"
+                >
                   Register
                 </v-btn>
-                <span class="text-caption ">Already have an account? </span>
-                <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
-                  Login</RouterLink>
+                <span class="text-caption">Already have an account? </span>
+                <RouterLink
+                  class="text-caption text-decoration-none text-primary"
+                  to="/login"
+                >
+                  Login</RouterLink
+                >
               </VForm>
             </VCol>
           </VRow>
@@ -40,20 +106,20 @@
       </VRow>
     </VContainer>
   </section>
-
 </template>
 
 <script setup>
-import { reactive, ref, watch } from 'vue'
-import { useUserStore } from '@/stores/user'
-import { useAlertNotificationStore } from '@/stores/alertNotification';
-import { unwrapResponse } from '@/utils/api'
-import { useRouter } from 'vue-router'
+import { reactive, ref, watch } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useAlertNotificationStore } from "@/stores/alertNotification";
+import { useRouter } from "vue-router";
 
-import registerBG from '@/assets/img/auth/register-bg.svg'
-import registerAvatar from '@/assets/img/auth/register-avatar.svg'
-import registerWave from '@/assets/img/auth/register-wave.svg'
-import unicosLogo from "@/assets/img/logo.png"
+import registerBG from "@/assets/img/auth/register-bg.svg";
+import registerAvatar from "@/assets/img/auth/register-avatar.svg";
+import registerWave from "@/assets/img/auth/register-wave.svg";
+import unicosLogo from "@/assets/img/logo.png";
+import handleErrors from "@/utils/handleErrors";
+import { unwrapResponse } from "@/utils/api";
 
 const router = useRouter();
 const alertStore = useAlertNotificationStore();
@@ -62,10 +128,10 @@ const userStore = useUserStore();
 const loading = ref(false);
 
 const accountTypes = ref([
-  { id: 1, name: 'Tenant' },
-  { id: 2, name: 'Client' },
-  { id: 3, name: 'Freelance' },
-])
+  { id: 1, name: "Tenant" },
+  { id: 2, name: "Client" },
+  { id: 3, name: "Freelance" },
+]);
 
 const initialForm = {
   accountTypeId: null,
@@ -87,50 +153,36 @@ const errorMessages = reactive({
   password_confirmation: null,
 });
 
-
 const register = async () => {
   try {
-    loading.value = true
-    const register = await userStore.registerUser(form)
-    const response = unwrapResponse(register);
+    loading.value = true;
+    const register = await userStore.registerUser(form);
+    const response = register.data;
 
     if (response.success) {
-      alertStore.showAlert({
-        text: response.message,
-        type: 'success',
-      }).then(() => {
-        router.push({ name: 'login' });
-      });
+      alertStore
+        .showAlert({
+          text: response.message,
+          type: "success",
+        })
+        .then(() => {
+          router.push({ name: "login" });
+        });
     }
-
   } catch (error) {
-    const errorResponse = unwrapResponse(error.response)
-    alertStore.showAlert({
-      text: errorResponse.message,
-      type: 'error',
-    })
-
-    if (errorResponse.errors && Object.keys(errorResponse.errors).length) {
-      Object.keys(errorMessages).forEach((key) => {
-        errorMessages[key] = errorResponse.errors[key] || null;
-      });
-    }
-
-
+    handleErrors(error, errorMessages);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 watch(
   () => alertStore.isVisible,
   (newValue) => {
-    if (alertStore.type === 'success' && !newValue) {
-      router.push({ name: 'login' });
+    if (alertStore.type === "success" && !newValue) {
+      router.push({ name: "login" });
     }
   }
 );
-
-
 </script>
 
 <style scoped>

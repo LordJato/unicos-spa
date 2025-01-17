@@ -41,6 +41,7 @@ const icon = computed(() => {
   right: 2%;
   margin: 0 auto;
   display: flex;
+  z-index: 99999;
 }
 </style>
 

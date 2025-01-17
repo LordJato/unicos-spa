@@ -1,3 +1,3 @@
-export function unwrapResponse(response) {
-    return response.data;
+export function unwrapResponse(axiosResponse) {
+    return axiosResponse.response.data;
 }

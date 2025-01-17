@@ -5,6 +5,4 @@
 
 <script setup>
 import AlertNotification from './components/AlertNotification.vue';
-
-
 </script>
