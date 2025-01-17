@@ -15,17 +15,19 @@
 
                 <VSelect label="Account Type" :items="accountTypes" item-title="name" item-value="id"
                   v-model="form.accountTypeId" class="mt-4" variant="outlined" density="compact" color="primary"
-                  prepend-inner-icon="mdi-account-tie" />
-                <VTextField v-model="form.name" label="Name" type="email" prepend-inner-icon="mdi-account"
-                  variant="outlined" color="primary" density="compact" />
-                <VTextField v-model="form.email" label="Email" type="email" prepend-inner-icon="mdi-email"
-                  variant="outlined" color="primary" density="compact" />
+                  prepend-inner-icon="mdi-account-tie" :error-messages="errorMessages.accountTypeId" />
 
-                <VTextField v-model="form.password" label="Password" type="password" prepend-inner-icon="mdi-lock"
-                  variant="outlined" color="primary" density="compact" />
-                <VTextField v-model="form.password_confirmation" label="Confirm Password" type="password"
-                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                <v-btn type="submit" block class="mb-4 " color="primary" rounded="" :loading="loading">
+                <VTextField v-model="form.name" class="mt-2"  label="Name" type="email" prepend-inner-icon="mdi-account"
+                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.name" />
+
+                <VTextField v-model="form.email" class="mt-2" label="Email" type="email" prepend-inner-icon="mdi-email"
+                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.email"/>
+
+                <VTextField v-model="form.password" class="mt-2" label="Password" type="password" prepend-inner-icon="mdi-lock"
+                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.password"/>
+                <VTextField v-model="form.password_confirmation" class="mt-2" label="Confirm Password" type="password"
+                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" :error-messages="errorMessages.password_confirmation"/>
+                <v-btn type="submit" block class="mb-4 mt-2" color="primary" rounded="" :loading="loading">
                   Register
                 </v-btn>
                 <span class="text-caption ">Already have an account? </span>
@@ -77,6 +79,15 @@ const form = reactive({
   ...initialForm,
 });
 
+const errorMessages = reactive({
+  accountTypeId: null,
+  name: null,
+  email: null,
+  password: null,
+  password_confirmation: null,
+});
+
+
 const register = async () => {
   try {
     loading.value = true
@@ -98,6 +109,14 @@ const register = async () => {
       text: errorResponse.message,
       type: 'error',
     })
+
+    if (errorResponse.errors && Object.keys(errorResponse.errors).length) {
+      Object.keys(errorMessages).forEach((key) => {
+        errorMessages[key] = errorResponse.errors[key] || null;
+      });
+    }
+
+
   } finally {
     loading.value = false
   }
