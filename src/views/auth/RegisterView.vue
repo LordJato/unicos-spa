@@ -3,102 +3,43 @@
     <img :src="registerWave" class="d-none d-lg-flex wave" />
     <VContainer class="pa-0 h-100 fill-height">
       <VRow class="h-100" justify="center" align="center">
-        <VCol
-          cols="12"
-          md="6"
-          class="d-none d-lg-flex justify-center align-center"
-        >
+        <VCol cols="12" md="6" class="d-none d-lg-flex justify-center align-center">
           <VImg :src="registerBG" max-height="400" style="z-index: 1" />
         </VCol>
         <VCol cols="12" md="6">
           <VRow class="h-100 ma-0 pa-0" justify="center" align="center">
             <VCol cols="12" xl="6" lg="8" md="10" sm="6">
-              <VForm
-                @submit.prevent="register"
-                style="position: relative; z-index: 1"
-              >
+              <VForm @submit.prevent="register" style="position: relative; z-index: 1">
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
 
-                <VSelect
-                  label="Account Type"
-                  :items="accountTypes"
-                  item-title="name"
-                  item-value="id"
-                  v-model="form.accountTypeId"
-                  class="mt-4"
-                  variant="outlined"
-                  density="compact"
-                  color="primary"
-                  prepend-inner-icon="mdi-account-tie"
-                  :error-messages="errorMessages.accountTypeId"
-                />
+                <VSelect label="Account Type" :items="accountTypes" item-title="name" item-value="id"
+                  v-model="form.accountTypeId" class="mt-4" variant="outlined" density="compact" color="primary"
+                  prepend-inner-icon="mdi-account-tie" :error-messages="errorMessages.accountTypeId"
+                  :rules="rules.accountTypeId" />
 
-                <VTextField
-                  v-model="form.name"
-                  class="mt-2"
-                  label="Name"
-                  type="email"
-                  prepend-inner-icon="mdi-account"
-                  variant="outlined"
-                  color="primary"
-                  density="compact"
-                  :error-messages="errorMessages.name"
-                />
+                <VTextField v-model="form.name" class="mt-2" label="Name" type="text" prepend-inner-icon="mdi-account"
+                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.name"
+                  :rules="rules.name" />
 
-                <VTextField
-                  v-model="form.email"
-                  class="mt-2"
-                  label="Email"
-                  type="email"
-                  prepend-inner-icon="mdi-email"
-                  variant="outlined"
-                  color="primary"
-                  density="compact"
-                  :error-messages="errorMessages.email"
-                />
+                <VTextField v-model="form.email" class="mt-2" label="Email" type="email" prepend-inner-icon="mdi-email"
+                  variant="outlined" color="primary" density="compact" :error-messages="errorMessages.email"
+                  :rules="emailRules" />
 
-                <VTextField
-                  v-model="form.password"
-                  class="mt-2"
-                  label="Password"
-                  type="password"
-                  prepend-inner-icon="mdi-lock"
-                  variant="outlined"
-                  color="primary"
-                  density="compact"
-                  :error-messages="errorMessages.password"
-                />
+                <VTextField v-model="form.password" class="mt-2" label="Password" type="password"
+                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact"
+                  :error-messages="errorMessages.password" :rules="rules.password" />
 
-                <VTextField
-                  v-model="form.password_confirmation"
-                  class="mt-2"
-                  label="Confirm Password"
-                  type="password"
-                  prepend-inner-icon="mdi-lock"
-                  variant="outlined"
-                  color="primary"
-                  density="compact"
-                  :error-messages="errorMessages.password_confirmation"
-                />
+                <VTextField v-model="form.password_confirmation" class="mt-2" label="Confirm Password" type="password"
+                  prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact"
+                  :error-messages="errorMessages.password_confirmation" :rules="rules.password_confirmation" />
 
-                <v-btn
-                  type="submit"
-                  block
-                  class="mb-4 mt-2"
-                  color="primary"
-                  rounded=""
-                  :loading="loading"
-                >
+                <v-btn type="submit" block class="mb-4 mt-2" color="primary" rounded="" :loading="loading">
                   Register
                 </v-btn>
                 <span class="text-caption">Already have an account? </span>
-                <RouterLink
-                  class="text-caption text-decoration-none text-primary"
-                  to="/login"
-                >
-                  Login</RouterLink
-                >
+                <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
+                  Login</RouterLink>
               </VForm>
             </VCol>
           </VRow>
@@ -119,7 +60,6 @@ import registerAvatar from "@/assets/img/auth/register-avatar.svg";
 import registerWave from "@/assets/img/auth/register-wave.svg";
 import unicosLogo from "@/assets/img/logo.png";
 import handleErrors from "@/utils/handleErrors";
-import { unwrapResponse } from "@/utils/api";
 
 const router = useRouter();
 const alertStore = useAlertNotificationStore();
@@ -152,6 +92,21 @@ const errorMessages = reactive({
   password: null,
   password_confirmation: null,
 });
+
+const rules = {
+  accountTypeId: [v => !!v || "Account Type is required"],
+  name: [v => !!v || "Name is required"],
+  email: [
+    (v) => !!v || "Email is required",
+    (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    (v) => {
+      if (v?.length <= 100) return true;
+      return "Email should not be greater than 100 characters";
+    },
+  ],
+  password: [v => !!v || "Password is required"],
+  password_confirmation: [v => !!v || "Password confirmation is required"],
+};
 
 const register = async () => {
   try {
