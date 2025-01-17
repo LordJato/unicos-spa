@@ -28,14 +28,23 @@
                 <VTextField
                   v-model="form.password"
                   label="Password"
-                  type="password"
+                  :type="passwordVisible ? 'text' : 'password'"
                   prepend-inner-icon="mdi-lock"
                   variant="outlined"
                   color="primary"
                   density="compact"
                   :rules="passwordRules"
                   :error-messages="errorMessages.password"
-                />
+                >
+                  <template v-slot:append-inner>
+                    <v-icon
+                      @click="passwordVisible = !passwordVisible"
+                      class="cursor-pointer"
+                    >
+                      {{ passwordVisible ? "mdi-eye-off" : "mdi-eye" }}
+                    </v-icon>
+                  </template>
+                </VTextField>
                 <div
                   class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-end mb-4"
                 >
@@ -99,6 +108,7 @@ const router = useRouter();
 const userStore = useUserStore();
 
 const loading = ref(false);
+const passwordVisible = ref(false);
 
 const initialForm = {
   email: "superadmin@unicos.com",

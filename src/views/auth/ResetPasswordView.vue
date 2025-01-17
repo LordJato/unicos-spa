@@ -8,41 +8,67 @@
               <VImg :src="unicosLogo" max-height="60" class="my-5" />
               <VCard class="py-5 px-9 rounded-xl">
                 <VForm @submit.prevent="register" class="text-center">
-                  <h1 class="text-center font-weight-black my-2">Reset Password</h1>
-                  <span class="text-caption ">Remember your password? </span>
-                  <RouterLink class="text-caption text-decoration-none text-primary" to="/login">
-                    Login here</RouterLink>
-                  <VTextField v-model="form.name" label="Email" type="email" class="mt-5"
-                    prepend-inner-icon="mdi-email" variant="outlined" color="primary" density="compact" />
-                    <VTextField v-model="form.password" label="Password" type="password"
-                    prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
-                    <VTextField v-model="form.password_confirmation" label="Password Confirmation" type="password"
-                    prepend-inner-icon="mdi-lock" variant="outlined" color="primary" density="compact" />
+                  <h1 class="text-center font-weight-black my-2">
+                    Reset Password
+                  </h1>
+                  <span class="text-caption">Remember your password? </span>
+                  <RouterLink
+                    class="text-caption text-decoration-none text-primary"
+                    to="/login"
+                  >
+                    Login here</RouterLink
+                  >
+                  <VTextField
+                    v-model="form.name"
+                    label="Email"
+                    type="email"
+                    class="mt-5"
+                    prepend-inner-icon="mdi-email"
+                    variant="outlined"
+                    color="primary"
+                    density="compact"
+                  />
+                  <VTextField
+                    v-model="form.password"
+                    label="Password"
+                    type="password"
+                    prepend-inner-icon="mdi-lock"
+                    variant="outlined"
+                    color="primary"
+                    density="compact"
+                  />
+                  <VTextField
+                    v-model="form.password_confirmation"
+                    label="Password Confirmation"
+                    type="password"
+                    prepend-inner-icon="mdi-lock"
+                    variant="outlined"
+                    color="primary"
+                    density="compact"
+                  />
 
-   
-                    <v-btn type="submit" color="primary" rounded block>
-                      Update Password
-                    </v-btn>
-
+                  <v-btn type="submit" color="primary" rounded block>
+                    Update Password
+                  </v-btn>
                 </VForm>
               </VCard>
-              <p class="text-caption text-center mt-2">Contact Us | support@unicos.com </p>
-
+              <p class="text-caption text-center mt-2">
+                Contact Us | support@unicos.com
+              </p>
             </VCol>
           </VRow>
         </VCol>
       </VRow>
     </VContainer>
   </section>
-
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { useUserStore } from '@/stores/user'
-import unicosLogo from "@/assets/img/logo.png"
+import { reactive } from "vue";
+import { useUserStore } from "@/stores/user";
+import unicosLogo from "@/assets/img/logo.png";
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const initialForm = {
   name: "",
@@ -57,13 +83,12 @@ const form = reactive({
 
 const register = async () => {
   try {
-    const register = await userStore.registerUser(form)
-    console.log('Registration successful!', register);
+    const register = await userStore.registerUser(form);
+    console.log("Registration successful!", register);
   } catch (error) {
-    console.error('Registration failed:', error);
+    console.error("Registration failed:", error);
   }
-}
-
+};
 </script>
 
 <style scoped>
