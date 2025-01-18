@@ -16,6 +16,8 @@
               <VForm
                 @submit.prevent="register"
                 style="position: relative; z-index: 1"
+                fast-fail
+                ref="registerForm"
               >
                 <VImg :src="registerAvatar" max-height="150" />
                 <VImg :src="unicosLogo" max-height="60" class="my-5" />
@@ -103,7 +105,9 @@
                       "
                       class="cursor-pointer"
                     >
-                      {{ passwordVisible ? "mdi-eye-off" : "mdi-eye" }}
+                      {{
+                        passwordConfirmationVisible ? "mdi-eye-off" : "mdi-eye"
+                      }}
                     </v-icon>
                   </template>
                 </VTextField>
@@ -150,6 +154,7 @@ const router = useRouter();
 const alertStore = useAlertNotificationStore();
 const userStore = useUserStore();
 
+const registerForm = ref();
 const loading = ref(false);
 const passwordVisible = ref(false);
 const passwordConfirmationVisible = ref(false);
@@ -180,7 +185,7 @@ const errorMessages = reactive({
   password_confirmation: null,
 });
 
-const rules = {
+const rules = ref({
   accountTypeId: [(v) => !!v || "Account Type is required"],
   name: [(v) => !!v || "Name is required"],
   email: [
@@ -196,23 +201,27 @@ const rules = {
     (v) => !!v || "Password confirmation is required",
     (v) => v === form.password || "Passwords must match",
   ],
-};
+});
 
 const register = async () => {
   try {
-    loading.value = true;
-    const register = await userStore.registerUser(form);
-    const response = register.data;
+    const { valid } = await registerForm.value.validate();
 
-    if (response.success) {
-      alertStore
-        .showAlert({
-          text: response.message,
-          type: "success",
-        })
-        .then(() => {
-          router.push({ name: "login" });
-        });
+    if (valid) {
+      loading.value = true;
+      const register = await userStore.registerUser(form);
+      const response = register.data;
+
+      if (response.success) {
+        alertStore
+          .showAlert({
+            text: response.message,
+            type: "success",
+          })
+          .then(() => {
+            router.push({ name: "login" });
+          });
+      }
     }
   } catch (error) {
     handleErrors(error, errorMessages);
