@@ -143,6 +143,7 @@ import { reactive, ref, watch, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useAlertNotificationStore } from "@/stores/alertNotification";
 import { useRouter } from "vue-router";
+import { validationRules } from "@/utils/validationRules";
 
 import registerBG from "@/assets/img/auth/register-bg.svg";
 import registerAvatar from "@/assets/img/auth/register-avatar.svg";
@@ -185,23 +186,13 @@ const errorMessages = reactive({
   password_confirmation: null,
 });
 
-const rules = ref({
-  accountTypeId: [(v) => !!v || "Account Type is required"],
-  name: [(v) => !!v || "Name is required"],
-  email: [
-    (v) => !!v || "Email is required",
-    (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    (v) => {
-      if (v?.length <= 100) return true;
-      return "Email should not be greater than 100 characters";
-    },
-  ],
-  password: [(v) => !!v || "Password is required"],
-  password_confirmation: [
-    (v) => !!v || "Password confirmation is required",
-    (v) => v === form.password || "Passwords must match",
-  ],
-});
+const rules = {
+  accountTypeId: validationRules.accountTypeId,
+  name: validationRules.name,
+  email: validationRules.email,
+  password: validationRules.password,
+  password_confirmation: validationRules.password_confirmation(form),
+};
 
 const register = async () => {
   try {
