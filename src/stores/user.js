@@ -1,6 +1,6 @@
 import axios from '@/plugins/axios';
 import { defineStore } from "pinia";
-import { unwrapResponse } from '@/utils/api';
+import { unwrapSuccessResponse } from '@/utils/api';
 import useAuthStore from './auth';
 import router from '@/router'
 
@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
     async loginUser(payload) {
       try {
         const login = await axios.post('login', payload);
-        const response = unwrapResponse(login);
+        const response = unwrapSuccessResponse(login);
         if (response.success) {
           const authStore = useAuthStore();
           authStore.setToken(response.data.access_token)
@@ -44,7 +44,7 @@ export const useUserStore = defineStore('user', {
     async logoutUser() {
       try {
         const logout = await axios.post('logout');
-        const response = unwrapResponse(logout);
+        const response = unwrapSuccessResponse(logout);
         const authStore = useAuthStore();
 
         if(response.success){
@@ -62,7 +62,7 @@ export const useUserStore = defineStore('user', {
     async profile() {
       try {
         const response = await axios.get('user/profile');
-        this.userDetails = response.data.data;
+        this.userDetails = unwrapSuccessResponse(response).data;
         return response;
       } catch (error) {
         console.error('Profile error:', error);

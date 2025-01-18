@@ -1,10 +1,10 @@
 import { useAlertNotificationStore } from "@/stores/alertNotification";
-import { unwrapResponse } from "@/utils/api";
+import { unwrapErrorResponse } from "@/utils/api";
 
 const alertStore = useAlertNotificationStore();
 
 export default function handleErrors(error, errorMessages) {
-  const errorResponse = unwrapResponse(error);
+  const errorResponse = unwrapErrorResponse(error);
 
   alertStore.showAlert({
     text: errorResponse.message,

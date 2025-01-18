@@ -96,6 +96,7 @@
 import { useUserStore } from "@/stores/user";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { validationRules } from "@/utils/validationRules";
 
 import loginWave from "@/assets/img/auth/login-wave.svg";
 import loginBG from "@/assets/img/auth/login-bg.svg";
@@ -124,16 +125,9 @@ const errorMessages = reactive({
   password: null,
 });
 
-const emailRules = ref([
-  (v) => !!v || "Email is required",
-  (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-  (v) => {
-    if (v?.length <= 100) return true;
-    return "Email should not be greater than 100 characters";
-  },
-]);
+const emailRules = validationRules.email;
 
-const passwordRules = ref([(v) => !!v || "Password is required"]);
+const passwordRules = validationRules.password;
 
 async function login() {
   try {
@@ -142,6 +136,7 @@ async function login() {
       router.push({ name: "dashboard" });
     });
   } catch (error) {
+    console.log("error", error)
     handleErrors(error, errorMessages);
   } finally {
     loading.value = false;

@@ -1,6 +1,6 @@
 import axios from '@/plugins/axios';
 import { defineStore } from 'pinia';
-import { unwrapResponse } from '@/utils/api';
+import { unwrapSuccessResponse } from '@/utils/api';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({ accessToken: '' }),
@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
     async refreshAccessToken() {
       try {
         const refreshToken = await axios.post('refresh-token');
-        return unwrapResponse(refreshToken);
+        return unwrapSuccessResponse(refreshToken);
 
       } catch (error) {
         console.log('Failed to refresh token:', error);

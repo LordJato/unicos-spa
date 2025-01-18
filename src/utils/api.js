@@ -1,3 +1,7 @@
-export function unwrapResponse(axiosResponse) {
-    return axiosResponse.response.data;
+export function unwrapSuccessResponse(success) {
+    return success.data;
+}
+
+export function unwrapErrorResponse(error) {
+    return error.response.data;
 }

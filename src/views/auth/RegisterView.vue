@@ -16,7 +16,6 @@
               <VForm
                 @submit.prevent="register"
                 style="position: relative; z-index: 1"
-                fast-fail
                 ref="registerForm"
               >
                 <VImg :src="registerAvatar" max-height="150" />
