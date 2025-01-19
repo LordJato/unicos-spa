@@ -90,6 +90,7 @@ const lists = [
   {
     title: 'Setup',
     listGroup: [
+    ["Department", "mdi-alpha-s-box", "department"],
       ["SSS", "mdi-alpha-s-box", "sss"],
       ["Philhealth", "mdi-alpha-p-box", "philhealth"],
       ["Pagibig", "mdi-hand-extended", "pagibig"],
