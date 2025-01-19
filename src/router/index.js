@@ -1,104 +1,16 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Middlewares from '../middlewares/'
+import { createRouter, createWebHistory } from 'vue-router';
+import authRoutes from './authRoutes';
+import defaultRoutes from './defaultRoutes';
+import Middlewares from '../middlewares/';
 
-//Layouts
-import AuthLayout from '@/layouts/AuthLayout.vue'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
-
-//Views
-import ForgotPassword from '@/views/auth/ForgotPasswordView.vue'
-import ResetPassword from '@/views/auth/ResetPasswordView.vue'
-import Dashboard from '@/views/dashboard/index.vue'
-import Home from '@/views/home.vue'
-
-// Utility to run middlewares
 const runMiddleware = (ctx, middleware, index = 0) => {
   if (index >= middleware.length) return ctx.next();
-
   const nextMiddleware = () => runMiddleware(ctx, middleware, index + 1);
   middleware[index]({ ...ctx, next: nextMiddleware });
 };
 
-const routes = [
-  {
-    path: '/',
-    component: AuthLayout,
-    redirect: '/login',
-    children: [
-      {
-        path: '/login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "login" */ '../views/auth/LoginView.vue'),
-        meta: {
-          title: 'Login',
-          middleware: [Middlewares.guest]
-        },
-      },
-      {
-        path: '/register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "register" */ '../views/auth/RegisterView.vue'),
-        meta: {
-          title: 'Register',
-          middleware: [Middlewares.guest]
-        },
-      }
-      ,
-      {
-        path: '/forgot-password',
-        name: 'forgotPassword',
-        component: ForgotPassword,
-        meta: {
-          title: 'Forgot Password',
-        },
-      },
-      {
-        path: '/reset-password',
-        name: 'resetPassword',
-        component: ResetPassword,
-        meta: {
-          title: 'Reset Password',
-        },
-      },
-      {
-        path: 'secured/register',
-        name: 'securedRegister',
-        component: () => import(/* webpackChunkName: "register" */ '../views/auth/SecuredRegisterView.vue'),
-        meta: {
-          title: 'Secured Register',
-          middleware: [Middlewares.guest]
-        },
-      }
-    ]
-  },
-  {
-    path: '/',
-    component: DefaultLayout,
-    children: [
-      {
-        path: '/home',
-        name: 'home',
-        component: Home,
-        meta: {
-          title: 'Home',
-          middleware: [Middlewares.auth],
-        },
-      },
-      {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: Dashboard,
-        meta: {
-          title: 'Dashboard',
-          middleware: [Middlewares.auth, Middlewares.checkPermissions],
-          permissions: ['view-dashboard']
-        },
-      },
-    ]
-  }
-]
+const routes = [...authRoutes, ...defaultRoutes];
 
-// Create router instance
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
@@ -110,21 +22,15 @@ const router = createRouter({
   },
 });
 
-// Apply middleware before each route
 router.beforeEach((to, from, next) => {
-  document.title = "Unicos - " + to.meta.title;
-
+  document.title = `Unicos - ${to.meta.title || 'Untitled'}`;
   if (to.meta.middleware) {
-    const middleware = Array.isArray(to.meta.middleware)
-      ? to.meta.middleware
-      : [to.meta.middleware];
-
+    const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware];
     const ctx = { to, from, next, router };
-    runMiddleware(ctx, middleware);
+    runMiddleware(ctx, middleware.map((m) => Middlewares[m]));
   } else {
     next();
   }
 });
 
-
-export default router
+export default router;
