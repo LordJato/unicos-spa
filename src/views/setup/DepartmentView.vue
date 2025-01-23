@@ -1,17 +1,34 @@
 <template>
   <VContainer>
+    <v-breadcrumbs :items="breadCrumbsItems">
+      <template v-slot:title="{ item }">
+      <h3>{{ item.title }}</h3>
+    </template>
+    </v-breadcrumbs>
+
     <VCard class="pa-2" elevation="8">
-      <v-data-table
-        :headers="headers"
-        :items="desserts"
-      >
+      <v-data-table :headers="headers" :items="desserts">
         <template v-slot:top>
-          <v-toolbar color="surface">
-            <v-toolbar-title>Department</v-toolbar-title>
+          <v-toolbar color="surface" class="ma-0">
+           
+       
+            <v-text-field
+              v-model="search"
+              density="compact"
+              label="Search"
+              prepend-inner-icon="mdi-magnify"
+              variant="solo-filled"
+              flat
+              hide-details
+              single-line
+              max-width="300"
+            ></v-text-field>
+            <v-spacer></v-spacer>
+
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ props }">
-                <v-btn class="mb-2" color="secondary" dark v-bind="props">
-                  New Item
+                <v-btn class="mb-2 text-caption" variant="tonal" color="secondary" dark v-bind="props"  prepend-icon="mdi-plus" density="compact">
+                  Create
                 </v-btn>
               </template>
               <v-card>
@@ -90,19 +107,6 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-spacer></v-spacer>
-            
-      <v-text-field
-        v-model="search"
-        density="compact"
-        label="Search"
-        prepend-inner-icon="mdi-magnify"
-        variant="solo-filled"
-        flat
-        hide-details
-        single-line
-      ></v-text-field>
-        
           </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -121,6 +125,19 @@
 
 <script setup>
 import { computed, nextTick, ref, watch } from "vue";
+
+const breadCrumbsItems = [
+    {
+      title: 'Setup',
+      disabled: true,
+      href: '#',
+    },
+    {
+      title: 'Department',
+      disabled: false,
+      href: 'breadcrumbs_link_1',
+    }
+  ]
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
@@ -150,7 +167,7 @@ const defaultItem = ref({
   protein: 0,
 });
 const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Item" : "Edit Item";
+  return editedIndex.value === -1 ? "New Department" : "Edit Department";
 });
 function initialize() {
   desserts.value = [
