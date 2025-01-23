@@ -2,19 +2,18 @@
   <VContainer>
     <VBreadcrumbs :items="breadCrumbsItems">
       <template v-slot:title="{ item }">
-      <h3>{{ item.title }}</h3>
-    </template>
+        <h3>{{ item.title }}</h3>
+      </template>
     </VBreadcrumbs>
 
     <VCard class="pa-2" elevation="8">
-      <VDataTable :headers="headers" :items="desserts"  density="compact">
+      <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
         <template v-slot:column.name.header="{ props }">
-    <!-- Customize the header title for 'name' column -->
-    <span class="text-h1">{{ props.column.title }}</span>
-  </template>
+          <!-- Customize the header title for 'name' column -->
+          <span class="text-h1">{{ props.column.title }}</span>
+        </template>
         <template v-slot:top>
           <VToolbar color="surface" class="ma-0">
-       
             <VTextField
               v-model="search"
               density="compact"
@@ -27,10 +26,28 @@
               max-width="300"
             ></VTextField>
             <VSpacer />
-
+            <v-btn
+              class="mr-2 mb-2 text-caption"
+              variant="tonal"
+              color="success"
+              dark
+              v-bind="props"
+              prepend-icon="mdi-export"
+              density="compact"
+            >
+              Export
+            </v-btn>
             <VDialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ props }">
-                <v-btn class="mb-2 text-caption" variant="tonal" color="secondary" dark v-bind="props"  prepend-icon="mdi-plus" density="compact">
+                <v-btn
+                  class="mb-2 text-caption"
+                  variant="tonal"
+                  color="secondary"
+                  dark
+                  v-bind="props"
+                  prepend-icon="mdi-plus"
+                  density="compact"
+                >
                   Create
                 </v-btn>
               </template>
@@ -87,6 +104,7 @@
                 </v-card-actions>
               </v-card>
             </VDialog>
+
             <VDialog v-model="dialogDelete" max-width="500px">
               <v-card>
                 <v-card-title class="text-h5"
@@ -116,10 +134,7 @@
           <VIcon class="me-2" size="small" @click="editItem(item)">
             mdi-pencil
           </VIcon>
-          <VIcon size="small" @click="deleteItem(item)"> mdi-delete </VIcon>
-        </template>
-        <template v-slot:no-data>
-          <VBtn color="primary" @click="initialize"> Reset </VBtn>
+          <VIcon size="small" color="error" @click="deleteItem(item)"> mdi-delete </VIcon>
         </template>
       </VDataTable>
     </VCard>
@@ -130,21 +145,21 @@
 import { computed, nextTick, ref, watch } from "vue";
 
 const breadCrumbsItems = [
-    {
-      title: 'Setup',
-      disabled: true,
-      href: '#',
-    },
-    {
-      title: 'Department',
-      disabled: false,
-      href: 'breadcrumbs_link_1',
-    }
-  ]
+  {
+    title: "Setup",
+    disabled: true,
+    href: "#",
+  },
+  {
+    title: "Department",
+    disabled: false,
+    href: "breadcrumbs_link_1",
+  },
+];
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
-const headers = ref([
+const tableHeaders = ref([
   {
     title: "Name",
     align: "start",
@@ -153,7 +168,7 @@ const headers = ref([
   },
   { title: "Actions", key: "actions", sortable: false },
 ]);
-const desserts = ref([]);
+const tableItems = ref([]);
 const editedIndex = ref(-1);
 const editedItem = ref({
   name: "",
@@ -173,77 +188,13 @@ const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
 });
 function initialize() {
-  desserts.value = [
+  tableItems.value = [
     {
-      name: "Frozen Yogurt",
-      calories: 159,
-      fat: 6,
-      carbs: 24,
-      protein: 4,
+      'name' : 'IT'
     },
     {
-      name: "Ice cream sandwich",
-      calories: 237,
-      fat: 9,
-      carbs: 37,
-      protein: 4.3,
-    },
-    {
-      name: "Eclair",
-      calories: 262,
-      fat: 16,
-      carbs: 23,
-      protein: 6,
-    },
-    {
-      name: "Cupcake",
-      calories: 305,
-      fat: 3.7,
-      carbs: 67,
-      protein: 4.3,
-    },
-    {
-      name: "Gingerbread",
-      calories: 356,
-      fat: 16,
-      carbs: 49,
-      protein: 3.9,
-    },
-    {
-      name: "Jelly bean",
-      calories: 375,
-      fat: 0,
-      carbs: 94,
-      protein: 0,
-    },
-    {
-      name: "Lollipop",
-      calories: 392,
-      fat: 0.2,
-      carbs: 98,
-      protein: 0,
-    },
-    {
-      name: "Honeycomb",
-      calories: 408,
-      fat: 3.2,
-      carbs: 87,
-      protein: 6.5,
-    },
-    {
-      name: "Donut",
-      calories: 452,
-      fat: 25,
-      carbs: 51,
-      protein: 4.9,
-    },
-    {
-      name: "KitKat",
-      calories: 518,
-      fat: 26,
-      carbs: 65,
-      protein: 7,
-    },
+      'name' : 'Accounting'
+    }
   ];
 }
 function editItem(item) {
