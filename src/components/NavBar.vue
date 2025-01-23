@@ -45,7 +45,7 @@ const lists = [
   {
     title: 'Recruitment',
     listGroup: [
-      ["Job Opportunities", "mdi-list-box", "jobOpportunities"],
+      ["Job Opportunities", "mdi-list-box", "recruitmentOpportunities"],
       ["Appointment", "mdi-calendar-clock", "appointment"],
     ],
     link: 'recruitment',
