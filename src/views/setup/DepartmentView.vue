@@ -1,31 +1,34 @@
 <template>
   <VContainer>
-    <v-breadcrumbs :items="breadCrumbsItems">
+    <VBreadcrumbs :items="breadCrumbsItems">
       <template v-slot:title="{ item }">
       <h3>{{ item.title }}</h3>
     </template>
-    </v-breadcrumbs>
+    </VBreadcrumbs>
 
     <VCard class="pa-2" elevation="8">
-      <v-data-table :headers="headers" :items="desserts">
+      <VDataTable :headers="headers" :items="desserts"  density="compact">
+        <template v-slot:column.name.header="{ props }">
+    <!-- Customize the header title for 'name' column -->
+    <span class="text-h1">{{ props.column.title }}</span>
+  </template>
         <template v-slot:top>
-          <v-toolbar color="surface" class="ma-0">
-           
+          <VToolbar color="surface" class="ma-0">
        
-            <v-text-field
+            <VTextField
               v-model="search"
               density="compact"
               label="Search"
-              prepend-inner-icon="mdi-magnify"
+              append-inner-icon="mdi-magnify"
               variant="solo-filled"
               flat
               hide-details
               single-line
               max-width="300"
-            ></v-text-field>
-            <v-spacer></v-spacer>
+            ></VTextField>
+            <VSpacer />
 
-            <v-dialog v-model="dialog" max-width="500px">
+            <VDialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ props }">
                 <v-btn class="mb-2 text-caption" variant="tonal" color="secondary" dark v-bind="props"  prepend-icon="mdi-plus" density="compact">
                   Create
@@ -83,8 +86,8 @@
                   </v-btn>
                 </v-card-actions>
               </v-card>
-            </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="500px">
+            </VDialog>
+            <VDialog v-model="dialogDelete" max-width="500px">
               <v-card>
                 <v-card-title class="text-h5"
                   >Are you sure you want to delete this item?</v-card-title
@@ -106,19 +109,19 @@
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
-            </v-dialog>
-          </v-toolbar>
+            </VDialog>
+          </VToolbar>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon class="me-2" size="small" @click="editItem(item)">
+          <VIcon class="me-2" size="small" @click="editItem(item)">
             mdi-pencil
-          </v-icon>
-          <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+          </VIcon>
+          <VIcon size="small" @click="deleteItem(item)"> mdi-delete </VIcon>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize"> Reset </v-btn>
+          <VBtn color="primary" @click="initialize"> Reset </VBtn>
         </template>
-      </v-data-table>
+      </VDataTable>
     </VCard>
   </VContainer>
 </template>
@@ -288,4 +291,8 @@ watch(dialogDelete, (val) => {
 initialize();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.v-data-table th {
+  padding: 0 !important;
+}
+</style>
