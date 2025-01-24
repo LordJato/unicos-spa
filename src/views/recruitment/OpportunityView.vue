@@ -158,10 +158,15 @@
   const dialogDelete = ref(false);
   const tableHeaders = ref([
     {
-      title: "Name",
+      title: "Title",
       align: "start",
       sortable: true,
-      key: "name",
+      key: "title",
+    },
+    {
+      title: "Type",
+      sortable: true,
+      key: "type",
     },
     { title: "Actions", key: "actions", sortable: false },
   ]);
