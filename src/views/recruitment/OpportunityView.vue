@@ -1,10 +1,11 @@
 <template>
-    <div>
-        <h1>Oppportunities</h1>
-    </div>
+    <VContainer >
+        <BreadCrumbsComponent />
+    </VContainer>
 </template>
 
 <script setup>
+import BreadCrumbsComponent from '@/components/BreadCrumbsComponent.vue';
 
 </script>
 

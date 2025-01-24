@@ -1,10 +1,6 @@
 <template>
   <VContainer>
-    <VBreadcrumbs :items="breadCrumbsItems">
-      <template v-slot:title="{ item }">
-        <h3>{{ item.title }}</h3>
-      </template>
-    </VBreadcrumbs>
+   <BreadCrumbsComponent />
 
     <VCard class="pa-2" elevation="8">
       <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
@@ -143,6 +139,7 @@
 
 <script setup>
 import { computed, nextTick, ref, watch } from "vue";
+import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
 
 const breadCrumbsItems = [
   {
