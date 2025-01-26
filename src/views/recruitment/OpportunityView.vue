@@ -168,6 +168,21 @@
       sortable: true,
       key: "type",
     },
+    {
+      title: "Work Setup",
+      sortable: false,
+      key: "workSetup",
+    },
+    {
+      title: "Vacancy",
+      sortable: false,
+      key: "vacancy",
+    },
+    {
+      title: "Status",
+      sortable: false,
+      key: "status",
+    },
     { title: "Actions", key: "actions", sortable: false },
   ]);
   const tableItems = ref([]);
