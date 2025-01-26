@@ -141,19 +141,6 @@
   import { computed, nextTick, ref, watch } from "vue";
   import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
   
-  const breadCrumbsItems = [
-    {
-      title: "Setup",
-      disabled: true,
-      href: "#",
-    },
-    {
-      title: "Department",
-      disabled: false,
-      href: "breadcrumbs_link_1",
-    },
-  ];
-  
   const dialog = ref(false);
   const dialogDelete = ref(false);
   const tableHeaders = ref([
@@ -185,6 +172,7 @@
     },
     { title: "Actions", key: "actions", sortable: false },
   ]);
+  
   const tableItems = ref([]);
   const editedIndex = ref(-1);
   const editedItem = ref({
@@ -202,7 +190,7 @@
     protein: 0,
   });
   const formTitle = computed(() => {
-    return editedIndex.value === -1 ? "New Department" : "Edit Department";
+    return editedIndex.value === -1 ? "New Opportunity" : "Edit Opportunity";
   });
   function initialize() {
     tableItems.value = [
