@@ -1,25 +1,49 @@
 <template>
-  <VNavigationDrawer v-model="drawer" :image="navigationBG" theme="dark"
-    permanent>
+  <VNavigationDrawer
+    v-model="drawer"
+    :image="navigationBG"
+    theme="dark"
+    permanent
+  >
     <VList class="py-3">
-      <VListItem >
-        <VImg :src="unicosLogo" max-height="150" max-width="150" class="mx-auto" />
+      <VListItem>
+        <VImg
+          :src="unicosLogo"
+          max-height="150"
+          max-width="150"
+          class="mx-auto"
+        />
       </VListItem>
     </VList>
 
     <VDivider />
     <VList v-model:opened="open" nav>
       <template v-for="(list, i) in lists" :key="i">
-        <VListItem v-if="list.listGroup.length === 0" :title="list.title" :value="list.title" :prepend-icon="list.icon"
-          @click="$router.push({ name: list.link })">
+        <VListItem
+          v-if="list.listGroup.length === 0"
+          :title="list.title"
+          :value="list.title"
+          :prepend-icon="list.icon"
+          @click="$router.push({ name: list.link })"
+        >
         </VListItem>
         <VListGroup v-else :value="list.title">
           <template v-slot:activator="{ props }">
-            <VListItem v-bind="props" :title="list.title" :prepend-icon="list.icon"></VListItem>
+            <VListItem
+              v-bind="props"
+              :title="list.title"
+              :prepend-icon="list.icon"
+            ></VListItem>
           </template>
 
-          <VListItem v-for="(item, itemIndex) in list.listGroup" :key="itemIndex" :title="item[0]"
-            :prepend-icon="item[1]" :value="item[0]" @click="$router.push({ name: item[2] })" />
+          <VListItem
+            v-for="(item, itemIndex) in list.listGroup"
+            :key="itemIndex"
+            :title="item[0]"
+            :prepend-icon="item[1]"
+            :value="item[0]"
+            @click="$router.push({ name: item[2] })"
+          />
         </VListGroup>
       </template>
     </VList>
@@ -28,31 +52,30 @@
 
 <script setup>
 import { ref } from "vue";
-import unicosLogo from "@/assets/logo-white.png"
-import navigationBG from "@/assets/img/navigation-bg.jpg"
+import unicosLogo from "@/assets/logo-white.png";
+import navigationBG from "@/assets/img/navigation-bg.jpg";
 
 const drawer = ref(true);
 const open = ref(null);
 
-
 const lists = [
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     listGroup: [],
-    link: 'dashboard',
-    icon: 'mdi-view-dashboard'
+    link: "dashboard",
+    icon: "mdi-view-dashboard",
   },
   {
-    title: 'Recruitment',
+    title: "Recruitment",
     listGroup: [
       ["Opportunities", "mdi-list-box", "recruitmentOpportunities"],
       ["Appointment", "mdi-calendar-clock", "appointment"],
     ],
-    link: 'recruitment',
-    icon: 'mdi-account-search'
+    link: "recruitment",
+    icon: "mdi-account-search",
   },
   {
-    title: 'HRIS',
+    title: "HRIS",
     listGroup: [
       ["Employees", "mdi-account-group", "employees"],
       ["Shift", "mdi-calendar-month", "shift"],
@@ -63,42 +86,42 @@ const lists = [
       ["Holiday", "mdi-newspaper-variant", "holiday"],
       ["Events", "mdi-party-popper", "events"],
     ],
-    link: 'hris',
-    icon: 'mdi-folder-account'
+    link: "hris",
+    icon: "mdi-folder-account",
   },
   {
-    title: 'Payroll',
+    title: "Payroll",
     listGroup: [
       ["Generate", "mdi-compost", "payrollGenerate"],
       ["Group", "mdi-group", "payrollGroup"],
       ["Cycle", "mdi-recycle-variant", "payrollCycle"],
     ],
-    icon: 'mdi-notebook'
+    icon: "mdi-notebook",
   },
   {
-    title: 'Calendar',
+    title: "Calendar",
     listGroup: [],
-    link: 'calendar',
-    icon: 'mdi-calendar'
+    link: "calendar",
+    icon: "mdi-calendar",
   },
   {
-    title: 'Accounts',
+    title: "Accounts",
     listGroup: [],
-    link: 'accounts',
-    icon: 'mdi-account-box-multiple'
+    link: "accounts",
+    icon: "mdi-account-box-multiple",
   },
   {
-    title: 'Setup',
+    title: "Setup",
     listGroup: [
-    ["Department", "mdi-alpha-s-box", "department"],
+      ["Department", "mdi-alpha-s-box", "department"],
       ["SSS", "mdi-alpha-s-box", "sss"],
       ["Philhealth", "mdi-alpha-p-box", "philhealth"],
       ["Pagibig", "mdi-hand-extended", "pagibig"],
     ],
-    link: 'setup',
-    icon: 'mdi-cog'
+    link: "setup",
+    icon: "mdi-cog",
   },
-]
+];
 </script>
 
 <style>

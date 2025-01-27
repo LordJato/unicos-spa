@@ -136,7 +136,7 @@ async function login() {
       router.push({ name: "dashboard" });
     });
   } catch (error) {
-    console.log("error", error)
+    console.log("error", error);
     handleErrors(error, errorMessages);
   } finally {
     loading.value = false;

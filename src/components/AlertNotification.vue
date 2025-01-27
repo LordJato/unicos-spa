@@ -19,17 +19,17 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useAlertNotificationStore } from '@/stores/alertNotification.js';
+import { computed } from "vue";
+import { useAlertNotificationStore } from "@/stores/alertNotification.js";
 
 const alertStore = useAlertNotificationStore();
 
 const icon = computed(() => {
   return {
-    success: 'mdi-check-circle',
-    error: 'mdi-alert',
-    warning: 'mdi-alert',
-    info: 'mdi-info',
+    success: "mdi-check-circle",
+    error: "mdi-alert",
+    warning: "mdi-alert",
+    info: "mdi-info",
   }[alertStore.type];
 });
 </script>

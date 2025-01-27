@@ -1,6 +1,6 @@
 <template>
   <VContainer>
-   <BreadCrumbsComponent />
+    <BreadCrumbsComponent />
 
     <VCard class="pa-2" elevation="8">
       <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
@@ -130,7 +130,9 @@
           <VIcon class="me-2" size="small" @click="editItem(item)">
             mdi-pencil
           </VIcon>
-          <VIcon size="small" color="error" @click="deleteItem(item)"> mdi-delete </VIcon>
+          <VIcon size="small" color="error" @click="deleteItem(item)">
+            mdi-delete
+          </VIcon>
         </template>
       </VDataTable>
     </VCard>
@@ -187,11 +189,11 @@ const formTitle = computed(() => {
 function initialize() {
   tableItems.value = [
     {
-      'name' : 'IT'
+      name: "IT",
     },
     {
-      'name' : 'Accounting'
-    }
+      name: "Accounting",
+    },
   ];
 }
 function editItem(item) {
