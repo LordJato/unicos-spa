@@ -62,7 +62,7 @@ const birthdays = ref([
       "https://www.profilebakery.com/wp-content/uploads/2023/04/PROFILE-PICTURE-FOR-FACEBOOK.jpg",
     name: "Juan Miguel Reyes Santos",
     position: "CTO",
-    birthdate: new Date("1974-01-22"),
+    birthdate: new Date("1974-02-22"),
   },
 ]);
 </script>
