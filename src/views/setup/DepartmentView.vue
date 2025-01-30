@@ -3,7 +3,7 @@
     <BreadCrumbsComponent />
 
     <VCard class="pa-2" elevation="8">
-      <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
+      <VDataTable :headers="tableHeaders" :items="departments" density="compact">
         <template v-slot:column.name.header="{ props }">
           <!-- Customize the header title for 'name' column -->
           <span class="text-h1">{{ props.column.title }}</span>
@@ -140,21 +140,20 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref, watch } from "vue";
+import { onMounted, computed, nextTick, ref, watch } from "vue";
+
 import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
 
-const breadCrumbsItems = [
-  {
-    title: "Setup",
-    disabled: true,
-    href: "#",
-  },
-  {
-    title: "Department",
-    disabled: false,
-    href: "breadcrumbs_link_1",
-  },
-];
+import { useDepartmentStore } from "@/stores/setup/department";
+import { storeToRefs } from "pinia";
+
+const departmentStore = useDepartmentStore();
+
+const { departments } = storeToRefs(departmentStore); // Keeps reactivity
+
+onMounted(() => {
+  departmentStore.getAll(); // Fetch departments when the component loads
+});
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
@@ -228,6 +227,7 @@ function save() {
   if (editedIndex.value > -1) {
     Object.assign(desserts.value[editedIndex.value], editedItem.value);
   } else {
+
     desserts.value.push(editedItem.value);
   }
   close();

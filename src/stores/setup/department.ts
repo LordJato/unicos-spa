@@ -30,7 +30,7 @@ export const useDepartmentStore = defineStore("department", {
       try {
         const createDepartment = await axios.post("departments/create", payload);
         const response = unwrapSuccessResponse(createDepartment);
-        this.departments.push(response.data as Department);
+        this.departments.push(response.data.records as Department);
       } catch (error) {
         console.error("Failed to create department:", error);
       }
