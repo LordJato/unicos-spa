@@ -144,7 +144,7 @@ import { onMounted, computed, nextTick, ref, watch } from "vue";
 
 import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
 
-import { useDepartmentStore } from "@/stores/setup/department";
+import { useDepartmentStore } from "@/stores/setup/useDepartmentStore";
 import { storeToRefs } from "pinia";
 
 const departmentStore = useDepartmentStore();
@@ -152,7 +152,7 @@ const departmentStore = useDepartmentStore();
 const { departments } = storeToRefs(departmentStore); // Keeps reactivity
 
 onMounted(() => {
-  departmentStore.getAll(); // Fetch departments when the component loads
+  departmentStore.fetchDepartment(); // Fetch departments when the component loads
 });
 
 const dialog = ref(false);
