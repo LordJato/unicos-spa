@@ -4,35 +4,94 @@ import { unwrapSuccessResponse } from "@/utils/api";
 
 interface Department {
   id: number;
-  companyId : number
+  companyId: number;
   name: string;
 }
 
 interface State {
   departments: Department[];
+  selectedDepartment: Department | null;
 }
 
 export const useDepartmentStore = defineStore("department", {
   state: (): State => ({
     departments: [],
+    selectedDepartment: null,
   }),
   actions: {
+    // Fetch all departments
     async fetchDepartment(payload?: Record<string, any>): Promise<void> {
       try {
-        const getAllDepartment = await axios.get("departments", { params: payload });
-        const response = unwrapSuccessResponse(getAllDepartment);
+        const request = await axios.get("departments", { params: payload });
+        const response = unwrapSuccessResponse(request);
         this.departments = response.data as Department[];
       } catch (error) {
         console.error("Failed to fetch departments:", error);
       }
     },
+    // Fetch a single department by ID
+    async fetchDepartmentById(id: number): Promise<void> {
+      try {
+        const response = await axios.get(`departments/${id}`);
+        this.selectedDepartment = unwrapSuccessResponse(response)
+          .data as Department;
+      } catch (error) {
+        console.error(`Failed to fetch department with ID ${id}:`, error);
+        throw error;
+      }
+    },
+    // Create a new department
     async createDepartment(payload: Omit<Department, "id">): Promise<void> {
       try {
-        const createDepartment = await axios.post("departments/create", payload);
-        const response = unwrapSuccessResponse(createDepartment);
+        const request = await axios.post("departments/create", payload);
+        const response = unwrapSuccessResponse(request);
         this.departments.push(response.data.records as Department);
       } catch (error) {
         console.error("Failed to create department:", error);
+      }
+    },
+
+    //Update an existing department
+    async updateDepartment(
+      id: number,
+      payload: Partial<Omit<Department, "id">>
+    ): Promise<void> {
+      try {
+        const response = await axios.put(`departments/${id}/update`, payload);
+        const updatedDepartment = unwrapSuccessResponse(response)
+          .data as Department;
+
+        // Update the local state
+        const index = this.departments.findIndex((dept) => dept.id === id);
+        if (index !== -1) {
+          this.departments[index] = updatedDepartment;
+        }
+
+        // Update selectedDepartment if it's the one being updated
+        if (this.selectedDepartment?.id === id) {
+          this.selectedDepartment = updatedDepartment;
+        }
+      } catch (error) {
+        console.error(`Failed to update department with ID ${id}:`, error);
+        throw error;
+      }
+    },
+
+    //Delete department
+    async deleteDepartment(id: number): Promise<void> {
+      try {
+        await axios.delete(`departments/${id}`); // ✅ Path param
+
+        // Remove from store
+        this.departments = this.departments.filter((dept) => dept.id !== id);
+
+        // Clear selectedDepartment if deleted
+        if (this.selectedDepartment?.id === id) {
+          this.selectedDepartment = null;
+        }
+      } catch (error) {
+        console.error(`Failed to delete department with ID ${id}:`, error);
+        throw error;
       }
     },
   },
