@@ -17,7 +17,7 @@ export const useDepartmentStore = defineStore("department", {
     departments: [],
   }),
   actions: {
-    async getAll(payload?: Record<string, any>): Promise<void> {
+    async fetchDepartment(payload?: Record<string, any>): Promise<void> {
       try {
         const getAllDepartment = await axios.get("departments", { params: payload });
         const response = unwrapSuccessResponse(getAllDepartment);
@@ -26,7 +26,7 @@ export const useDepartmentStore = defineStore("department", {
         console.error("Failed to fetch departments:", error);
       }
     },
-    async create(payload: Omit<Department, "id">): Promise<void> {
+    async createDepartment(payload: Omit<Department, "id">): Promise<void> {
       try {
         const createDepartment = await axios.post("departments/create", payload);
         const response = unwrapSuccessResponse(createDepartment);
