@@ -43,7 +43,7 @@ export const useDepartmentStore = defineStore("department", {
     // Create a new department
     async createDepartment(payload: Omit<Department, "id">): Promise<void> {
       try {
-        const request = await axios.post("departments/create", payload);
+        const request = await axios.post("departments", payload);
         const response = unwrapSuccessResponse(request);
         this.departments.push(response.data.records as Department);
       } catch (error) {
@@ -57,17 +57,15 @@ export const useDepartmentStore = defineStore("department", {
       payload: Partial<Omit<Department, "id">>
     ): Promise<void> {
       try {
-        const response = await axios.put(`departments/${id}/update`, payload);
+        const response = await axios.put(`departments/${id}`, payload);
         const updatedDepartment = unwrapSuccessResponse(response)
           .data as Department;
 
-        // Update the local state
-        const index = this.departments.findIndex((dept) => dept.id === id);
+        const index = this.departments.findIndex((dept : Department) => dept.id === id);
         if (index !== -1) {
           this.departments[index] = updatedDepartment;
         }
 
-        // Update selectedDepartment if it's the one being updated
         if (this.selectedDepartment?.id === id) {
           this.selectedDepartment = updatedDepartment;
         }
@@ -77,15 +75,13 @@ export const useDepartmentStore = defineStore("department", {
       }
     },
 
-    //Delete department
+    //Delete Department
     async deleteDepartment(id: number): Promise<void> {
       try {
-        await axios.delete(`departments/${id}`); // ✅ Path param
+        await axios.delete(`departments/${id}`);
 
-        // Remove from store
-        this.departments = this.departments.filter((dept) => dept.id !== id);
+        this.departments = this.departments.filter((dept : Department) => dept.id !== id);
 
-        // Clear selectedDepartment if deleted
         if (this.selectedDepartment?.id === id) {
           this.selectedDepartment = null;
         }
