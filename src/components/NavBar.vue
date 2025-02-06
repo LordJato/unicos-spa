@@ -18,31 +18,31 @@
 
     <VDivider />
     <VList v-model:opened="open" nav>
-      <template v-for="(list, i) in lists" :key="i">
+      <template v-for="(item, i) in menuItems" :key="i">
+        <!-- Single Item -->
         <VListItem
-          v-if="list.listGroup.length === 0"
-          :title="list.title"
-          :value="list.title"
-          :prepend-icon="list.icon"
-          @click="$router.push({ name: list.link })"
-        >
-        </VListItem>
-        <VListGroup v-else :value="list.title">
+          v-if="!item.listGroup"
+          :title="item.title"
+          :prepend-icon="item.icon"
+          @click="$router.push({ name: item.link })"
+        />
+
+        <!-- Grouped Items -->
+        <VListGroup v-else :value="item.title">
           <template v-slot:activator="{ props }">
             <VListItem
               v-bind="props"
-              :title="list.title"
-              :prepend-icon="list.icon"
-            ></VListItem>
+              :title="item.title"
+              :prepend-icon="item.icon"
+            />
           </template>
 
           <VListItem
-            v-for="(item, itemIndex) in list.listGroup"
-            :key="itemIndex"
-            :title="item[0]"
-            :prepend-icon="item[1]"
-            :value="item[0]"
-            @click="$router.push({ name: item[2] })"
+            v-for="(subItem, index) in item.listGroup"
+            :key="index"
+            :title="subItem.title"
+            :prepend-icon="subItem.icon"
+            @click="$router.push({ name: subItem.link })"
           />
         </VListGroup>
       </template>
@@ -54,74 +54,10 @@
 import { ref } from "vue";
 import unicosLogo from "@/assets/logo-white.png";
 import navigationBG from "@/assets/img/navigation-bg.jpg";
+import { menuItems } from "@/config/menu";
 
 const drawer = ref(true);
 const open = ref(null);
-
-const lists = [
-  {
-    title: "Dashboard",
-    listGroup: [],
-    link: "dashboard",
-    icon: "mdi-view-dashboard",
-  },
-  {
-    title: "Recruitment",
-    listGroup: [
-      ["Opportunities", "mdi-list-box", "recruitmentOpportunities"],
-      ["Appointment", "mdi-calendar-clock", "appointment"],
-    ],
-    link: "recruitment",
-    icon: "mdi-account-search",
-  },
-  {
-    title: "HRIS",
-    listGroup: [
-      ["Employees", "mdi-account-group", "employees"],
-      ["Shift", "mdi-calendar-month", "shift"],
-      ["Attendance", "mdi-note-check", "attendance"],
-      ["Leave", "mdi-island", "leave"],
-      ["Overtime", "mdi-clock-time-eight", "overtime"],
-      ["Undertime", "mdi-clock-time-four-outline", "undertime"],
-      ["Holiday", "mdi-newspaper-variant", "holiday"],
-      ["Events", "mdi-party-popper", "events"],
-    ],
-    link: "hris",
-    icon: "mdi-folder-account",
-  },
-  {
-    title: "Payroll",
-    listGroup: [
-      ["Generate", "mdi-compost", "payrollGenerate"],
-      ["Group", "mdi-group", "payrollGroup"],
-      ["Cycle", "mdi-recycle-variant", "payrollCycle"],
-    ],
-    icon: "mdi-notebook",
-  },
-  {
-    title: "Calendar",
-    listGroup: [],
-    link: "calendar",
-    icon: "mdi-calendar",
-  },
-  {
-    title: "Accounts",
-    listGroup: [],
-    link: "accounts",
-    icon: "mdi-account-box-multiple",
-  },
-  {
-    title: "Setup",
-    listGroup: [
-      ["Department", "mdi-alpha-s-box", "department"],
-      ["SSS", "mdi-alpha-s-box", "sss"],
-      ["Philhealth", "mdi-alpha-p-box", "philhealth"],
-      ["Pagibig", "mdi-hand-extended", "pagibig"],
-    ],
-    link: "setup",
-    icon: "mdi-cog",
-  },
-];
 </script>
 
 <style>
