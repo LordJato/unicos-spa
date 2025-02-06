@@ -12,7 +12,7 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
-  { title: "Dashboard", icon: "mdi-view-dashboard", link: "dashboard" },
+  { title: "Dashboard", icon: "mdi-view-dashboard", link: "Dashboard" },
   {
     title: "Recruitment",
     icon: "mdi-account-search",

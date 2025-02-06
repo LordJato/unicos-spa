@@ -3,7 +3,7 @@ import OpportunityView from "@/views/recruitment/OpportunityView.vue";
 
 const recruitmentRoutes: RouteRecordRaw[] = [
   {
-    path: "/recruitment",
+    path: "recruitment",
     children: [
       {
         path: "opportunities",

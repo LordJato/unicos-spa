@@ -12,13 +12,13 @@ const defaultRoutes : RouteRecordRaw[] = [
     component: DefaultLayout,
     children: [
       {
-        path: "/home",
+        path: "home",
         name: "Home",
         component: HomeView,
         meta: { title: "Home", middleware: ["auth"] },
       },
       {
-        path: "/dashboard",
+        path: "dashboard",
         name: "Dashboard",
         component: DashboardView,
         meta: {
