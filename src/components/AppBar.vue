@@ -81,7 +81,7 @@ async function logout() {
   try {
     await userStore.logoutUser().then((res) => {
       if (res.success) {
-        router.push({ name: "login" });
+        router.push({ name: "Login" });
       }
     });
   } catch (error) {

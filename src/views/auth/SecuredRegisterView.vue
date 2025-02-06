@@ -70,7 +70,7 @@
                 <span class="text-caption">Already have an account? </span>
                 <RouterLink
                   class="text-caption text-decoration-none text-primary"
-                  to="/login"
+                  :to="{ name: 'Login' }"
                 >
                   Login</RouterLink
                 >

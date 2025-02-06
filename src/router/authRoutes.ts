@@ -14,7 +14,7 @@ const authRoutes: RouteRecordRaw[] = [
       },
       {
         path: "login",
-        name: "login",
+        name: "Login",
         component: () =>
           import(
             /* webpackChunkName: "login" */ "@/views/auth/LoginView.vue"
@@ -23,7 +23,7 @@ const authRoutes: RouteRecordRaw[] = [
       },
       {
         path: "register",
-        name: "register",
+        name: "Register",
         component: () =>
           import(
             /* webpackChunkName: "register" */ "@/views/auth/RegisterView.vue"
@@ -32,19 +32,19 @@ const authRoutes: RouteRecordRaw[] = [
       },
       {
         path: "forgot-password",
-        name: "forgotPassword",
+        name: "ForgotPassword",
         component: ForgotPassword,
         meta: { title: "Forgot Password" },
       },
       {
         path: "reset-password",
-        name: "resetPassword",
+        name: "ResetPassword",
         component: ResetPassword,
         meta: { title: "Reset Password" },
       },
       {
         path: "secured/register",
-        name: "securedRegister",
+        name: "SecuredRegister",
         component: () =>
           import(
             /* webpackChunkName: "securedRegister" */ "@/views/auth/SecuredRegisterView.vue"

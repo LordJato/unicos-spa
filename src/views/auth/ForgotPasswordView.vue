@@ -14,7 +14,7 @@
                   <span class="text-caption">Remember your password? </span>
                   <RouterLink
                     class="text-caption text-decoration-none text-primary"
-                    to="/login"
+                    :to="{ name: 'Login' }"
                   >
                     Login here</RouterLink
                   >

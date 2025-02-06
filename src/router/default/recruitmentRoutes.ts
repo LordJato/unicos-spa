@@ -16,7 +16,7 @@ const recruitmentRoutes: RouteRecordRaw[] = [
         },
       },
       {
-        path: "appointments", // ✅ Changed path to avoid duplication
+        path: "appointments",
         name: "RecruitmentAppointments",
         component: OpportunityView,
         meta: {

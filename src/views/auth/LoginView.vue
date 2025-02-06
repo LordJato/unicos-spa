@@ -50,7 +50,7 @@
                 >
                   <RouterLink
                     class="text-caption text-decoration-none text-primary"
-                    to="/forgot-password"
+                    :to="{ name: 'ForgotPassword' }"
                   >
                     Forgot password?</RouterLink
                   >
@@ -70,7 +70,7 @@
                 <span class="text-caption">Don't have an account? </span>
                 <RouterLink
                   class="text-caption text-decoration-none text-primary"
-                  to="/register"
+                  :to="{ name: 'Register' }"
                 >
                   Sign up</RouterLink
                 >
@@ -133,7 +133,7 @@ async function login() {
   try {
     loading.value = true;
     await userStore.loginUser(form).then(() => {
-      router.push({ name: "dashboard" });
+      router.push({ name: "Dashboard" });
     });
   } catch (error) {
     console.log("error", error);

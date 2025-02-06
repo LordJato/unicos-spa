@@ -49,7 +49,7 @@ export const useUserStore = defineStore('user', {
 
         if(response.success){
           authStore.resetState();
-          router.push({name : 'login'})
+          router.push({name : 'Login'})
         }
 
         return response;
