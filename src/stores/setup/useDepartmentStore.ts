@@ -24,7 +24,7 @@ export const useDepartmentStore = defineStore("department", {
       try {
         const request = await axios.get("departments", { params: payload });
         const response = unwrapSuccessResponse(request);
-        this.departments = response.data as Department[];
+        this.departments = response.data.records as Department[];
       } catch (error) {
         console.error("Failed to fetch departments:", error);
       }

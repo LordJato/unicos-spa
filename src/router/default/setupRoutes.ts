@@ -3,7 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 
 const setupRoutes: RouteRecordRaw[] = [
   {
-    path: "/setup",
+    path: "setup",
     children: [
       {
         path: "department",
@@ -15,7 +15,6 @@ const setupRoutes: RouteRecordRaw[] = [
           permissions: ["view-all-department"],
         },
       },
-     
     ],
   },
 ];

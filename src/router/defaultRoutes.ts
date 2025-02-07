@@ -4,13 +4,17 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import DashboardView from "@/views/dashboard/index.vue";
 import HomeView from "@/views/home.vue";
 import recruitmentRoutes from "@/router/default/recruitmentRoutes";
-import setupRoutes from "./default/setupRoutes";
+import setupRoutes from "@/router/default/setupRoutes";
 
 const defaultRoutes : RouteRecordRaw[] = [
   {
     path: "/",
     component: DefaultLayout,
     children: [
+      {
+        path: "",
+        redirect: "/dashboard",
+      },
       {
         path: "home",
         name: "Home",

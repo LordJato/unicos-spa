@@ -1,13 +1,9 @@
 <template>
   <VContainer>
-    <BreadCrumbsComponent />
 
     <VCard class="pa-2" elevation="8">
       <VDataTable :headers="tableHeaders" :items="departments" density="compact">
-        <template v-slot:column.name.header="{ props }">
-          <!-- Customize the header title for 'name' column -->
-          <span class="text-h1">{{ props.column.title }}</span>
-        </template>
+
         <template v-slot:top>
           <VToolbar color="surface" class="ma-0">
             <VTextField
@@ -27,7 +23,6 @@
               variant="tonal"
               color="success"
               dark
-              v-bind="props"
               prepend-icon="mdi-export"
               density="compact"
             >
@@ -142,7 +137,6 @@
 <script setup>
 import { onMounted, computed, nextTick, ref, watch } from "vue";
 
-import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
 
 import { useDepartmentStore } from "@/stores/setup/useDepartmentStore";
 import { storeToRefs } from "pinia";
@@ -154,6 +148,8 @@ const { departments } = storeToRefs(departmentStore); // Keeps reactivity
 onMounted(() => {
   departmentStore.fetchDepartment(); // Fetch departments when the component loads
 });
+
+const search = ref("");
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
