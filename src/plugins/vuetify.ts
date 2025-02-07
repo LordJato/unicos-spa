@@ -9,11 +9,11 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
 // Composables
-import { createVuetify } from 'vuetify'
+import { createVuetify, type ThemeDefinition } from 'vuetify'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 
-const lightTheme = {
+const lightTheme: ThemeDefinition = {
   dark: false,
   colors: {
     background: '#e9f2fb',
@@ -30,7 +30,7 @@ const lightTheme = {
   }
 }
 
-const darkTheme = {
+const darkTheme: ThemeDefinition = {
   dark: true,
   colors: {
     background: '#070f2b',
