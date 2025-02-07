@@ -1,7 +1,5 @@
 <template>
     <VContainer>
-     <BreadCrumbsComponent />
-  
       <VCard class="pa-2" elevation="8">
         <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
           <template v-slot:column.name.header="{ props }">
@@ -139,7 +137,6 @@
   
   <script setup>
   import { computed, nextTick, ref, watch } from "vue";
-  import BreadCrumbsComponent from "@/components/BreadCrumbsComponent.vue";
   
   const dialog = ref(false);
   const dialogDelete = ref(false);
