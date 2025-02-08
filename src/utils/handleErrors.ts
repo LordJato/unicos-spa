@@ -1,5 +1,5 @@
 import { useAlertNotificationStore } from "@/stores/alertNotification";
-import { unwrapErrorResponse } from "@/utils/api";
+import { unwrapErrorResponse } from "@/utils/apiResponse";
 
 interface ErrorResponse {
   message: string;

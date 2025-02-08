@@ -1,4 +1,4 @@
-import useAuthStore from '@/stores/auth';
+import useAuthStore from '@/stores/useAuthStore';
 
 export default function guest({ next, router }) {
   const authStore = useAuthStore();

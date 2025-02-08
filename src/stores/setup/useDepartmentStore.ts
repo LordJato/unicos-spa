@@ -1,6 +1,6 @@
 import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
-import { unwrapSuccessResponse } from "@/utils/api";
+import { unwrapSuccessResponse } from "@/utils/apiResponse";
 
 interface Department {
   id: number;

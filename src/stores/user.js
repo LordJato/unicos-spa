@@ -1,7 +1,7 @@
 import axios from '@/plugins/axios';
 import { defineStore } from "pinia";
-import { unwrapSuccessResponse } from '@/utils/api';
-import useAuthStore from './auth';
+import { unwrapSuccessResponse } from '@/utils/apiResponse';
+import useAuthStore from './useAuthStore';
 import router from '@/router'
 
 export const useUserStore = defineStore('user', {

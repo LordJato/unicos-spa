@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from '@/router';
-import useAuthStore from '@/stores/auth';
+import useAuthStore from '@/stores/useAuthStore';
 
 
 const instance = axios.create({
@@ -47,7 +47,7 @@ instance.interceptors.response.use(
       } catch (refreshError) {
         // If token refresh fails, reset state and redirect to login
         authStore.resetState();
-        router.push({ name: 'login' });
+        router.push({ name: 'Login' });
         return Promise.reject(refreshError);
       }
     }
@@ -55,14 +55,14 @@ instance.interceptors.response.use(
     // Handle 404: Refresh token endpoint not found
     if (error.response?.status === 404 && configError.url === 'refresh-token') {
       authStore.resetState();
-      router.push({ name: 'login' });
+      router.push({ name: 'Login' });
     }
 
     // Handle 500: Authentication expired
     if (error.response?.status === 500 && configError.url === 'refresh-token') {
       if (confirm('Authentication Expired. Please re-login.')) {
         authStore.resetState();
-        router.push({ name: 'login' });
+        router.push({ name: 'Login' });
       }
     }
 
