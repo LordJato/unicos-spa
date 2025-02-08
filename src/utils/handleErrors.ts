@@ -1,4 +1,4 @@
-import { useAlertNotificationStore } from "@/stores/alertNotification";
+import { useAlertNotificationStore } from "@/stores/useAlertStore";
 import { unwrapErrorResponse } from "@/utils/apiResponse";
 
 interface ErrorResponse {
