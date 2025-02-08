@@ -46,7 +46,7 @@
 
 <script setup>
 import { reactive } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/useUserStore";
 import unicosLogo from "@/assets/img/logo.png";
 
 const userStore = useUserStore();

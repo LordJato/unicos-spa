@@ -139,7 +139,7 @@
 
 <script setup>
 import { reactive, ref, watch, computed } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/useUserStore";
 import { useAlertNotificationStore } from "@/stores/alertNotification";
 import { useRouter } from "vue-router";
 import { validationRules } from "@/utils/validationRules";

@@ -62,7 +62,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/useUserStore";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

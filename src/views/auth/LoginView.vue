@@ -93,7 +93,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/useUserStore";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { validationRules } from "@/utils/validationRules";

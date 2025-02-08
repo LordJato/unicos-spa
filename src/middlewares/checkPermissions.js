@@ -1,5 +1,5 @@
 import can from '@/helpers/can';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/useUserStore';
 
 export default async function checkPermissions({ next, to, from, router }) {
   const requiredPermissions = to.meta.permissions;

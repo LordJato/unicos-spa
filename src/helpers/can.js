@@ -1,8 +1,8 @@
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/useUserStore';
 
 export default (permissions) => {
   const userStore = useUserStore();
-  const userDetails = userStore.getUserDetails;
+  const userDetails = userStore.userDetails;
 
   if (!userDetails || !permissions) return false;
 

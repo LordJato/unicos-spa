@@ -85,7 +85,7 @@
 
 <script setup>
 import { reactive } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/useUserStore";
 import registerBG from "@/assets/img/auth/register-bg.svg";
 import registerAvatar from "@/assets/img/auth/register-avatar.svg";
 import registerWave from "@/assets/img/auth/register-wave.svg";

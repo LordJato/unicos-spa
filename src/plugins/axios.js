@@ -38,6 +38,7 @@ instance.interceptors.response.use(
 
       try {
         const refreshResponse = await authStore.refreshAccessToken();
+        console.log("refreshResponse", refreshResponse)
         const newAccessToken = refreshResponse.data.access_token;
 
         // Save new token and retry the failed request
