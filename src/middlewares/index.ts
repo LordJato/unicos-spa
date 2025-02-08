@@ -1,6 +1,6 @@
-import auth from "./auth";
+import auth from "./authMiddleware";
 import checkPermissions from "./checkPermissions";
-import guest from "./guest";
+import guest from "./guestMiddleware";
 
 export default {
     auth,
