@@ -1,5 +1,6 @@
-import { useAlertNotificationStore } from "@/stores/useAlertStore";
+import { useAlertStore } from "@/stores/useAlertStore";
 import { unwrapErrorResponse } from "@/utils/apiResponse";
+import { AxiosError } from "axios";
 
 interface ErrorResponse {
   message: string;
@@ -10,17 +11,26 @@ export default function handleErrors(
   error: unknown,
   errorMessages: Record<string, string | null>
 ): void {
-  const alertStore = useAlertNotificationStore();
-  const errorResponse: ErrorResponse = unwrapErrorResponse(error);
+  const alertStore = useAlertStore();
 
-  alertStore.showAlert({
-    text: errorResponse.message,
-    type: "error",
-  });
+  if (error instanceof AxiosError) {
+    const errorResponse: ErrorResponse = unwrapErrorResponse<ErrorResponse>(error);
 
-  if (errorResponse.errors && Object.keys(errorResponse.errors).length) {
-    Object.keys(errorMessages).forEach((key) => {
-      errorMessages[key] = errorResponse.errors?.[key]?.[0] || null;
+    alertStore.showAlert({
+      text: errorResponse.message,
+      type: "error",
     });
+
+    if (errorResponse.errors && Object.keys(errorResponse.errors).length) {
+      Object.keys(errorMessages).forEach((key) => {
+        errorMessages[key] = errorResponse.errors?.[key]?.[0] || null;
+      });
+    }
+  } else {
+    alertStore.showAlert({
+      text: "An unexpected error occurred.",
+      type: "error",
+    });
+    console.error("Unhandled error:", error);
   }
 }
