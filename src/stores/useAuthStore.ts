@@ -17,10 +17,10 @@ export const useAuthStore = defineStore('auth', {
       this.$reset();
     },
 
-    async refreshAccessToken(): Promise<string | null> {
+    async refreshAccessToken(): Promise<object | null> {
       try {
         const refreshToken = await axios.post('refresh-token');
-        return unwrapSuccessResponse<string>(refreshToken);
+        return unwrapSuccessResponse<object>(refreshToken);
       } catch (error) {
         console.error('Failed to refresh token:', error);
         return null;

@@ -140,7 +140,7 @@
 <script setup>
 import { reactive, ref, watch, computed } from "vue";
 import { useUserStore } from "@/stores/useUserStore";
-import { useAlertNotificationStore } from "@/stores/useAlertStore";
+import { useAlertStore } from "@/stores/useAlertStore";
 import { useRouter } from "vue-router";
 import { validationRules } from "@/utils/validationRules";
 
@@ -151,7 +151,7 @@ import unicosLogo from "@/assets/img/logo.png";
 import handleErrors from "@/utils/handleErrors";
 
 const router = useRouter();
-const alertStore = useAlertNotificationStore();
+const alertStore = useAlertStore();
 const userStore = useUserStore();
 
 const registerForm = ref();

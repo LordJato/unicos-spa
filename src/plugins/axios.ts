@@ -1,10 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 import router from '@/router';
 import useAuthStore from '@/stores/useAuthStore';
 
+interface AxiosRequestConfigWithRetry extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+interface RefreshTokenResponse {
+  data: {
+    access_token: string;
+  };
+}
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL as string,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
@@ -13,53 +22,48 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
     const authStore = useAuthStore();
-    const accessToken = authStore.getAccessToken;
+    const accessToken = authStore.accessToken;
 
-    if (accessToken) {
+    if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error)
 );
 
 instance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
     const authStore = useAuthStore();
-    const configError = error.config;
+    const configError = error.config as AxiosRequestConfigWithRetry;
 
-    // Handle 401 Unauthorized: Attempt token refresh
     if (error.response?.status === 401 && !configError._retry) {
-      configError._retry = true; // Prevent infinite retry loops
-
+      configError._retry = true;
       try {
-        const refreshResponse = await authStore.refreshAccessToken();
-        console.log("refreshResponse", refreshResponse)
-        const newAccessToken = refreshResponse.data.access_token;
+        const refreshResponse = await authStore.refreshAccessToken() as RefreshTokenResponse;
+        const newAccessToken: string = refreshResponse.data.access_token;
 
-        // Save new token and retry the failed request
         authStore.setToken(newAccessToken);
-        configError.headers.Authorization = `Bearer ${newAccessToken}`;
+        if (configError.headers) {
+          configError.headers.Authorization = `Bearer ${newAccessToken}`;
+        }
         return instance(configError);
       } catch (refreshError) {
-        // If token refresh fails, reset state and redirect to login
         authStore.resetState();
         router.push({ name: 'Login' });
         return Promise.reject(refreshError);
       }
     }
 
-    // Handle 404: Refresh token endpoint not found
     if (error.response?.status === 404 && configError.url === 'refresh-token') {
       authStore.resetState();
       router.push({ name: 'Login' });
     }
 
-    // Handle 500: Authentication expired
     if (error.response?.status === 500 && configError.url === 'refresh-token') {
       if (confirm('Authentication Expired. Please re-login.')) {
         authStore.resetState();

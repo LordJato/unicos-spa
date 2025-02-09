@@ -20,9 +20,9 @@
 
 <script setup>
 import { computed } from "vue";
-import { useAlertNotificationStore } from "@/stores/useAlertStore.js";
+import { useAlertStore } from "@/stores/useAlertStore";
 
-const alertStore = useAlertNotificationStore();
+const alertStore = useAlertStore();
 
 const icon = computed(() => {
   return {
