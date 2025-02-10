@@ -25,6 +25,7 @@
           :title="item.title"
           :prepend-icon="item.icon"
           @click="$router.push({ name: item.link })"
+          :class="{ 'v-list-item--active': $route.name === item.link}"
         />
 
         <!-- Grouped Items -->
@@ -43,6 +44,7 @@
             :title="subItem.title"
             :prepend-icon="subItem.icon"
             @click="$router.push({ name: subItem.link })"
+            :class="{ 'v-list-item--active': $route.name === subItem.link }"
           />
         </VListGroup>
       </template>
