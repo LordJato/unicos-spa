@@ -120,7 +120,7 @@ import { storeToRefs } from "pinia";
 
 const departmentStore = useDepartmentStore();
 
-const { departments } = storeToRefs(departmentStore); // Keeps reactivity
+const { departments } = storeToRefs(departmentStore);
 
 onMounted(() => {
   departmentStore.fetchDepartment(); // Fetch departments when the component loads
@@ -139,35 +139,16 @@ const tableHeaders = ref([
   },
   { title: "Actions", key: "actions", sortable: false },
 ]);
-const tableItems = ref([]);
 const editedIndex = ref(-1);
 const editedItem = ref({
   name: "",
-  calories: 0,
-  fat: 0,
-  carbs: 0,
-  protein: 0,
 });
 const defaultItem = ref({
   name: "",
-  calories: 0,
-  fat: 0,
-  carbs: 0,
-  protein: 0,
 });
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
 });
-function initialize() {
-  tableItems.value = [
-    {
-      name: "IT",
-    },
-    {
-      name: "Accounting",
-    },
-  ];
-}
 function editItem(item) {
   editedIndex.value = desserts.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
@@ -200,8 +181,7 @@ function save() {
   if (editedIndex.value > -1) {
     Object.assign(desserts.value[editedIndex.value], editedItem.value);
   } else {
-
-    desserts.value.push(editedItem.value);
+    departmentStore.createDepartment(editedItem.value)
   }
   close();
 }
@@ -211,7 +191,6 @@ watch(dialog, (val) => {
 watch(dialogDelete, (val) => {
   val || closeDelete();
 });
-initialize();
 </script>
 
 <style lang="scss">
