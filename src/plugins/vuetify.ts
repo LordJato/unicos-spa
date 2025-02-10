@@ -36,7 +36,9 @@ const darkTheme: ThemeDefinition = {
     background: '#070f2b',
     surface: '#070f2b',
     primary: '#213268',
+    'on-primary': '#e9f2fb',
     secondary: '#36c5c8',
+    'on-secondary': '#FFFFFF',
     error: '#B00020',
     info: '#2196F3',
     success: '#4CAF50',
@@ -56,4 +58,12 @@ export default createVuetify({
       darkTheme,
     },
   },
-})
+  defaults: {
+    VTextField: {
+      density: 'compact'
+    },
+    VBtn: {
+      class: 'text-caption',
+    },
+  },
+});
