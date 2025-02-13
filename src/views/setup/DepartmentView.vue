@@ -150,17 +150,17 @@ const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
 });
 function editItem(item) {
-  editedIndex.value = desserts.value.indexOf(item);
+  editedIndex.value = departments.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   dialog.value = true;
 }
 function deleteItem(item) {
-  editedIndex.value = desserts.value.indexOf(item);
+  editedIndex.value = departments.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   dialogDelete.value = true;
 }
 function deleteItemConfirm() {
-  desserts.value.splice(editedIndex.value, 1);
+  departments.value.splice(editedIndex.value, 1);
   closeDelete();
 }
 function close() {
@@ -179,7 +179,7 @@ function closeDelete() {
 }
 function save() {
   if (editedIndex.value > -1) {
-    Object.assign(desserts.value[editedIndex.value], editedItem.value);
+    Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
     departmentStore.createDepartment(editedItem.value)
   }
