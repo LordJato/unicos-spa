@@ -24,8 +24,8 @@
       <div class="pa-2">
         <div class="text-subtitle-1 font-weight-bold">Schedule & Holidays</div>
         <div>
-          <v-list>
-            <v-list-item class="pa-0" v-for="(item, i) in events">
+          <VList>
+            <VListItem class="pa-0" v-for="(item, i) in events">
               <VListItemTitle class="text-body-2">{{
                 item.title
               }}</VListItemTitle>
@@ -33,23 +33,23 @@
                 item.type
               }}</VListItemSubtitle>
               <template v-slot:prepend>
-                <v-chip
+                <VChip
                   class="ma-2"
                   :color="item.type === 'Event' ? 'success' : 'error'"
                   variant="outlined"
                 >
-                  <v-icon
+                  <VIcon
                     :icon="
                       item.type === 'Event' ? 'mdi-party-popper' : 'mdi-beach'
                     "
-                  ></v-icon>
-                </v-chip>
+                  ></VIcon>
+                </VChip>
               </template>
               <template v-slot:append>
                 <span class="text-caption"> {{ formatDate(item.start) }}</span>
               </template>
-            </v-list-item>
-          </v-list>
+            </VListItem>
+          </VList>
         </div>
       </div>
     </VSheet>
