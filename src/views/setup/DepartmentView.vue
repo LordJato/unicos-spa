@@ -1,9 +1,7 @@
 <template>
   <VContainer>
-
     <VCard class="pa-2" elevation="8">
       <VDataTable :headers="tableHeaders" :items="departments" density="compact">
-
         <template v-slot:top>
           <VToolbar color="surface" class="ma-0">
             <VTextField
@@ -18,7 +16,7 @@
               max-width="300"
             ></VTextField>
             <VSpacer />
-            <v-btn
+            <VBtn
               class="mr-2 mb-2 text-caption"
               variant="tonal"
               color="success"
@@ -27,10 +25,10 @@
               density="compact"
             >
               Export
-            </v-btn>
+            </VBtn>
             <VDialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ props }">
-                <v-btn
+                <VBtn
                   class="mb-2 text-caption"
                   variant="tonal"
                   color="secondary"
@@ -40,61 +38,48 @@
                   density="compact"
                 >
                   Create
-                </v-btn>
+                </VBtn>
               </template>
               <VCard>
                 <VCardTitle>
                   <span class="text-h5">{{ formTitle }}</span>
                 </VCardTitle>
-
                 <VCardText>
                   <VContainer>
                     <VForm>
                       <VTextField
-                  v-model="editedItem.name"
-                  class="mt-4"
-                  label="Name"
-                  type="text"
-                  variant="outlined"
-                />
+                        v-model="editedItem.name"
+                        class="mt-4"
+                        label="Name"
+                        type="text"
+                        variant="outlined"
+                      />
                     </VForm>
                   </VContainer>
                 </VCardText>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue-darken-1" variant="text" @click="close">
+                <VCardActions>
+                  <VSpacer></VSpacer>
+                  <VBtn color="blue-darken-1" variant="text" @click="close">
                     Cancel
-                  </v-btn>
-                  <v-btn color="secondary" class="text-caption" variant="flat" @click="save">
+                  </VBtn>
+                  <VBtn color="secondary" class="text-caption" variant="flat" @click="save">
                     Save
-                  </v-btn>
-                </v-card-actions>
+                  </VBtn>
+                </VCardActions>
               </VCard>
             </VDialog>
-
             <VDialog v-model="dialogDelete" max-width="500px">
-              <v-card>
-                <v-card-title class="text-h5"
-                  >Are you sure you want to delete this item?</v-card-title
-                >
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="closeDelete"
-                    >Cancel</v-btn
-                  >
-                  <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="deleteItemConfirm"
-                    >OK</v-btn
-                  >
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-card>
+              <VCard>
+                <VCardTitle class="text-h5">
+                  Are you sure you want to delete this item?
+                </VCardTitle>
+                <VCardActions>
+                  <VSpacer></VSpacer>
+                  <VBtn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</VBtn>
+                  <VBtn color="blue-darken-1" variant="text" @click="deleteItemConfirm">OK</VBtn>
+                  <VSpacer></VSpacer>
+                </VCardActions>
+              </VCard>
             </VDialog>
           </VToolbar>
         </template>
@@ -110,24 +95,19 @@
     </VCard>
   </VContainer>
 </template>
-
 <script setup>
 import { onMounted, computed, nextTick, ref, watch } from "vue";
-
-
 import { useDepartmentStore } from "@/stores/setup/useDepartmentStore";
 import { storeToRefs } from "pinia";
 
 const departmentStore = useDepartmentStore();
-
 const { departments } = storeToRefs(departmentStore);
 
 onMounted(() => {
-  departmentStore.fetchDepartment(); // Fetch departments when the component loads
+  departmentStore.fetchDepartment();
 });
 
 const search = ref("");
-
 const dialog = ref(false);
 const dialogDelete = ref(false);
 const tableHeaders = ref([
@@ -181,7 +161,7 @@ function save() {
   if (editedIndex.value > -1) {
     Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
-    departmentStore.createDepartment(editedItem.value)
+    departmentStore.createDepartment(editedItem.value);
   }
   close();
 }
@@ -192,7 +172,6 @@ watch(dialogDelete, (val) => {
   val || closeDelete();
 });
 </script>
-
 <style lang="scss">
 .v-data-table th {
   padding: 0 !important;

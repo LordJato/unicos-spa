@@ -5,27 +5,27 @@
             <VCardText>
                 <VDataTable v-model="selected" :items="items" item-value="name" :headers="headers" dense>
                     <template v-slot:item.image="{ item }">
-                        <v-avatar size="30" density="compact" class="pa-0">
-                            <v-img :src="item.image" :alt="item.name" />
-                        </v-avatar>
+                        <VAvatar size="30" density="compact" class="pa-0">
+                            <VImg :src="item.image" :alt="item.name" />
+                        </VAvatar>
                     </template>
                     <template v-slot:item.online="{ item }">
-                        <v-chip :color="getColor(item.online)">
+                        <VChip :color="getColor(item.online)">
                             {{ item.online ? 'Online' : 'Offline' }}
-                        </v-chip>
+                        </VChip>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                        <v-icon class="me-2" size="small" @click="editItem(item)" color="secondary">
+                        <VIcon class="me-2" size="small" @click="editItem(item)" color="secondary">
                             mdi-pencil
-                        </v-icon>
-                        <v-icon size="small" @click="deleteItem(item)" color="error">
+                        </VIcon>
+                        <VIcon size="small" @click="deleteItem(item)" color="error">
                             mdi-delete
-                        </v-icon>
+                        </VIcon>
                     </template>
                     <template v-slot:no-data>
-                        <v-btn color="primary" @click="initialize">
+                        <VBtn color="primary" @click="initialize">
                             Reset
-                        </v-btn>
+                        </VBtn>
                     </template>
                 </VDataTable>
             </VCardText>

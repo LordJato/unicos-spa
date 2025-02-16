@@ -3,7 +3,6 @@
       <VCard class="pa-2" elevation="8">
         <VDataTable :headers="tableHeaders" :items="tableItems" density="compact">
           <template v-slot:column.name.header="{ props }">
-            <!-- Customize the header title for 'name' column -->
             <span class="text-h1">{{ props.column.title }}</span>
           </template>
           <template v-slot:top>
@@ -20,7 +19,7 @@
                 max-width="300"
               ></VTextField>
               <VSpacer />
-              <v-btn
+              <VBtn
                 class="mr-2 mb-2 text-caption"
                 variant="tonal"
                 color="success"
@@ -30,10 +29,10 @@
                 density="compact"
               >
                 Export
-              </v-btn>
+              </VBtn>
               <VDialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ props }">
-                  <v-btn
+                  <VBtn
                     class="mb-2 text-caption"
                     variant="tonal"
                     color="secondary"
@@ -43,84 +42,82 @@
                     density="compact"
                   >
                     Create
-                  </v-btn>
+                  </VBtn>
                 </template>
-                <v-card>
-                  <v-card-title>
+                <VCard>
+                  <VCardTitle>
                     <span class="text-h5">{{ formTitle }}</span>
-                  </v-card-title>
+                  </VCardTitle>
   
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" md="4" sm="6">
-                          <v-text-field
+                  <VCardText>
+                    <VContainer>
+                      <VRow>
+                        <VCol cols="12" md="4" sm="6">
+                          <VTextField
                             v-model="editedItem.name"
                             label="Dessert name"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="4" sm="6">
-                          <v-text-field
+                          ></VTextField>
+                        </VCol>
+                        <VCol cols="12" md="4" sm="6">
+                          <VTextField
                             v-model="editedItem.calories"
                             label="Calories"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="4" sm="6">
-                          <v-text-field
+                          ></VTextField>
+                        </VCol>
+                        <VCol cols="12" md="4" sm="6">
+                          <VTextField
                             v-model="editedItem.fat"
                             label="Fat (g)"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="4" sm="6">
-                          <v-text-field
+                          ></VTextField>
+                        </VCol>
+                        <VCol cols="12" md="4" sm="6">
+                          <VTextField
                             v-model="editedItem.carbs"
                             label="Carbs (g)"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" md="4" sm="6">
-                          <v-text-field
+                          ></VTextField>
+                        </VCol>
+                        <VCol cols="12" md="4" sm="6">
+                          <VTextField
                             v-model="editedItem.protein"
                             label="Protein (g)"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
+                          ></VTextField>
+                        </VCol>
+                      </VRow>
+                    </VContainer>
+                  </VCardText>
   
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue-darken-1" variant="text" @click="close">
+                  <VCardActions>
+                    <VSpacer></VSpacer>
+                    <VBtn color="blue-darken-1" variant="text" @click="close">
                       Cancel
-                    </v-btn>
-                    <v-btn color="blue-darken-1" variant="text" @click="save">
+                    </VBtn>
+                    <VBtn color="blue-darken-1" variant="text" @click="save">
                       Save
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
+                    </VBtn>
+                  </VCardActions>
+                </VCard>
               </VDialog>
   
               <VDialog v-model="dialogDelete" max-width="500px">
-                <v-card>
-                  <v-card-title class="text-h5"
-                    >Are you sure you want to delete this item?</v-card-title
-                  >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
+                <VCard>
+                  <VCardTitle class="text-h5">
+                    Are you sure you want to delete this item?
+                  </VCardTitle>
+                  <VCardActions>
+                    <VSpacer></VSpacer>
+                    <VBtn
                       color="blue-darken-1"
                       variant="text"
                       @click="closeDelete"
-                      >Cancel</v-btn
-                    >
-                    <v-btn
+                    >Cancel</VBtn>
+                    <VBtn
                       color="blue-darken-1"
                       variant="text"
                       @click="deleteItemConfirm"
-                      >OK</v-btn
-                    >
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
+                    >OK</VBtn>
+                    <VSpacer></VSpacer>
+                  </VCardActions>
+                </VCard>
               </VDialog>
             </VToolbar>
           </template>
@@ -128,12 +125,15 @@
             <VIcon class="me-2" size="small" @click="editItem(item)">
               mdi-pencil
             </VIcon>
-            <VIcon size="small" color="error" @click="deleteItem(item)"> mdi-delete </VIcon>
+            <VIcon size="small" color="error" @click="deleteItem(item)">
+              mdi-delete
+            </VIcon>
           </template>
         </VDataTable>
       </VCard>
     </VContainer>
   </template>
+
   
   <script setup>
   import { computed, nextTick, ref, watch } from "vue";
