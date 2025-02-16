@@ -4,7 +4,7 @@ import { unwrapSuccessResponse } from "@/utils/apiResponse";
 
 interface Department {
   id: number;
-  companyId: number;
+  companyId: number | null;
   name: string;
 }
 
