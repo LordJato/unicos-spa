@@ -13,26 +13,28 @@ interface State {
   selectedCompany: Company | null;
 }
 
+const API_URL = "companies";
+
 export const useCompanyStore = defineStore("company", {
   state: (): State => ({
     companies: [],
     selectedCompany: null,
   }),
   actions: {
-    // Fetch all Company
+    // Fetch all companies
     async fetchCompany(payload?: Record<string, any>): Promise<void> {
       try {
-        const request = await axios.get("companies", { params: payload });
+        const request = await axios.get(`${API_URL}`, { params: payload });
         const response = unwrapSuccessResponse(request);
         this.companies = response.data.records as Company[];
       } catch (error) {
         console.error("Failed to fetch companies:", error);
       }
     },
-    // Fetch a single Company by ID
+    // Fetch a single company by ID
     async fetchCompanyById(id: number): Promise<void> {
       try {
-        const response = await axios.get(`companies/${id}`);
+        const response = await axios.get(`${API_URL}/${id}`);
         this.selectedCompany = unwrapSuccessResponse(response)
           .data as Company;
       } catch (error) {
@@ -40,28 +42,24 @@ export const useCompanyStore = defineStore("company", {
         throw error;
       }
     },
-    // Create a new Company
+    // Create a new company
     async createCompany(payload: Omit<Company, "id">): Promise<void> {
       try {
-        const request = await axios.post("companies", payload);
+        const request = await axios.post(`${API_URL}`, payload);
         const response = unwrapSuccessResponse(request);
         this.companies.push(response.data.records as Company);
       } catch (error) {
         console.error("Failed to create company:", error);
       }
     },
-
-    //Update an existing Company
-    async updateCompany(
-      id: number,
-      payload: Partial<Omit<Company, "id">>
-    ): Promise<void> {
+    // Update an existing company
+    async updateCompany(id: number, payload: Partial<Omit<Company, "id">>): Promise<void> {
       try {
-        const response = await axios.put(`companies/${id}`, payload);
+        const response = await axios.put(`${API_URL}/${id}`, payload);
         const updatedCompany = unwrapSuccessResponse(response)
           .data as Company;
 
-        const index = this.companies.findIndex((model : Company) => model.id === id);
+        const index = this.companies.findIndex((model: Company) => model.id === id);
         if (index !== -1) {
           this.companies[index] = updatedCompany;
         }
@@ -74,13 +72,12 @@ export const useCompanyStore = defineStore("company", {
         throw error;
       }
     },
-
-    //Delete Company
+    // Delete a company
     async deleteCompany(id: number): Promise<void> {
       try {
-        await axios.delete(`companies/${id}`);
+        await axios.delete(`${API_URL}/${id}`);
 
-        this.companies = this.companies.filter((dept : Company) => dept.id !== id);
+        this.companies = this.companies.filter((model: Company) => model.id !== id);
 
         if (this.selectedCompany?.id === id) {
           this.selectedCompany = null;
@@ -92,5 +89,6 @@ export const useCompanyStore = defineStore("company", {
     },
   },
 });
+
 
 export default useCompanyStore;
