@@ -13,26 +13,26 @@ interface State {
   selectedDepartment: Department | null;
 }
 
+const API_URL = "setup/departments";
+
 export const useDepartmentStore = defineStore("department", {
   state: (): State => ({
     departments: [],
     selectedDepartment: null,
   }),
   actions: {
-    // Fetch all departments
     async fetchDepartment(payload?: Record<string, any>): Promise<void> {
       try {
-        const request = await axios.get("departments", { params: payload });
+        const request = await axios.get(`${API_URL}`, { params: payload });
         const response = unwrapSuccessResponse(request);
         this.departments = response.data.records as Department[];
       } catch (error) {
         console.error("Failed to fetch departments:", error);
       }
     },
-    // Fetch a single department by ID
     async fetchDepartmentById(id: number): Promise<void> {
       try {
-        const response = await axios.get(`departments/${id}`);
+        const response = await axios.get(`${API_URL}/${id}`);
         this.selectedDepartment = unwrapSuccessResponse(response)
           .data as Department;
       } catch (error) {
@@ -40,28 +40,22 @@ export const useDepartmentStore = defineStore("department", {
         throw error;
       }
     },
-    // Create a new department
     async createDepartment(payload: Omit<Department, "id">): Promise<void> {
       try {
-        const request = await axios.post("departments", payload);
+        const request = await axios.post(`${API_URL}`, payload);
         const response = unwrapSuccessResponse(request);
         this.departments.push(response.data.records as Department);
       } catch (error) {
         console.error("Failed to create department:", error);
       }
     },
-
-    //Update an existing department
-    async updateDepartment(
-      id: number,
-      payload: Partial<Omit<Department, "id">>
-    ): Promise<void> {
+    async updateDepartment(id: number, payload: Partial<Omit<Department, "id">>): Promise<void> {
       try {
-        const response = await axios.put(`departments/${id}`, payload);
+        const response = await axios.put(`${API_URL}/${id}`, payload);
         const updatedDepartment = unwrapSuccessResponse(response)
           .data as Department;
 
-        const index = this.departments.findIndex((dept : Department) => dept.id === id);
+        const index = this.departments.findIndex((dept: Department) => dept.id === id);
         if (index !== -1) {
           this.departments[index] = updatedDepartment;
         }
@@ -74,13 +68,11 @@ export const useDepartmentStore = defineStore("department", {
         throw error;
       }
     },
-
-    //Delete Department
     async deleteDepartment(id: number): Promise<void> {
       try {
-        await axios.delete(`departments/${id}`);
+        await axios.delete(`${API_URL}/${id}`);
 
-        this.departments = this.departments.filter((dept : Department) => dept.id !== id);
+        this.departments = this.departments.filter((dept: Department) => dept.id !== id);
 
         if (this.selectedDepartment?.id === id) {
           this.selectedDepartment = null;
@@ -92,5 +84,6 @@ export const useDepartmentStore = defineStore("department", {
     },
   },
 });
+
 
 export default useDepartmentStore;
