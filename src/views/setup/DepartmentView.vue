@@ -1,3 +1,98 @@
+<script setup lang="ts">
+import { onMounted, computed, nextTick, ref, watch } from "vue";
+import type { Department } from "@/types/department";
+import departmentService from "@/services/setup/departmentService";
+
+//State
+const departments = ref<Department[]>([]);
+const search = ref("");
+const dialog = ref(false);
+const dialogDelete = ref(false);
+const tableHeaders = ref([
+  {
+    title: "Name",
+    align: "start" as const,
+    sortable: true,
+    key: "name",
+  },
+  {
+    title: "Actions",
+    key: "actions",
+    sortable: false,
+    align: "end" as const,
+  },
+]);
+const editedIndex = ref(-1);
+const editedItem = ref({
+  name: "",
+});
+const defaultItem = ref({
+  name: "",
+});
+
+// Computed Properties
+const formTitle = computed(() => {
+  return editedIndex.value === -1 ? "New Department" : "Edit Department";
+});
+
+// Methods
+const initializeDepartments = async () => {
+  try {
+    departments.value = await departmentService.fetchDepartments();
+  } catch (error) {
+    console.error("Error fetching departments:", error);
+  }
+};
+
+function editItem(item) {
+  editedIndex.value = departments.value.indexOf(item);
+  editedItem.value = Object.assign({}, item);
+  dialog.value = true;
+}
+function deleteItem(item) {
+  editedIndex.value = departments.value.indexOf(item);
+  editedItem.value = Object.assign({}, item);
+  dialogDelete.value = true;
+}
+function deleteItemConfirm() {
+  departments.value.splice(editedIndex.value, 1);
+  closeDelete();
+}
+function close() {
+  dialog.value = false;
+  nextTick(() => {
+    editedItem.value = Object.assign({}, defaultItem.value);
+    editedIndex.value = -1;
+  });
+}
+function closeDelete() {
+  dialogDelete.value = false;
+  nextTick(() => {
+    editedItem.value = Object.assign({}, defaultItem.value);
+    editedIndex.value = -1;
+  });
+}
+function save() {
+  if (editedIndex.value > -1) {
+    Object.assign(departments.value[editedIndex.value], editedItem.value);
+  } else {
+    // departmentStore.createDepartment(editedItem.value);
+  }
+  close();
+}
+watch(dialog, (val) => {
+  val || close();
+});
+watch(dialogDelete, (val) => {
+  val || closeDelete();
+});
+
+// Lifecycle Hooks
+onMounted(async () => {
+  initializeDepartments();
+});
+</script>
+
 <template>
   <VContainer>
     <VCard class="pa-2" elevation="8">
@@ -114,86 +209,7 @@
     </VCard>
   </VContainer>
 </template>
-<script setup lang="ts">
-import { onMounted, computed, nextTick, ref, watch } from "vue";
-import type { Department } from "@/types/department";
-import departmentService from "@/services/setup/departmentService";
 
-const departments = ref<Department[]>([]);
-
-onMounted(async () => {
-  try {
-    departments.value = await departmentService.fetchDepartments();
-  } catch (error) {
-    console.error("Error fetching departments:", error);
-  }
-});
-
-const search = ref("");
-const dialog = ref(false);
-const dialogDelete = ref(false);
-const tableHeaders = ref([
-  {
-    title: "Name",
-    align: "start",
-    sortable: true,
-    key: "name",
-  },
-  { title: "Actions", key: "actions", sortable: false },
-]);
-const editedIndex = ref(-1);
-const editedItem = ref({
-  name: "",
-});
-const defaultItem = ref({
-  name: "",
-});
-const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Department" : "Edit Department";
-});
-function editItem(item) {
-  editedIndex.value = departments.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
-  dialog.value = true;
-}
-function deleteItem(item) {
-  editedIndex.value = departments.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
-  dialogDelete.value = true;
-}
-function deleteItemConfirm() {
-  departments.value.splice(editedIndex.value, 1);
-  closeDelete();
-}
-function close() {
-  dialog.value = false;
-  nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
-    editedIndex.value = -1;
-  });
-}
-function closeDelete() {
-  dialogDelete.value = false;
-  nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
-    editedIndex.value = -1;
-  });
-}
-function save() {
-  if (editedIndex.value > -1) {
-    Object.assign(departments.value[editedIndex.value], editedItem.value);
-  } else {
-    // departmentStore.createDepartment(editedItem.value);
-  }
-  close();
-}
-watch(dialog, (val) => {
-  val || close();
-});
-watch(dialogDelete, (val) => {
-  val || closeDelete();
-});
-</script>
 <style lang="scss">
 .v-data-table th {
   padding: 0 !important;
