@@ -1,11 +1,11 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import { Department } from "@/types/department";
+import type { Department } from "@/types/department";
 
 const API_URL = "setup/departments";
 
 export default {
-  
+
   // Fetch all departments
   async fetchDepartments(payload?: Record<string, any>) {
     try {

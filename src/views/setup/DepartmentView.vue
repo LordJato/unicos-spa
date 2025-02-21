@@ -1,7 +1,11 @@
 <template>
   <VContainer>
     <VCard class="pa-2" elevation="8">
-      <VDataTable :headers="tableHeaders" :items="departments" density="compact">
+      <VDataTable
+        :headers="tableHeaders"
+        :items="departments"
+        density="compact"
+      >
         <template v-slot:top>
           <VToolbar color="surface" class="ma-0">
             <VTextField
@@ -62,7 +66,12 @@
                   <VBtn color="blue-darken-1" variant="text" @click="close">
                     Cancel
                   </VBtn>
-                  <VBtn color="secondary" class="text-caption" variant="flat" @click="save">
+                  <VBtn
+                    color="secondary"
+                    class="text-caption"
+                    variant="flat"
+                    @click="save"
+                  >
                     Save
                   </VBtn>
                 </VCardActions>
@@ -75,8 +84,18 @@
                 </VCardTitle>
                 <VCardActions>
                   <VSpacer></VSpacer>
-                  <VBtn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</VBtn>
-                  <VBtn color="blue-darken-1" variant="text" @click="deleteItemConfirm">OK</VBtn>
+                  <VBtn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="closeDelete"
+                    >Cancel</VBtn
+                  >
+                  <VBtn
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="deleteItemConfirm"
+                    >OK</VBtn
+                  >
                   <VSpacer></VSpacer>
                 </VCardActions>
               </VCard>
@@ -95,16 +114,19 @@
     </VCard>
   </VContainer>
 </template>
-<script setup>
+<script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch } from "vue";
-import { useDepartmentStore } from "@/stores/setup/useDepartmentStore";
-import { storeToRefs } from "pinia";
+import type { Department } from "@/types/department";
+import departmentService from "@/services/setup/departmentService";
 
-const departmentStore = useDepartmentStore();
-const { departments } = storeToRefs(departmentStore);
+const departments = ref<Department[]>([]);
 
-onMounted(() => {
-  departmentStore.fetchDepartment();
+onMounted(async () => {
+  try {
+    departments.value = await departmentService.fetchDepartments();
+  } catch (error) {
+    console.error("Error fetching departments:", error);
+  }
 });
 
 const search = ref("");
@@ -161,7 +183,7 @@ function save() {
   if (editedIndex.value > -1) {
     Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
-    departmentStore.createDepartment(editedItem.value);
+    // departmentStore.createDepartment(editedItem.value);
   }
   close();
 }
