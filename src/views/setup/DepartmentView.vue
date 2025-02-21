@@ -35,6 +35,14 @@ const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
 });
 
+// Watchers
+watch(dialog, (val) => {
+  val || close();
+});
+watch(dialogDelete, (val) => {
+  val || closeDelete();
+});
+
 // Methods
 const initializeDepartments = async () => {
   try {
@@ -44,48 +52,51 @@ const initializeDepartments = async () => {
   }
 };
 
-function editItem(item) {
+const editItem = (item) => {
   editedIndex.value = departments.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
+  editedItem.value = { ...item };
   dialog.value = true;
-}
-function deleteItem(item) {
+};
+
+const deleteItem = (item) => {
   editedIndex.value = departments.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
+  editedItem.value = { ...item };
   dialogDelete.value = true;
-}
-function deleteItemConfirm() {
+};
+
+const deleteItemConfirm = () => {
   departments.value.splice(editedIndex.value, 1);
   closeDelete();
-}
-function close() {
+};
+
+const close = () => {
   dialog.value = false;
   nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
+    editedItem.value = { ...defaultItem.value };
     editedIndex.value = -1;
   });
-}
-function closeDelete() {
+};
+
+const closeDelete = () => {
   dialogDelete.value = false;
   nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
+    editedItem.value = { ...defaultItem.value };
     editedIndex.value = -1;
   });
-}
-function save() {
+};
+
+const save = () => {
   if (editedIndex.value > -1) {
     Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
     // departmentStore.createDepartment(editedItem.value);
   }
   close();
-}
-watch(dialog, (val) => {
-  val || close();
-});
-watch(dialogDelete, (val) => {
-  val || closeDelete();
-});
+};
+
+
+
+
 
 // Lifecycle Hooks
 onMounted(async () => {
