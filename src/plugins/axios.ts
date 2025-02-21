@@ -70,7 +70,7 @@ instance.interceptors.response.use(
         router.push({ name: 'Login' });
       }
     }
-
+    console.error("API Error:", error);
     return Promise.reject(error);
   }
 );
