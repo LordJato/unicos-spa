@@ -25,9 +25,13 @@ const tableHeaders = ref([
 ]);
 const editedIndex = ref(-1);
 const editedItem = ref({
+  id: "",
+  companyId: null,
   name: "",
 });
 const defaultItem = ref({
+  id: "",
+  companyId: null,
   name: "",
 });
 
@@ -104,7 +108,7 @@ const save = () => {
   if (editedIndex.value > -1) {
     Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
-    // departmentStore.createDepartment(editedItem.value);
+    departmentService.createDepartment(editedItem.value);
   }
   close();
 };
