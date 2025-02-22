@@ -30,6 +30,18 @@ const defaultItem = ref({
   name: "",
 });
 
+const breadcrumbsItems = [
+  {
+    title: "Setup",
+    disabled: true,
+    to: null,
+  },
+  {
+    title: "Departments",
+    disabled: false,
+    to: { name: "SetupDepartment" }, // Use route name
+  },
+];
 // Computed Properties
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
@@ -94,10 +106,6 @@ const save = () => {
   close();
 };
 
-
-
-
-
 // Lifecycle Hooks
 onMounted(async () => {
   initializeDepartments();
@@ -106,7 +114,23 @@ onMounted(async () => {
 
 <template>
   <VContainer>
-    <VCard class="pa-2" elevation="8">
+    <v-breadcrumbs :items="breadcrumbsItems">
+      <template v-slot:divider>
+        <v-icon icon="mdi-chevron-right"></v-icon>
+      </template>
+
+      <template v-slot:item="{ item }">
+        <template v-if="item.to">
+          <router-link :to="item.to">
+            {{ item.title }}
+          </router-link>
+        </template>
+        <template v-else>
+          <span>{{ item.title }}</span>
+        </template>
+      </template>
+    </v-breadcrumbs>
+    <VCard class="pa-4" elevation="8">
       <VDataTable
         :headers="tableHeaders"
         :items="departments"

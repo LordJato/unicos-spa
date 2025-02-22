@@ -15,6 +15,7 @@ import { createApp } from 'vue';
 
 // Utility
 import can from './helpers/can';
+import './styles/main.scss';
 
 const app = createApp(App);
 
