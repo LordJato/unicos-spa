@@ -5,6 +5,7 @@ import departmentService from "@/services/setup/departmentService";
 
 //State
 const departments = ref<Department[]>([]);
+const loadingTable = ref<boolean>(true);
 const search = ref("");
 const dialog = ref(false);
 const dialogDelete = ref(false);
@@ -61,6 +62,8 @@ const initializeDepartments = async () => {
     departments.value = await departmentService.fetchDepartments();
   } catch (error) {
     console.error("Error fetching departments:", error);
+  } finally {
+    loadingTable.value = false
   }
 };
 
@@ -135,6 +138,8 @@ onMounted(async () => {
         :headers="tableHeaders"
         :items="departments"
         density="compact"
+        loading-text="Loading... Please wait"
+        :loading="loadingTable"
       >
         <template v-slot:top>
           <VToolbar color="surface" class="ma-0">
