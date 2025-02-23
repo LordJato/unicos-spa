@@ -190,7 +190,7 @@ const rules = {
   name: validationRules.name,
   email: validationRules.email,
   password: validationRules.password,
-  password_confirmation: validationRules.password_confirmation(form),
+  password_confirmation: validationRules.passwordConfirmation(form),
 };
 
 const register = async () => {

@@ -6,7 +6,7 @@ interface ValidationForm {
   name: string;
   email: string;
   password: string;
-  password_confirmation: string;
+  passwordConfirmation: string;
 }
 
 export const validationRules: FormValidationRules<ValidationForm> = {
@@ -18,7 +18,7 @@ export const validationRules: FormValidationRules<ValidationForm> = {
     (v) => v.length <= 100 || "Email should not be greater than 100 characters",
   ],
   password: [(v) => !!v || "Password is required"],
-  password_confirmation: (form) => [
+  passwordConfirmation: (form) => [
     (v) => !!v || "Password confirmation is required",
     (v) => v === form.password || "Passwords must match",
   ],

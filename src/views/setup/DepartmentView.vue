@@ -6,9 +6,6 @@ import departmentService from "@/services/setup/departmentService";
 //State
 const departments = ref<Department[]>([]);
 const loadingTable = ref<boolean>(true);
-const search = ref("");
-const dialog = ref(false);
-const dialogDelete = ref(false);
 const tableHeaders = ref([
   {
     title: "Name",
@@ -23,6 +20,10 @@ const tableHeaders = ref([
     align: "end" as const,
   },
 ]);
+
+const search = ref("");
+const dialog = ref(false);
+const dialogDelete = ref(false);
 const editedIndex = ref(-1);
 const editedItem = ref({
   id: "",
@@ -44,9 +45,10 @@ const breadcrumbsItems = [
   {
     title: "Departments",
     disabled: false,
-    to: { name: "SetupDepartment" }, // Use route name
+    to: { name: "SetupDepartment" },
   },
 ];
+
 // Computed Properties
 const formTitle = computed(() => {
   return editedIndex.value === -1 ? "New Department" : "Edit Department";
@@ -67,7 +69,7 @@ const initializeDepartments = async () => {
   } catch (error) {
     console.error("Error fetching departments:", error);
   } finally {
-    loadingTable.value = false
+    loadingTable.value = false;
   }
 };
 
@@ -160,7 +162,7 @@ onMounted(async () => {
             ></VTextField>
             <VSpacer />
             <VBtn
-              class="mr-2 mb-2 text-caption"
+              class="mr-2 mb-2"
               variant="tonal"
               color="success"
               dark
@@ -172,7 +174,7 @@ onMounted(async () => {
             <VDialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ props }">
                 <VBtn
-                  class="mb-2 text-caption"
+                  class="mb-2"
                   variant="tonal"
                   color="secondary"
                   dark
@@ -183,9 +185,16 @@ onMounted(async () => {
                   Create
                 </VBtn>
               </template>
-              <VCard>
+              <VCard class="position-relative">
+                <VBtn
+                  icon="mdi-close"
+                  variant="text"
+                  size="small"
+                  class="position-absolute top-0 right-0"
+                  @click="close"
+                ></VBtn>
                 <VCardTitle>
-                  <span class="text-h5">{{ formTitle }}</span>
+                  <span class="text-h6">{{ formTitle }}</span>
                 </VCardTitle>
                 <VCardText>
                   <VContainer>
@@ -202,12 +211,9 @@ onMounted(async () => {
                 </VCardText>
                 <VCardActions>
                   <VSpacer></VSpacer>
-                  <VBtn color="blue-darken-1" variant="text" @click="close">
-                    Cancel
-                  </VBtn>
                   <VBtn
                     color="secondary"
-                    class="text-caption"
+                    class="px-2"
                     variant="flat"
                     @click="save"
                   >
@@ -217,7 +223,14 @@ onMounted(async () => {
               </VCard>
             </VDialog>
             <VDialog v-model="dialogDelete" max-width="500px">
-              <VCard>
+              <VCard class="position-relative">
+                <VBtn
+                  icon="mdi-close"
+                  variant="text"
+                  size="small"
+                  class="position-absolute top-0 end-0 mt-2 me-2"
+                ></VBtn>
+
                 <VCardTitle class="text-h5">
                   Are you sure you want to delete this item?
                 </VCardTitle>
