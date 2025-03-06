@@ -75,7 +75,7 @@ export const useUserStore = defineStore('user', {
 
     async profile(): Promise<ApiResponse<UserDetails>> {
       try {
-        const profile = await axios.get('user/profile');
+        const profile = await axios.get('user');
         const response: ApiResponse = unwrapSuccessResponse(profile).data
         this.userDetails = response;
         return response;
