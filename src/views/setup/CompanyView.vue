@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch } from "vue";
 import type { Company } from "@/types/company";
-import departmentService from "@/services/setup/departmentService";
+import companyService from "@/services/setup/companyService";
 
 //State
 const departments = ref<Company[]>([]);
@@ -65,7 +65,7 @@ watch(dialogDelete, (val) => {
 // Methods
 const initializeDepartments = async () => {
   try {
-    departments.value = await departmentService.fetchDepartments();
+    departments.value = await companyService.fetchCompanies();
   } catch (error) {
     console.error("Error fetching departments:", error);
   } finally {
@@ -110,7 +110,7 @@ const save = () => {
   if (editedIndex.value > -1) {
     Object.assign(departments.value[editedIndex.value], editedItem.value);
   } else {
-    departmentService.createDepartment(editedItem.value);
+    companyService.createCompany(editedItem.value);
   }
   close();
 };
