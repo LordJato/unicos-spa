@@ -45,7 +45,7 @@ const breadcrumbsItems = [
   {
     title: "Companies",
     disabled: false,
-    to: { name: "SetupDepartment" },
+    to: { name: "SetupCompany" },
   },
 ];
 
