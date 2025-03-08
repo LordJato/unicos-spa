@@ -4,7 +4,7 @@ import type { Company } from "@/types/company";
 import companyService from "@/services/setup/companyService";
 
 //State
-const departments = ref<Company[]>([]);
+const companies = ref<Company[]>([]);
 const loadingTable = ref<boolean>(true);
 const tableHeaders = ref([
   {
@@ -43,7 +43,7 @@ const breadcrumbsItems = [
     to: null,
   },
   {
-    title: "Departments",
+    title: "Companies",
     disabled: false,
     to: { name: "SetupDepartment" },
   },
@@ -51,7 +51,7 @@ const breadcrumbsItems = [
 
 // Computed Properties
 const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Department" : "Edit Department";
+  return editedIndex.value === -1 ? "New Company" : "Edit Company";
 });
 
 // Watchers
@@ -63,30 +63,30 @@ watch(dialogDelete, (val) => {
 });
 
 // Methods
-const initializeDepartments = async () => {
+const initializeCompanies = async () => {
   try {
-    departments.value = await companyService.fetchCompanies();
+    companies.value = await companyService.fetchCompanies();
   } catch (error) {
-    console.error("Error fetching departments:", error);
+    console.error("Error fetching companies:", error);
   } finally {
     loadingTable.value = false;
   }
 };
 
 const editItem = (item) => {
-  editedIndex.value = departments.value.indexOf(item);
+  editedIndex.value = companies.value.indexOf(item);
   editedItem.value = { ...item };
   dialog.value = true;
 };
 
 const deleteItem = (item) => {
-  editedIndex.value = departments.value.indexOf(item);
+  editedIndex.value = companies.value.indexOf(item);
   editedItem.value = { ...item };
   dialogDelete.value = true;
 };
 
 const deleteItemConfirm = () => {
-  departments.value.splice(editedIndex.value, 1);
+  companies.value.splice(editedIndex.value, 1);
   closeDelete();
 };
 
@@ -108,7 +108,7 @@ const closeDelete = () => {
 
 const save = () => {
   if (editedIndex.value > -1) {
-    Object.assign(departments.value[editedIndex.value], editedItem.value);
+    Object.assign(companies.value[editedIndex.value], editedItem.value);
   } else {
     companyService.createCompany(editedItem.value);
   }
@@ -117,7 +117,7 @@ const save = () => {
 
 // Lifecycle Hooks
 onMounted(async () => {
-  initializeDepartments();
+  initializeCompanies();
 });
 </script>
 
@@ -142,7 +142,7 @@ onMounted(async () => {
     <VCard class="pa-4" elevation="8">
       <VDataTable
         :headers="tableHeaders"
-        :items="departments"
+        :items="companies"
         density="compact"
         loading-text="Loading... Please wait"
         :loading="loadingTable"
