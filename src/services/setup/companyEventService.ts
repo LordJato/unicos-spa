@@ -51,7 +51,7 @@ export default {
   },
 
   // Delete a company event
-  async deleteCompany(id: number) {
+  async deleteCompanyEvent(id: number) {
     try {
       await axios.delete(`${API_URL}/${id}`);
     } catch (error) {
