@@ -41,11 +41,15 @@
           <VListItem
             v-for="(subItem, index) in item.listGroup"
             :key="index"
-            :title="subItem.title"
+            
             @click="$router.push({ name: subItem.link })"
             :class="{ 'v-list-item--active': $route.name === subItem.link }"
-            class="text-subtitle-2"
-          />
+          >
+          <VListItemSubtitle class="text-caption"> 
+            {{ subItem.title }}
+          </VListItemSubtitle>
+          </VListItem>
+
         </VListGroup>
       </template>
     </VList>
