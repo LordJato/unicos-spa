@@ -43,15 +43,15 @@ const breadcrumbsItems = [
     to: null,
   },
   {
-    title: "Companies",
+    title: "Holiday",
     disabled: false,
-    to: { name: "SetupCompany" },
+    to: { name: "SetupHoliday" },
   },
 ];
 
 // Computed Properties
 const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Company" : "Edit Company";
+  return editedIndex.value === -1 ? "New Holiday" : "Edit Holiday";
 });
 
 // Watchers
@@ -63,11 +63,11 @@ watch(dialogDelete, (val) => {
 });
 
 // Methods
-const initializeCompanies = async () => {
+const initializeHolidays = async () => {
   try {
     holidays.value = await holidayService.fetchHolidays();
   } catch (error) {
-    console.error("Error fetching companies:", error);
+    console.error("Error fetching holidays:", error);
   } finally {
     loadingTable.value = false;
   }
@@ -117,7 +117,7 @@ const save = () => {
 
 // Lifecycle Hooks
 onMounted(async () => {
-  initializeCompanies();
+  initializeHolidays();
 });
 </script>
 

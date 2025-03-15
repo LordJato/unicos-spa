@@ -64,6 +64,8 @@ export const menuItems: MenuItem[] = [
     listGroup: [
       { title: "Company", icon: "", link: "SetupCompany" },
       { title: "Department", icon: "", link: "SetupDepartment" },
+      { title: "Event (Company)", icon: "", link: "SetupCompanyEvent" },
+      { title: "Holiday", icon: "", link: "SetupHoliday" },
       { title: "SSS", icon: "", link: "SetupSSS" },
       { title: "Philhealth", icon: "", link: "SetupPhilhealth" },
       { title: "Pagibig", icon: "", link: "SetupPagibig" },
