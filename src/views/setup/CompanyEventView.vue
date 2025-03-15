@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch } from "vue";
-import type { Company } from "@/types/company";
-import companyService from "@/services/setup/companyService";
+import companyEventService from "@/services/setup/companyEventService";
+import { CompanyEvent } from "@/types/companyEvent";
 
 //State
-const companies = ref<Company[]>([]);
+const companyEvents = ref<CompanyEvent[]>([]);
 const loadingTable = ref<boolean>(true);
 const tableHeaders = ref([
   {
@@ -43,15 +43,15 @@ const breadcrumbsItems = [
     to: null,
   },
   {
-    title: "Companies",
+    title: "Event (Company)",
     disabled: false,
-    to: { name: "SetupCompany" },
+    to: { name: "SetupCompanyEvent" },
   },
 ];
 
 // Computed Properties
 const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Company" : "Edit Company";
+  return editedIndex.value === -1 ? "New Company Event" : "Edit Company Event";
 });
 
 // Watchers
@@ -63,30 +63,30 @@ watch(dialogDelete, (val) => {
 });
 
 // Methods
-const initializeCompanies = async () => {
+const initializeCompanyEvents = async () => {
   try {
-    companies.value = await companyService.fetchCompanies();
+    companyEvents.value = await companyEventService.fetchCompanyEvents();
   } catch (error) {
-    console.error("Error fetching companies:", error);
+    console.error("Error fetching company events:", error);
   } finally {
     loadingTable.value = false;
   }
 };
 
 const editItem = (item) => {
-  editedIndex.value = companies.value.indexOf(item);
+  editedIndex.value = companyEvents.value.indexOf(item);
   editedItem.value = { ...item };
   dialog.value = true;
 };
 
 const deleteItem = (item) => {
-  editedIndex.value = companies.value.indexOf(item);
+  editedIndex.value = companyEvents.value.indexOf(item);
   editedItem.value = { ...item };
   dialogDelete.value = true;
 };
 
 const deleteItemConfirm = () => {
-  companies.value.splice(editedIndex.value, 1);
+  companyEvents.value.splice(editedIndex.value, 1);
   closeDelete();
 };
 
@@ -108,16 +108,16 @@ const closeDelete = () => {
 
 const save = () => {
   if (editedIndex.value > -1) {
-    Object.assign(companies.value[editedIndex.value], editedItem.value);
+    Object.assign(companyEvents.value[editedIndex.value], editedItem.value);
   } else {
-    companyService.createCompany(editedItem.value);
+    companyEventService.createCompanyEvent(editedItem.value);
   }
   close();
 };
 
 // Lifecycle Hooks
 onMounted(async () => {
-  initializeCompanies();
+  initializeCompanyEvents();
 });
 </script>
 
@@ -142,7 +142,7 @@ onMounted(async () => {
     <VCard class="pa-4" elevation="8">
       <VDataTable
         :headers="tableHeaders"
-        :items="companies"
+        :items="companyEvents"
         density="compact"
         loading-text="Loading... Please wait"
         :loading="loadingTable"
