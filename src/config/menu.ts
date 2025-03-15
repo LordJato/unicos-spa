@@ -62,11 +62,11 @@ export const menuItems: MenuItem[] = [
     title: "Setup",
     icon: "mdi-cog",
     listGroup: [
-      { title: "Company", icon: "mdi-domain", link: "SetupCompany" },
-      { title: "Department", icon: "mdi-alpha-s-box", link: "SetupDepartment" },
-      { title: "SSS", icon: "mdi-alpha-s-box", link: "SetupSSS" },
-      { title: "Philhealth", icon: "mdi-alpha-p-box", link: "SetupPhilhealth" },
-      { title: "Pagibig", icon: "mdi-hand-extended", link: "SetupPagibig" },
+      { title: "Company", icon: "", link: "SetupCompany" },
+      { title: "Department", icon: "", link: "SetupDepartment" },
+      { title: "SSS", icon: "", link: "SetupSSS" },
+      { title: "Philhealth", icon: "", link: "SetupPhilhealth" },
+      { title: "Pagibig", icon: "", link: "SetupPagibig" },
     ],
   },
 ];

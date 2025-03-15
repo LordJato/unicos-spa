@@ -1,4 +1,4 @@
-import CompanyEvent from "@/views/setup/CompanyEvent.vue";
+import CompanyEvent from "@/views/setup/CompanyEventView.vue";
 import CompanyView from "@/views/setup/CompanyView.vue";
 import DepartmentView from "@/views/setup/DepartmentView.vue";
 import HolidayView from "@/views/setup/HolidayView.vue";

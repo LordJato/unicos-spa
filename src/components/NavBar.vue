@@ -42,9 +42,9 @@
             v-for="(subItem, index) in item.listGroup"
             :key="index"
             :title="subItem.title"
-            :prepend-icon="subItem.icon"
             @click="$router.push({ name: subItem.link })"
             :class="{ 'v-list-item--active': $route.name === subItem.link }"
+            class="text-subtitle-2"
           />
         </VListGroup>
       </template>
