@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed, nextTick, ref, watch } from "vue";
+import { onMounted, computed, nextTick, ref, watch, shallowRef } from "vue";
 import type { Company } from "@/types/company";
 import companyService from "@/services/companyService";
 
@@ -21,20 +21,14 @@ const tableHeaders = ref([
   },
 ]);
 
+const DEFAULT_RECORD: Partial<Company> = { id: 0, companyId: null, name: "" };
+const isEditing = shallowRef<boolean>(false);
+const record = ref<Partial<Company>>({ ...DEFAULT_RECORD });
+const dialog = shallowRef<boolean>(false);
+
 const search = ref("");
-const dialog = ref(false);
+
 const dialogDelete = ref(false);
-const editedIndex = ref(-1);
-const editedItem = ref({
-  id: "",
-  companyId: null,
-  name: "",
-});
-const defaultItem = ref({
-  id: "",
-  companyId: null,
-  name: "",
-});
 
 const breadcrumbsItems = [
   {
@@ -51,15 +45,12 @@ const breadcrumbsItems = [
 
 // Computed Properties
 const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Company" : "Edit Company";
+  return isEditing.value ? "New Company" : "Edit Company";
 });
 
 // Watchers
 watch(dialog, (val) => {
   val || close();
-});
-watch(dialogDelete, (val) => {
-  val || closeDelete();
 });
 
 // Methods
@@ -73,46 +64,40 @@ const initializeCompanies = async () => {
   }
 };
 
-const editItem = (item) => {
-  editedIndex.value = companies.value.indexOf(item);
-  editedItem.value = { ...item };
+function add() {
+  isEditing.value = false;
+  record.value = DEFAULT_RECORD;
   dialog.value = true;
-};
+}
 
-const deleteItem = (item) => {
-  editedIndex.value = companies.value.indexOf(item);
-  editedItem.value = { ...item };
-  dialogDelete.value = true;
-};
+function edit(id: number) {
+  isEditing.value = true;
 
-const deleteItemConfirm = () => {
-  companies.value.splice(editedIndex.value, 1);
-  closeDelete();
-};
+  const found = companies.value.find((item) => item.id === id);
 
-const close = () => {
-  dialog.value = false;
-  nextTick(() => {
-    editedItem.value = { ...defaultItem.value };
-    editedIndex.value = -1;
-  });
-};
+  record.value = {
+    id: found.id,
+    companyId : found.companyId,
+    name : found.name
+  };
 
-const closeDelete = () => {
-  dialogDelete.value = false;
-  nextTick(() => {
-    editedItem.value = { ...defaultItem.value };
-    editedIndex.value = -1;
-  });
-};
+  dialog.value = true;
+}
+
+function remove (id : number) {
+    const index = companies.value.findIndex(item => item.id === id)
+    companies.value.splice(index, 1)
+  }
+
 
 const save = () => {
-  if (editedIndex.value > -1) {
-    Object.assign(companies.value[editedIndex.value], editedItem.value);
-  } else {
-    companyService.createCompany(editedItem.value);
-  }
-  close();
+  if (isEditing.value) {
+      const index = companies.value.findIndex(book => book.id === record.value.id)
+    } else {
+      record.value.id = companies.value.length + 1
+    }
+
+    dialog.value = false
 };
 
 // Lifecycle Hooks
@@ -191,7 +176,7 @@ onMounted(async () => {
                   variant="text"
                   size="small"
                   class="position-absolute top-0 right-0"
-                  @click="close"
+                  @click="dialog = false;"
                 ></VBtn>
                 <VCardTitle>
                   <span class="text-h6">{{ formTitle }}</span>
@@ -200,7 +185,7 @@ onMounted(async () => {
                   <VContainer>
                     <VForm>
                       <VTextField
-                        v-model="editedItem.name"
+                        v-model="record.name"
                         class="mt-4"
                         label="Name"
                         type="text"
@@ -239,13 +224,13 @@ onMounted(async () => {
                   <VBtn
                     color="blue-darken-1"
                     variant="text"
-                    @click="closeDelete"
+                    @click="dialog = false"
                     >Cancel</VBtn
                   >
                   <VBtn
                     color="blue-darken-1"
                     variant="text"
-                    @click="deleteItemConfirm"
+                    @click="dialog = false"
                     >OK</VBtn
                   >
                   <VSpacer></VSpacer>
@@ -255,10 +240,10 @@ onMounted(async () => {
           </VToolbar>
         </template>
         <template v-slot:item.actions="{ item }">
-          <VIcon class="me-2" size="small" @click="editItem(item)">
+          <VIcon class="me-2" size="small" @click="edit(item.id)">
             mdi-pencil
           </VIcon>
-          <VIcon size="small" color="error" @click="deleteItem(item)">
+          <VIcon size="small" color="error" @click="remove(item.id)">
             mdi-delete
           </VIcon>
         </template>
