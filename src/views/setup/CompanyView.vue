@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch } from "vue";
 import type { Company } from "@/types/company";
-import companyService from "@/services/setup/companyService";
+import companyService from "@/services/companyService";
 
 //State
 const companies = ref<Company[]>([]);
