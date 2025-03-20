@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 import type { Company } from "@/types/company";
 
-const API_URL = "setup/company-event";
+const API_URL = "setup/company-events";
 
 export default {
 
