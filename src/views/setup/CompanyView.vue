@@ -45,7 +45,7 @@ const breadcrumbsItems = [
 
 // Computed Properties
 const formTitle = computed(() => {
-  return isEditing.value ? "New Company" : "Edit Company";
+  return isEditing.value ? "Edit Company" : "New Company";
 });
 
 // Watchers
