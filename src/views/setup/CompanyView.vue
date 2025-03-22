@@ -90,14 +90,24 @@ function remove (id : number) {
   }
 
 
-const save = () => {
-  if (isEditing.value) {
-      const index = companies.value.findIndex(book => book.id === record.value.id)
+const save = async () => {
+  try {
+    if (isEditing.value) {
+      await companyService.updateCompany(record.value.id!, {
+        companyId: record.value.companyId,
+        name: record.value.name,
+      });
     } else {
-      record.value.id = companies.value.length + 1
+      await companyService.createCompany({
+        companyId: record.value.companyId!,
+        name: record.value.name!,
+      });
     }
-
-    dialog.value = false
+  } catch (error) {
+    console.error("Error saving company:", error);
+  } finally {
+    dialog.value = false;
+  }
 };
 
 // Lifecycle Hooks
