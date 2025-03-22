@@ -21,7 +21,23 @@ const tableHeaders = ref([
   },
 ]);
 
-const DEFAULT_RECORD: Partial<Company> = { id: 0, companyId: null, name: "" };
+const DEFAULT_RECORD: Partial<Company> = {
+  id: 0,
+  accountId: 0,
+  name: "",
+  address: "",
+  city: "",
+  province: "",
+  postal: "",
+  country: "",
+  email: "",
+  phone: "",
+  fax: "",
+  tin: "",
+  sss: "",
+  philhealth: "",
+  hdmf: "",
+};
 const isEditing = shallowRef<boolean>(false);
 const record = ref<Partial<Company>>({ ...DEFAULT_RECORD });
 const dialog = shallowRef<boolean>(false);
@@ -77,8 +93,20 @@ function edit(id: number) {
 
   record.value = {
     id: found.id,
-    companyId : found.companyId,
-    name : found.name
+    accountId: found.accountId,
+    name: found.name,
+    address: found.address,
+    city: found.city,
+    province: found.province,
+    postal: found.postal,
+    country: found.country,
+    email: found.email,
+    phone: found.phone,
+    fax: found.fax,
+    tin: found.tin,
+    sss: found.sss,
+    philhealth: found.philhealth,
+    hdmf: found.hdmf,
   };
 
   dialog.value = true;
@@ -90,23 +118,50 @@ function remove (id : number) {
   }
 
 
-const save = async () => {
+  const save = async () => {
   try {
     if (isEditing.value) {
+      // Update company via the store or service
       await companyService.updateCompany(record.value.id!, {
-        companyId: record.value.companyId,
-        name: record.value.name,
+        accountId: record.value.accountId!,
+        name: record.value.name!,
+        address: record.value.address || "",
+        city: record.value.city || "",
+        province: record.value.province || "",
+        postal: record.value.postal || "",
+        country: record.value.country || "",
+        email: record.value.email || "",
+        phone: record.value.phone || "",
+        fax: record.value.fax || "",
+        tin: record.value.tin || "",
+        sss: record.value.sss || "",
+        philhealth: record.value.philhealth || "",
+        hdmf: record.value.hdmf || "",
       });
     } else {
+      // Create a new company using the service
       await companyService.createCompany({
-        companyId: record.value.companyId!,
         name: record.value.name!,
+        accountId: record.value.accountId,
+        address: record.value.address || "",
+        city: record.value.city || "",
+        province: record.value.province || "",
+        postal: record.value.postal || "",
+        country: record.value.country || "",
+        email: record.value.email || "",
+        phone: record.value.phone || "",
+        fax: record.value.fax || "",
+        tin: record.value.tin || "",
+        sss: record.value.sss || "",
+        philhealth: record.value.philhealth || "",
+        hdmf: record.value.hdmf || "",
       });
+
     }
   } catch (error) {
     console.error("Error saving company:", error);
   } finally {
-    dialog.value = false;
+    dialog.value = false; // Close the dialog after saving
   }
 };
 
