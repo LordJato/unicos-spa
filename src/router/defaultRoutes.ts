@@ -5,6 +5,7 @@ import DashboardView from "@/views/dashboard/index.vue";
 import HomeView from "@/views/home.vue";
 import recruitmentRoutes from "@/router/default/recruitmentRoutes";
 import setupRoutes from "@/router/default/setupRoutes";
+import AccountView from "@/views/AccountView.vue";
 
 const defaultRoutes : RouteRecordRaw[] = [
   {
@@ -29,6 +30,16 @@ const defaultRoutes : RouteRecordRaw[] = [
           title: "Dashboard",
           middleware: ["auth", "checkPermissions"],
           permissions: ["view-dashboard"],
+        },
+      },
+      {
+        path: "accounts",
+        name: "Accounts",
+        component: AccountView,
+        meta: {
+          title: "Account",
+          middleware: ["auth", "checkPermissions"],
+          permissions: ["view-all-accounts"],
         },
       },
       ...recruitmentRoutes,
