@@ -3,29 +3,30 @@ import { onMounted, computed, nextTick, ref, watch, shallowRef } from "vue";
 import type { Account } from "@/types/account";
 import accountService from "@/services/accountService";
 
+
 //State
 const accounts = ref<Account[]>([]);
 const loadingTable = ref<boolean>(true);
 const tableHeaders = ref([
-{
-    title: "Account Type",
-    align: "start" as const,
-    sortable: true,
-    key: "name",
-  },
   {
     title: "Name",
-    align: "center" as const,
-    sortable: true,
     key: "name",
+    align: "start",
+    sortable: true,
+  },
+  {
+    title: "Account Type",
+    key: "account_type.name",
+    align: "start",
+    sortable: true,
   },
   {
     title: "Actions",
     key: "actions",
+    align: "end",
     sortable: false,
-    align: "end" as const,
   },
-]);
+] as const );
 
 const DEFAULT_RECORD: Partial<Account> = {
   id: 0,
@@ -95,29 +96,27 @@ function edit(id: number) {
   dialog.value = true;
 }
 
-function remove (id : number) {
-    const index = accounts.value.findIndex(item => item.id === id)
-    accounts.value.splice(index, 1)
-  }
+function remove(id: number) {
+  const index = accounts.value.findIndex((item) => item.id === id);
+  accounts.value.splice(index, 1);
+}
 
-
-  const save = async () => {
+const save = async () => {
   try {
     if (isEditing.value) {
       // Update company via the store or service
       await accountService.updateAccount(record.value.id!, {
         accountTypeId: record.value.accountTypeId!,
         name: record.value.name!,
-        isActive : record.value.isActive
+        isActive: record.value.isActive,
       });
     } else {
       // Create a new company using the service
       await accountService.createAccount({
         name: record.value.name,
         accountTypeId: record.value.accountTypeId,
-        isActive : record.value.isActive
+        isActive: record.value.isActive,
       });
-
     }
   } catch (error) {
     console.error("Error saving company:", error);
@@ -202,7 +201,7 @@ onMounted(async () => {
                   variant="text"
                   size="small"
                   class="position-absolute top-0 right-0"
-                  @click="dialog = false;"
+                  @click="dialog = false"
                 ></VBtn>
                 <VCardTitle>
                   <span class="text-h6">{{ formTitle }}</span>
