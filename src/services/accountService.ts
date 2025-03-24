@@ -59,4 +59,16 @@ export default {
       throw error;
     }
   },
+
+    // Fetch all account type
+    async fetchAccountTypes() {
+      try {
+        const response = await axios.get('account-types');
+        return unwrapSuccessResponse(response).data.records;
+      } catch (error) {
+        console.error("Error fetching accounts:", error);
+        throw error;
+      }
+    },
+  
 };
