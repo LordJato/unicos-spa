@@ -79,10 +79,7 @@ const initializeCompanies = async () => {
 const initializeAccountTypes = async () => {
   try {
     const fetchedAccountTypes = await accountService.fetchAccountTypes();
-    accountTypes.value = fetchedAccountTypes.map((type) => ({
-      value: type.id,
-      text: type.name,
-    }));
+    accountTypes.value = fetchedAccountTypes
   } catch (error) {
     console.error("Error fetching accounts:", error);
   } finally {
@@ -227,6 +224,8 @@ onMounted(async () => {
                       <VSelect
                         label="Account Types"
                         :items="accountTypes"
+                        item-title="name"
+                        item-value="id"
                         variant="outlined"
                       ></VSelect>
                       <VTextField
