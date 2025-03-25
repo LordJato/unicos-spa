@@ -3,9 +3,9 @@ import { onMounted, computed, nextTick, ref, watch, shallowRef } from "vue";
 import type { Account } from "@/types/account";
 import accountService from "@/services/accountService";
 
-
 //State
 const accounts = ref<Account[]>([]);
+const accountTypes = ref([]);
 const loadingTable = ref<boolean>(true);
 const tableHeaders = ref([
   {
@@ -26,7 +26,7 @@ const tableHeaders = ref([
     align: "end",
     sortable: false,
   },
-] as const );
+] as const);
 
 const DEFAULT_RECORD: Partial<Account> = {
   id: 0,
@@ -69,6 +69,20 @@ watch(dialog, (val) => {
 const initializeCompanies = async () => {
   try {
     accounts.value = await accountService.fetchAccounts();
+  } catch (error) {
+    console.error("Error fetching accounts:", error);
+  } finally {
+    loadingTable.value = false;
+  }
+};
+
+const initializeAccountTypes = async () => {
+  try {
+    const fetchedAccountTypes = await accountService.fetchAccountTypes();
+    accountTypes.value = fetchedAccountTypes.map((type) => ({
+      value: type.id,
+      text: type.name,
+    }));
   } catch (error) {
     console.error("Error fetching accounts:", error);
   } finally {
@@ -128,6 +142,7 @@ const save = async () => {
 // Lifecycle Hooks
 onMounted(async () => {
   initializeCompanies();
+  initializeAccountTypes();
 });
 </script>
 
@@ -209,6 +224,11 @@ onMounted(async () => {
                 <VCardText>
                   <VContainer>
                     <VForm>
+                      <VSelect
+                        label="Account Types"
+                        :items="accountTypes"
+                        variant="outlined"
+                      ></VSelect>
                       <VTextField
                         v-model="record.name"
                         class="mt-4"
