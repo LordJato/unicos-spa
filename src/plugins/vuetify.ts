@@ -59,6 +59,9 @@ export default createVuetify({
     },
   },
   defaults: {
+    VSelect: {
+      density: 'compact'
+    },
     VTextField: {
       density: 'compact'
     },
