@@ -16,7 +16,7 @@ const tableHeaders = ref([
   },
   {
     title: "Account Type",
-    key: "account_type.name",
+    key: "accountType.name",
     align: "start",
     sortable: true,
   },
@@ -98,6 +98,7 @@ function edit(id: number) {
 
   const found = accounts.value.find((item) => item.id === id);
 
+  console.log("found", found);
   record.value = {
     id: found.id,
     accountTypeId: found.accountTypeId,
@@ -115,12 +116,21 @@ function remove(id: number) {
 const save = async () => {
   try {
     if (isEditing.value) {
+      const index = accounts.value.findIndex(
+        (item) => item.id === record.value.id
+      );
+      accounts.value[index] = {
+        ...accounts.value[index],
+        ...record.value,
+      };
       // Update company via the store or service
       await accountService.updateAccount(record.value.id!, {
         accountTypeId: record.value.accountTypeId!,
         name: record.value.name!,
         isActive: record.value.isActive,
       });
+
+      // accounts.value[index] = record.value
     } else {
       // Create a new company using the service
       await accountService.createAccount({
