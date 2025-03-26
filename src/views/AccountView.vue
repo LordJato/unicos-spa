@@ -30,7 +30,7 @@ const tableHeaders = ref([
 
 const DEFAULT_RECORD: Partial<Account> = {
   id: 0,
-  accountTypeId: 0,
+  accountTypeId: null,
   name: "",
 };
 
@@ -79,7 +79,7 @@ const initializeCompanies = async () => {
 const initializeAccountTypes = async () => {
   try {
     const fetchedAccountTypes = await accountService.fetchAccountTypes();
-    accountTypes.value = fetchedAccountTypes
+    accountTypes.value = fetchedAccountTypes;
   } catch (error) {
     console.error("Error fetching accounts:", error);
   } finally {
@@ -193,64 +193,18 @@ onMounted(async () => {
             >
               Export
             </VBtn>
-            <VDialog v-model="dialog" max-width="500px">
-              <template v-slot:activator="{ props }">
-                <VBtn
-                  class="mb-2"
-                  variant="tonal"
-                  color="secondary"
-                  dark
-                  v-bind="props"
-                  prepend-icon="mdi-plus"
-                  density="compact"
-                >
-                  Create
-                </VBtn>
-              </template>
-              <VCard class="position-relative">
-                <VBtn
-                  icon="mdi-close"
-                  variant="text"
-                  size="small"
-                  class="position-absolute top-0 right-0"
-                  @click="dialog = false"
-                ></VBtn>
-                <VCardTitle>
-                  <span class="text-h6">{{ formTitle }}</span>
-                </VCardTitle>
-                <VCardText>
-                  <VContainer>
-                    <VForm>
-                      <VSelect
-                        label="Account Types"
-                        :items="accountTypes"
-                        item-title="name"
-                        item-value="id"
-                        variant="outlined"
-                      ></VSelect>
-                      <VTextField
-                        v-model="record.name"
-                        class="mt-4"
-                        label="Name"
-                        type="text"
-                        variant="outlined"
-                      />
-                    </VForm>
-                  </VContainer>
-                </VCardText>
-                <VCardActions>
-                  <VSpacer></VSpacer>
-                  <VBtn
-                    color="secondary"
-                    class="px-2"
-                    variant="flat"
-                    @click="save"
-                  >
-                    Save
-                  </VBtn>
-                </VCardActions>
-              </VCard>
-            </VDialog>
+            <VBtn
+              class="mb-2"
+              variant="tonal"
+              color="secondary"
+              dark
+              prepend-icon="mdi-plus"
+              density="compact"
+              @click="add"
+            >
+              Create
+            </VBtn>
+
             <VDialog v-model="dialogDelete" max-width="500px">
               <VCard class="position-relative">
                 <VBtn
@@ -293,6 +247,47 @@ onMounted(async () => {
         </template>
       </VDataTable>
     </VCard>
+    <VDialog v-model="dialog" max-width="500px">
+      <VCard class="position-relative">
+        <VBtn
+          icon="mdi-close"
+          variant="text"
+          size="small"
+          class="position-absolute top-0 right-0"
+          @click="dialog = false"
+        ></VBtn>
+        <VCardTitle>
+          <span class="text-h6">{{ formTitle }}</span>
+        </VCardTitle>
+        <VCardText>
+          <VContainer>
+            <VForm>
+              <VSelect
+                label="Account Types"
+                :items="accountTypes"
+                item-title="name"
+                item-value="id"
+                variant="outlined"
+                v-model="record.accountTypeId"
+              ></VSelect>
+              <VTextField
+                v-model="record.name"
+                class="mt-4"
+                label="Name"
+                type="text"
+                variant="outlined"
+              />
+            </VForm>
+          </VContainer>
+        </VCardText>
+        <VCardActions>
+          <VSpacer></VSpacer>
+          <VBtn color="secondary" class="px-2" variant="flat" @click="save">
+            Save
+          </VBtn>
+        </VCardActions>
+      </VCard>
+    </VDialog>
   </VContainer>
 </template>
 
