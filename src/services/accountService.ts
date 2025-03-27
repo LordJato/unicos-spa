@@ -32,7 +32,7 @@ export default {
   async createAccount(payload: Omit<Account, "id">) {
     try {
       const response = await axios.post(API_URL, payload);
-      return unwrapSuccessResponse(response).data.records;
+      return unwrapSuccessResponse(response);
     } catch (error) {
       console.error("Error creating account:", error);
       throw error;

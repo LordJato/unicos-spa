@@ -4,7 +4,6 @@
       <VAlert
         v-if="alertStore.isVisible"
         :type="alertStore.type"
-        border="start"
         elevation="2"
         :border-color="alertStore.type"
         :icon="icon"
@@ -12,6 +11,7 @@
         closable
         :text="alertStore.text"
         @click:close="alertStore.hideAlert"
+        density="compact"
       >
       </VAlert>
     </VScrollXReverseTransition>

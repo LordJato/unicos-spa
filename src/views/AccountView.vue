@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch, shallowRef } from "vue";
-import type { Account } from "@/types/account";
+import type { Account } from "@/types";
+import { useAlertStore } from "@/stores/useAlertStore";
 import accountService from "@/services/accountService";
 
 //State
+const alertStore = useAlertStore();
 const accounts = ref<Account[]>([]);
 const accountTypes = ref([]);
 const loadingTable = ref<boolean>(true);
@@ -133,11 +135,19 @@ const save = async () => {
       // accounts.value[index] = record.value
     } else {
       // Create a new company using the service
-      await accountService.createAccount({
-        name: record.value.name,
-        accountTypeId: record.value.accountTypeId,
-        isActive: record.value.isActive,
-      });
+      await accountService
+        .createAccount({
+          name: record.value.name,
+          accountTypeId: record.value.accountTypeId,
+          isActive: record.value.isActive,
+        })
+        .then((res) => {
+          console.log("res", res);
+          alertStore.showAlert({
+            text: res.message,
+            type: "success",
+          });
+        });
     }
   } catch (error) {
     console.error("Error saving company:", error);
