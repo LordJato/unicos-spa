@@ -100,7 +100,6 @@ function edit(id: number) {
 
   const found = accounts.value.find((item) => item.id === id);
 
-  console.log("found", found);
   record.value = {
     id: found.id,
     accountTypeId: found.accountTypeId,
@@ -126,28 +125,31 @@ const save = async () => {
         ...record.value,
       };
       // Update company via the store or service
-      await accountService.updateAccount(record.value.id!, {
-        accountTypeId: record.value.accountTypeId!,
-        name: record.value.name!,
+      const updateAccount = await accountService.updateAccount(
+        record.value.id!,
+        {
+          accountTypeId: record.value.accountTypeId!,
+          name: record.value.name!,
+          isActive: record.value.isActive,
+        }
+      );
+      
+      alertStore.showAlert({
+        text: updateAccount.message,
+        type: "success",
+      });
+    } else {
+      // Create a new company using the service
+      const createAccount = await accountService.createAccount({
+        name: record.value.name,
+        accountTypeId: record.value.accountTypeId,
         isActive: record.value.isActive,
       });
 
-      // accounts.value[index] = record.value
-    } else {
-      // Create a new company using the service
-      await accountService
-        .createAccount({
-          name: record.value.name,
-          accountTypeId: record.value.accountTypeId,
-          isActive: record.value.isActive,
-        })
-        .then((res) => {
-          console.log("res", res);
-          alertStore.showAlert({
-            text: res.message,
-            type: "success",
-          });
-        });
+      alertStore.showAlert({
+        text: createAccount.message,
+        type: "success",
+      });
     }
   } catch (error) {
     console.error("Error saving company:", error);

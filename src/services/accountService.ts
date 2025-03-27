@@ -43,7 +43,7 @@ export default {
   async updateAccount(id: number, payload: Partial<Omit<Account, "id">>) {
     try {
       const response = await axios.put(`${API_URL}/${id}`, payload);
-      return unwrapSuccessResponse(response).data;
+      return unwrapSuccessResponse(response);
     } catch (error) {
       console.error(`Error updating account with ID ${id}:`, error);
       throw error; 
