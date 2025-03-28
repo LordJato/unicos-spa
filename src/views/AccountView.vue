@@ -109,11 +109,6 @@ function edit(id: number) {
   dialog.value = true;
 }
 
-function remove(id: number) {
-  const index = accounts.value.findIndex((item) => item.id === id);
-  accounts.value.splice(index, 1);
-}
-
 const save = async () => {
   try {
     if (isEditing.value) {
@@ -262,9 +257,6 @@ onMounted(async () => {
         <template v-slot:item.actions="{ item }">
           <VIcon class="me-2" size="small" @click="edit(item.id)">
             mdi-pencil
-          </VIcon>
-          <VIcon size="small" color="error" @click="remove(item.id)">
-            mdi-delete
           </VIcon>
         </template>
       </VDataTable>
