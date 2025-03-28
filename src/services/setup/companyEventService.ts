@@ -1,6 +1,6 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import type { Company } from "@/types/company";
+import type { Company } from "@/types";
 
 const API_URL = "setup/company-events";
 

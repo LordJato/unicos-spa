@@ -1,6 +1,6 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import type { Account } from "@/types/account";
+import type { Account } from "@/types";
 
 const API_URL = "accounts";
 

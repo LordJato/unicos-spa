@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch } from "vue";
-import type { Holiday } from "@/types/holiday";
+import type { Holiday } from "@/types";
 import holidayService from "@/services/setup/holidayService";
 
 //State

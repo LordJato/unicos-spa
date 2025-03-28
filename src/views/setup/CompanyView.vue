@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed, nextTick, ref, watch, shallowRef } from "vue";
-import type { Company } from "@/types/company";
+import type { Company } from "@/types";
 import companyService from "@/services/companyService";
 
 //State

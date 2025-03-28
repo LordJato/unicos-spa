@@ -1,6 +1,6 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import type { Holiday } from "@/types/holiday";
+import type { Holiday } from "@/types";
 
 const API_URL = "setup/holidays";
 

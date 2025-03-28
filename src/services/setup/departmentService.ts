@@ -1,6 +1,6 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import type { Department } from "@/types/department";
+import type { Department } from "@/types";
 
 const API_URL = "setup/departments";
 
