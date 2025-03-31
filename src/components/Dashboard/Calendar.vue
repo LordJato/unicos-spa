@@ -88,9 +88,9 @@ const events = ref([
   // },
   {
     type: "Holiday",
-    title: "People Power Anniversary",
-    start: new Date("2025-02-25"),
-    end: new Date("2025-02-25"),
+    title: "Eid'l Fitr (Feast of Ramadhan)",
+    start: new Date("2025-04-01"),
+    end: new Date("2025-04-01"),
     color: "error",
     allDay: true,
   },
