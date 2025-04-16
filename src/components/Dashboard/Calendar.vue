@@ -62,30 +62,6 @@ import { VCalendar } from "vuetify/labs/VCalendar";
 import { formatDate } from "@/helpers/format";
 
 const events = ref([
-  // {
-  //   type: "Holiday",
-  //   title: "New Year's Day",
-  //   start: new Date("2025-01-01"),
-  //   end: new Date("2025-01-01"),
-  //   color: "error",
-  //   allDay: true,
-  // },
-  // {
-  //   type: "Event",
-  //   title: "New Year's Resolutions",
-  //   start: new Date("2025-01-12"),
-  //   end: new Date("2025-01-12"),
-  //   color: "success",
-  //   allDay: true,
-  // },
-  // {
-  //   type: "Holiday",
-  //   title: "First Philippine Republic Day",
-  //   start: new Date("2025-01-23"),
-  //   end: new Date("2025-01-23"),
-  //   color: "error",
-  //   allDay: true,
-  // },
   {
     type: "Holiday",
     title: "Eid'l Fitr (Feast of Ramadhan)",
