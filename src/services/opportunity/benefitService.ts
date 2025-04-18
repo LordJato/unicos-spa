@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 import type { Opportunity } from "@/types";
 
-const API_URL = "opportunity-benefits"; // Changed API_URL
+const API_URL = "opportunity/benefits"; // Changed API_URL
 
 export default {
   // Fetch all opportunity benefits
