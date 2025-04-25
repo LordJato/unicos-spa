@@ -1,4 +1,4 @@
-export interface OpportunityBenefit {
+export interface OpportunityRequirement {
     id: number;
     companyId: number;
     name: string;
