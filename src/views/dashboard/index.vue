@@ -9,7 +9,7 @@
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
-                      7
+                      6
                     </VListItemTitle>
                     <VListItemSubtitle
                       class="font-weight-bold text-overline mt-2"
@@ -32,7 +32,7 @@
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
-                      7
+                      9
                     </VListItemTitle>
                     <VListItemSubtitle
                       class="font-weight-black text-overline mt-2"
@@ -55,7 +55,7 @@
                 <VList lines="two" class="px-8 py-2">
                   <VListItem>
                     <VListItemTitle class="font-weight-bold text-h6">
-                      10
+                      4
                     </VListItemTitle>
                     <VListItemSubtitle
                       class="font-weight-black text-subtitle-1 text-overline mt-2"
