@@ -5,7 +5,7 @@ import type { Opportunity } from "@/types"; // Note: The type import remains 'Op
 const API_URL = "employee-childrens"; // Changed API_URL
 
 export default {
-  // Fetch all employees
+  // Fetch all employee children
   async fetchEmployeeChildrens(payload?: Record<string, any>) { // Changed function name
     try {
       const response = await axios.get(API_URL, { params: payload });
@@ -16,7 +16,7 @@ export default {
     }
   },
 
-  // Fetch a single employee by ID
+  // Fetch a single employee child by ID
   async fetchEmployeeChildrenById(id: number) { // Changed function name
     try {
       const response = await axios.get(`${API_URL}/${id}`);
@@ -27,7 +27,7 @@ export default {
     }
   },
 
-  // Create a new employee
+  // Create a new employee child
   async createEmployeeChildren(payload: Omit<Opportunity, "id">) { // Changed function name
     try {
       const response = await axios.post(API_URL, payload);
@@ -38,7 +38,7 @@ export default {
     }
   },
 
-  // Update an existing employee
+  // Update an existing employee child
   async updateEmployeeChildren(id: number, payload: Partial<Omit<Opportunity, "id">>) { // Changed function name
     try {
       const response = await axios.put(`${API_URL}/${id}`, payload);
@@ -49,7 +49,7 @@ export default {
     }
   },
 
-  // Delete an employee
+  // Delete an employee child
   async deleteEmployeeChildren(id: number) { // Changed function name
     try {
       await axios.delete(`${API_URL}/${id}`);
