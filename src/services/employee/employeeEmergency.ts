@@ -5,7 +5,7 @@ import type { Opportunity } from "@/types"; // Note: The type import remains 'Op
 const API_URL = "employee-emergencies"; // Changed API_URL
 
 export default {
-  // Fetch all employees
+  // Fetch all employee emergency
   async fetchEmployeeEmergencies(payload?: Record<string, any>) { // Changed function name
     try {
       const response = await axios.get(API_URL, { params: payload });
@@ -16,7 +16,7 @@ export default {
     }
   },
 
-  // Fetch a single employee by ID
+  // Fetch a single employee emergency by ID
   async fetchEmployeeEmergencyById(id: number) { // Changed function name
     try {
       const response = await axios.get(`${API_URL}/${id}`);
@@ -27,7 +27,7 @@ export default {
     }
   },
 
-  // Create a new employee
+  // Create a new employee emergency
   async createEmployeeEmergency(payload: Omit<Opportunity, "id">) { // Changed function name
     try {
       const response = await axios.post(API_URL, payload);
@@ -38,7 +38,7 @@ export default {
     }
   },
 
-  // Update an existing employee
+  // Update an existing employee emergency
   async updateEmployeeEmergency(id: number, payload: Partial<Omit<Opportunity, "id">>) { // Changed function name
     try {
       const response = await axios.put(`${API_URL}/${id}`, payload);
@@ -49,7 +49,7 @@ export default {
     }
   },
 
-  // Delete an employee
+  // Delete an employee emergency
   async deleteEmployeeEmergency(id: number) { // Changed function name
     try {
       await axios.delete(`${API_URL}/${id}`);
