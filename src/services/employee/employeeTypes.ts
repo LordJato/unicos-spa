@@ -2,10 +2,10 @@ import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 import type { Opportunity } from "@/types"; // Note: The type import remains 'Opportunity' as it seems to define the data structure
 
-const API_URL = "employee-status"; // Changed API_URL
+const API_URL = "employee-types"; // Changed API_URL
 
 export default {
-  // Fetch all employees
+  // Fetch all employee types
   async fetchEmployeeTypes(payload?: Record<string, any>) { // Changed function name
     try {
       const response = await axios.get(API_URL, { params: payload });
@@ -16,7 +16,7 @@ export default {
     }
   },
 
-  // Fetch a single employee by ID
+  // Fetch a single employee type by ID
   async fetchEmployeeTypeById(id: number) { // Changed function name
     try {
       const response = await axios.get(`${API_URL}/${id}`);
@@ -27,7 +27,7 @@ export default {
     }
   },
 
-  // Create a new employee
+  // Create a new employee type
   async createEmployeeType(payload: Omit<Opportunity, "id">) { // Changed function name
     try {
       const response = await axios.post(API_URL, payload);
@@ -38,7 +38,7 @@ export default {
     }
   },
 
-  // Update an existing employee
+  // Update an existing employee type
   async updateEmployeeType(id: number, payload: Partial<Omit<Opportunity, "id">>) { // Changed function name
     try {
       const response = await axios.put(`${API_URL}/${id}`, payload);
@@ -49,7 +49,7 @@ export default {
     }
   },
 
-  // Delete an employee
+  // Delete an employee type
   async deleteEmployeeType(id: number) { // Changed function name
     try {
       await axios.delete(`${API_URL}/${id}`);
