@@ -102,14 +102,6 @@ const events = ref([
     color: "error",
     allDay: true,
   },
-  {
-    type: "Holiday",
-    title: "Easter Sunday",
-    start: new Date("2025-04-20"),
-    end: new Date("2025-04-20"),
-    color: "error",
-    allDay: true,
-  },
 ]);
 </script>
 
