@@ -62,7 +62,6 @@ watch(dialogDelete, (val) => {
   val || closeDelete();
 });
 
-// Methods
 const initializeHolidays = async () => {
   try {
     holidays.value = await holidayService.fetchHolidays();
