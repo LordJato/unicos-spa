@@ -1,6 +1,6 @@
 <template>
     <div>
-        Employee Table
+        Employee
     </div>
 </template>
 
