@@ -4,12 +4,11 @@ import { unwrapSuccessResponse } from '@/utils/apiResponse';
 import { useAuthStore } from './useAuthStore';
 import router from '@/router';
 
-// Define types for user details and API responses
 interface UserDetails {
   id?: number;
   name?: string;
   email?: string;
-  [key: string]: any; // Allow additional properties
+  [key: string]: any;
 }
 
 interface ApiResponse<T = any> {
