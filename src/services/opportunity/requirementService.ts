@@ -5,7 +5,6 @@ import type { Opportunity } from "@/types";
 const API_URL = "opportunity-requirements"; // Changed API_URL
 
 export default {
-  // Fetch all opportunity requirements
   async fetchOpportunityRequirements(payload?: Record<string, any>) { // Changed function name
     try {
       const response = await axios.get(API_URL, { params: payload });
