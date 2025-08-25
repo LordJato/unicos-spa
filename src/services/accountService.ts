@@ -50,16 +50,6 @@ export default {
     }
   },
 
-  // Delete an account
-  async deleteAccount(id: number) {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-    } catch (error) {
-      console.error(`Error deleting account with ID ${id}:`, error);
-      throw error;
-    }
-  },
-
     // Fetch all account type
     async fetchAccountTypes() {
       try {
