@@ -2,7 +2,7 @@ import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 import type { Opportunity } from "@/types"; // Note: The type import remains 'Opportunity' as it seems to define the data structure
 
-const API_URL = "employee-childrens"; // Changed API_URL
+const API_URL = "employee-children"; // Changed API_URL
 
 export default {
   // Fetch all employee children
