@@ -48,15 +48,5 @@ export default {
       console.error(`Error updating holiday with ID ${id}:`, error);
       throw error; 
     }
-  },
-
-  // Delete a holiday
-  async deleteHoliday(id: number) {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-    } catch (error) {
-      console.error(`Error deleting holiday with ID ${id}:`, error);
-      throw error;
-    }
-  },
+  }
 };
