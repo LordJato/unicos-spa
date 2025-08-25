@@ -48,15 +48,5 @@ export default {
       console.error(`Error updating company with ID ${id}:`, error);
       throw error; 
     }
-  },
-
-  // Delete a company
-  async deleteCompany(id: number) {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-    } catch (error) {
-      console.error(`Error deleting company with ID ${id}:`, error);
-      throw error;
-    }
-  },
+  }
 };
