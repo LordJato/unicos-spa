@@ -79,15 +79,7 @@ const items = [
     department: 'Marketing',
     email: 'cmo@unicos.com',
     online: true,
-  },
-  {
-    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/AI-Profile-Picture.jpg',
-    name: 'Ana Isabella Garcia',
-    position: 'Chief Financial Officer',
-    department: 'Finance',
-    email: 'cfo@unicos.com',
-    online: false,
-  },
+  }
 ]
 
 function getColor(status) {
