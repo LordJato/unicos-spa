@@ -1,6 +1,6 @@
 <template>
     <div>
-        Designation View
+        Select Designation
     </div>
 </template>
 
