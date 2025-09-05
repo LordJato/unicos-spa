@@ -1,8 +1,6 @@
 <template>
     <div>
-        Home Page <RouterLink class="text-caption text-decoration-none text-primary" to="/dashboard" @click.prevent="logout">
-            Click to Logout</RouterLink>
-    </div>
+        Home Page</div>
 </template>
 
 <script setup>
