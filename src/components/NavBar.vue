@@ -19,7 +19,7 @@
     <VDivider />
     <VList v-model:opened="open" nav>
       <template v-for="(item, i) in menuItems" :key="i">
-        <!-- Single Item -->
+      
         <VListItem
           v-if="!item.listGroup"
           :title="item.title"
