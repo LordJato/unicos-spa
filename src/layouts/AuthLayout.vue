@@ -10,10 +10,6 @@
   </VApp>
 </template>
 
-<script setup>
-
-</script>
-
 <style>
 body::-webkit-scrollbar {
   display: auto;
