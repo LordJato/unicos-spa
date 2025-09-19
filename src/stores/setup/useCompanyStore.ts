@@ -21,7 +21,7 @@ export const useCompanyStore = defineStore("company", {
     selectedCompany: null,
   }),
   actions: {
-    // Fetch all companies
+    
     async fetchCompany(payload?: Record<string, any>): Promise<void> {
       try {
         const request = await axios.get(`${API_URL}`, { params: payload });
@@ -31,7 +31,7 @@ export const useCompanyStore = defineStore("company", {
         console.error("Failed to fetch companies:", error);
       }
     },
-    // Fetch a single company by ID
+    
     async fetchCompanyById(id: number): Promise<void> {
       try {
         const response = await axios.get(`${API_URL}/${id}`);
@@ -42,7 +42,7 @@ export const useCompanyStore = defineStore("company", {
         throw error;
       }
     },
-    // Create a new company
+    
     async createCompany(payload: Omit<Company, "id">): Promise<void> {
       try {
         const request = await axios.post(`${API_URL}`, payload);
@@ -52,7 +52,7 @@ export const useCompanyStore = defineStore("company", {
         console.error("Failed to create company:", error);
       }
     },
-    // Update an existing company
+    
     async updateCompany(id: number, payload: Partial<Omit<Company, "id">>): Promise<void> {
       try {
         const response = await axios.put(`${API_URL}/${id}`, payload);
@@ -72,7 +72,7 @@ export const useCompanyStore = defineStore("company", {
         throw error;
       }
     },
-    // Delete a company
+    
     async deleteCompany(id: number): Promise<void> {
       try {
         await axios.delete(`${API_URL}/${id}`);
