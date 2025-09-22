@@ -7,18 +7,7 @@
         <VSelect
           label="This Month"
           :items="[
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
+            'January'
           ]"
           variant="outlined"
           density="compact"
