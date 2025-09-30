@@ -172,13 +172,7 @@
   
   const tableItems = ref([]);
   const editedIndex = ref(-1);
-  const editedItem = ref({
-    name: "",
-    calories: 0,
-    fat: 0,
-    carbs: 0,
-    protein: 0,
-  });
+  
   const defaultItem = ref({
     name: "",
     calories: 0,
