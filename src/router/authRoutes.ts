@@ -42,15 +42,7 @@ const authRoutes: RouteRecordRaw[] = [
         component: ResetPassword,
         meta: { title: "Reset Password" },
       },
-      {
-        path: "secured/register",
-        name: "SecuredRegister",
-        component: () =>
-          import(
-            /* webpackChunkName: "securedRegister" */ "@/views/auth/SecuredRegisterView.vue"
-          ),
-        meta: { title: "Secured Register", middleware: ["guest"] },
-      },
+      
     ],
   },
 ];
