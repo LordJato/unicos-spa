@@ -109,8 +109,6 @@ const closeDelete = () => {
 const save = () => {
   if (editedIndex.value > -1) {
     Object.assign(companyEvents.value[editedIndex.value], editedItem.value);
-  } else {
-    // companyEventService.createCompanyEvent(editedItem.value);
   }
   close();
 };
