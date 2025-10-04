@@ -38,16 +38,6 @@ export default {
     }
   },
 
-  // Update an existing opportunity responsibility
-  async updateOpportunityResponsibility(id: number, payload: Partial<Omit<Opportunity, "id">>) { // Changed function name
-    try {
-      const response = await axios.put(`${API_URL}/${id}`, payload);
-      return unwrapSuccessResponse(response);
-    } catch (error) {
-      console.error(`Error updating opportunity responsibility with ID ${id}:`, error); // Changed error message
-      throw error;
-    }
-  },
 
   // Delete an opportunity responsibility
   async deleteOpportunityResponsibility(id: number) { // Changed function name
