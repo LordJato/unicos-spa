@@ -10,8 +10,6 @@ import 'vuetify/styles'
 
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
-
 const lightTheme: ThemeDefinition = {
   dark: false,
   colors: {
