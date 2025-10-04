@@ -51,8 +51,8 @@ export default createVuetify({
   theme: {
     defaultTheme: 'darkTheme',
     themes: {
-      lightTheme,
-      darkTheme,
+      light: lightTheme,
+      dark: darkTheme,
     },
   },
   defaults: {
