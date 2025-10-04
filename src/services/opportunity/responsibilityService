@@ -38,17 +38,6 @@ export default {
     }
   },
 
-
-  // Delete an opportunity responsibility
-  async deleteOpportunityResponsibility(id: number) { // Changed function name
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-    } catch (error) {
-      console.error(`Error deleting opportunity responsibility with ID ${id}:`, error); // Changed error message
-      throw error;
-    }
-  },
-
   // Fetch all opportunity types
   async fetchOpportunityTypes() {
     try {
