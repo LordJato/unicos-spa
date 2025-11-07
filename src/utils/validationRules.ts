@@ -1,14 +1,6 @@
 type ValidationRule = (v: string) => boolean | string;
 type FormValidationRules<T> = { [K in keyof T]: ValidationRule[] | ((form: T) => ValidationRule[]) };
 
-interface ValidationForm {
-  accountTypeId: string;
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-}
-
 export const validationRules: FormValidationRules<ValidationForm> = {
   accountTypeId: [(v) => !!v || "Account Type is required"],
   name: [(v) => !!v || "Name is required"],
