@@ -1,14 +1,10 @@
-interface SubMenuItem {
-  title: string;
-  icon: string;
-  link: string;
-}
+
 
 export interface MenuItem {
   title: string;
   icon: string;
   link?: string;
-  listGroup?: SubMenuItem[];
+  listGroup?: array;
 }
 
 export const menuItems: MenuItem[] = [
