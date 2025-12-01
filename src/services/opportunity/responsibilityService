@@ -6,34 +6,34 @@ const API_URL = "opportunity-responsibilities"; // Changed API_URL
 
 export default {
   // Fetch all opportunity responsibilities
-  async fetchOpportunityResponsibilities(payload?: Record<string, any>) { // Changed function name
+  async fetchOpportunityResponsibilities(payload?: Record<string, any>) { 
     try {
       const response = await axios.get(API_URL, { params: payload });
       return unwrapSuccessResponse(response).data.records;
     } catch (error) {
-      console.error("Error fetching opportunity responsibilities:", error); // Changed error message
+      console.error("Error fetching opportunity responsibilities:", error);
       throw error;
     }
   },
 
   // Fetch a single opportunity responsibility by ID
-  async fetchOpportunityResponsibilityById(id: number) { // Changed function name
+  async fetchOpportunityResponsibilityById(id: number) { 
     try {
       const response = await axios.get(`${API_URL}/${id}`);
       return unwrapSuccessResponse(response).data;
     } catch (error) {
-      console.error(`Error fetching opportunity responsibility with ID ${id}:`, error); // Changed error message
+      console.error(`Error fetching opportunity responsibility with ID ${id}:`, error); 
       throw error;
     }
   },
 
   // Create a new opportunity responsibility
-  async createOpportunityResponsibility(payload: Omit<Opportunity, "id">) { // Changed function name
+  async createOpportunityResponsibility(payload: Omit<Opportunity, "id">) { 
     try {
       const response = await axios.post(API_URL, payload);
       return unwrapSuccessResponse(response);
     } catch (error) {
-      console.error("Error creating opportunity responsibility:", error); // Changed error message
+      console.error("Error creating opportunity responsibility:", error); 
       throw error;
     }
   },
