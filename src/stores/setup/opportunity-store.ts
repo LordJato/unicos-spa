@@ -2,16 +2,6 @@ import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 
-interface Opportunity {
-  id: number;
-  companyId: number;
-  name: string;
-}
-
-interface State {
-  opportunities: Opportunity[];
-  selectedOpportunity: Opportunity | null;
-}
 
 const API_URL = "opportunities";
 
