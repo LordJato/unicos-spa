@@ -2,9 +2,6 @@ import axios from '@/plugins/axios';
 import { defineStore } from 'pinia';
 import { unwrapSuccessResponse } from '@/utils/apiResponse';
 
-interface AuthState {
-  accessToken: string;
-}
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({ accessToken: '' }),
