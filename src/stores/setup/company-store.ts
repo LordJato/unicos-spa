@@ -2,17 +2,6 @@ import axios from "@/plugins/axios";
 import { defineStore } from "pinia";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
 
-interface Company {
-  id: number;
-  companyId: number;
-  name: string;
-}
-
-interface State {
-    companies: Company[];
-  selectedCompany: Company | null;
-}
-
 const API_URL = "companies";
 
 export const useCompanyStore = defineStore("company", {
