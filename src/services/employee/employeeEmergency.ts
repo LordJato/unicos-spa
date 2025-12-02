@@ -1,6 +1,5 @@
 import axios from "@/plugins/axios";
 import { unwrapSuccessResponse } from "@/utils/apiResponse";
-import type { Opportunity } from "@/types";
 
 const API_URL = "employee-emergencies";
 
@@ -25,26 +24,6 @@ export default {
     }
   },
 
-  async createEmployeeEmergency(payload: Omit<Opportunity, "id">) {
-    try {
-      const response = await axios.post(API_URL, payload);
-      return unwrapSuccessResponse(response);
-    } catch (error) {
-      console.error("Error creating employee:", error);
-      throw error;
-    }
-  },
-
-  async updateEmployeeEmergency(id: number, payload: Partial<Omit<Opportunity, "id">>) {
-    try {
-      const response = await axios.put(`${API_URL}/${id}`, payload);
-      return unwrapSuccessResponse(response);
-    } catch (error) {
-      console.error(`Error updating employee with ID ${id}:`, error);
-      throw error;
-    }
-  },
-  
   async deleteEmployeeEmergency(id: number) {
     try {
       await axios.delete(`${API_URL}/${id}`);
