@@ -88,14 +88,6 @@ const events = ref([
   },
   {
     type: "Holiday",
-    title: "Good Friday",
-    start: new Date("2025-04-18"),
-    end: new Date("2025-04-18"),
-    color: "error",
-    allDay: true,
-  },
-  {
-    type: "Holiday",
     title: "Black Saturday",
     start: new Date("2025-04-19"),
     end: new Date("2025-04-19"),
