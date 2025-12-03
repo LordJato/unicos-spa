@@ -71,14 +71,6 @@ const items = [
     department: 'Business Development',
     email: 'cbdo@unicos.com',
     online: true,
-  },
-  {
-    image: 'https://www.profilebakery.com/wp-content/uploads/2023/04/LINKEDIN-Profile-Picture-AI.jpg',
-    name: 'Gabriel Jose Velasco',
-    position: 'CMO',
-    department: 'Marketing',
-    email: 'cmo@unicos.com',
-    online: true,
   }
 ]
 
